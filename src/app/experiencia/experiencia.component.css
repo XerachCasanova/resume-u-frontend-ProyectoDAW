@@ -1,0 +1,85 @@
+
+.cards {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    align-items: stretch;
+    
+  }
+
+  .card{
+      
+    display: grid;
+    height: 100%;
+    grid-row-end: auto;
+    margin-bottom: 1em;
+  }
+  
+
+  .card:last-child:nth-child(3n - 1) {
+    grid-column: span 2;
+  }
+
+  
+
+  mat-card-title{
+    font-family: roboto;
+    font-size: 1.4em;
+    font-weight: 400;
+    color: white;
+    background-color: #009688;
+    padding: 0.5em;
+    border-radius: 5px;
+  }
+
+  mat-card-subtitle{
+    font-family: roboto;
+    font-size: 0.9em;
+    font-weight: 300;
+  }
+
+  .position{
+    font-family: roboto;
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+  
+  .position:before {
+    font-family: roboto;
+    content: "» ";
+    
+  }
+
+  .positionDesc{
+    font-family: roboto;
+    font-size: 1em;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.54)
+  }
+
+  .tasks{
+    font-family: roboto;
+    font-size: 1em;
+    font-weight: 300;
+  }
+
+  .titleTasks{
+      text-decoration: underline;
+  }
+
+  li{
+    list-style-type: disc;
+    margin-left: 1em;
+  }
+  
+  @media ALL and (min-width: 0px) and (max-width: 700px){
+  
+    .cards {
+      display: block;
+      width: 100%;
+    }
+  }
+  
+  

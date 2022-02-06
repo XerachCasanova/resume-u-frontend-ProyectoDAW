@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SkillsComponent } from '../skills/skills/skills.component';
+import { SkillsComponent } from '../skills/skills.component';
+import { MainComponent } from './main.component';
 
 const routes: Routes = [
   { 
-    //path: '', component: MainComponent
-
-    path: 'skills',
-    component: SkillsComponent
+    path: '', component: MainComponent
+    //path: '',
+    //component: SkillsComponent
   },
+
   
 ];
 

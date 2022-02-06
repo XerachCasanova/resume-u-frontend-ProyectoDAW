@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkillsComponent } from './skills/skills.component';
-import { SkillRoutingModule } from './skills/skills-routing.module';
+import { SkillsComponent } from './skills.component';
+import { SkillRoutingModule } from './skills-routing.module';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
-import { DelayDirective } from './skills/delay.directive';
+import { DelayDirective } from './delay.directive';
 
 
 @NgModule({

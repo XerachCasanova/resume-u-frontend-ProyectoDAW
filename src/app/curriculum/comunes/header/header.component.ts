@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ContactoComponent } from 'src/app/contacto/contacto.component';
+import { ContactoComponent } from 'src/app/curriculum/contacto/contacto.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'curriculum-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

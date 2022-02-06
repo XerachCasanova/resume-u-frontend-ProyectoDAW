@@ -15,7 +15,7 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-skills',
+  selector: 'curriculum-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css']
 })
@@ -27,6 +27,7 @@ export class SkillsComponent implements OnInit {
   skills: any
   constructor() { 
 
+    
     this.skills = environment.skills;
 
     this.chartOptionsArray = new Array();

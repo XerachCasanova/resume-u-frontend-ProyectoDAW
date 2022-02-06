@@ -18,7 +18,7 @@ export enum asunto {
 }
 
 @Component({
-  selector: 'app-contacto',
+  selector: 'curriculum-contacto',
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.css']
 })

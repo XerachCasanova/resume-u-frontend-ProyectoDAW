@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { 
-    //path: 'main', loadChildren: () => import('./main/main.module').then(m => m.MainModule) 
-    path: 'skills',
-    loadChildren: () => import('./skills/skills.module').then(m => m.SkillsModule)
+  {
+    path: '',
+    component: AppComponent
   },
-  { path: 'contacto', 
-  loadChildren: () => import('./contacto/contacto.module').then(m => m.ContactoModule) },
-  { path: 'experiencia', loadChildren: () => import('./experiencia/experiencia.module').then(m => m.ExperienciaModule) },
+  {
+    path: 'curriculum',
+    loadChildren: () => import('./curriculum/curriculum.module').then(m => m.CurriculumModule)
+  },
+
 
 ];
 

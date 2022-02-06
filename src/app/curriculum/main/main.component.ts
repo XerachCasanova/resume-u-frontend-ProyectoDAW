@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-main',
+  selector: 'curriculum-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  isInRoot = location.pathname === '/curriculum';
+  constructor() {  }
 
   ngOnInit(): void {
+
+    
   }
+
 
 }

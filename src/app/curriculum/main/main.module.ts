@@ -13,7 +13,6 @@ import { SkillsModule } from '../skills/skills.module';
   imports: [
     CommonModule,
     MainRoutingModule,
-    SkillsModule
   ],exports:[
     MainComponent
   ]

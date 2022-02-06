@@ -13,7 +13,7 @@ export interface Experience{
 }
 
 @Component({
-  selector: 'app-experiencia',
+  selector: 'curriculum-experiencia',
   templateUrl: './experiencia.component.html',
   styleUrls: ['./experiencia.component.css']
 })

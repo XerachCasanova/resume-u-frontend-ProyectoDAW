@@ -13,11 +13,11 @@ export interface Experience{
 }
 
 @Component({
-  selector: 'curriculum-experiencia',
-  templateUrl: './experiencia.component.html',
-  styleUrls: ['./experiencia.component.css']
+  selector: 'curriculum-experience',
+  templateUrl: './experience.component.html',
+  styleUrls: ['./experience.component.css']
 })
-export class ExperienciaComponent implements OnInit {
+export class ExperienceComponent implements OnInit {
 
   experience: Experience[];
   constructor() {

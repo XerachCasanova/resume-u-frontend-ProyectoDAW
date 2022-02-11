@@ -1,0 +1,34 @@
+[
+  {
+    "idUsuario": 1,
+    "nombre": "Xerach",
+    "apellidos": "Casanova Cabrera",
+    "dni": "54050674F",
+    "fechaNacimiento": "21/10/1984",
+    "direccion": "Ctra. Portezuelo Las Toscas, 172A",
+    "idProvincia": 38,
+    "localodad": "Tegueste",
+    "cp": "38292",
+    "telefono1": "605882524",
+    "telefono2": "922204450",
+    "email": "xermam1984@hotmail.com",
+    "idCurriculum": 1,
+    "idRol": 1
+  },
+  {
+    "idUsuario": 2,
+    "nombre": "Juan",
+    "apellidos": "Francisco Pérez",
+    "dni": "25046687D",
+    "fechaNacimiento": "03/11/1988",
+    "direccion": "Calle Las Gardenias, 5. 1º D",
+    "idProvincia": 35,
+    "localodad": "Agaete",
+    "cp": "35840",
+    "telefono1": "655448825",
+    "telefono2": "672114485",
+    "email": "jfp@hotmail.com",
+    "idCurriculum": 2,
+    "idRol": 2
+  }
+]

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
-export interface Contacto{
+export interface Contact{
   nombre: string,
   apellidos: string,
   email: string,
@@ -18,14 +18,14 @@ export enum asunto {
 }
 
 @Component({
-  selector: 'curriculum-contacto',
-  templateUrl: './contacto.component.html',
-  styleUrls: ['./contacto.component.css']
+  selector: 'curriculum-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css']
 })
-export class ContactoComponent implements OnInit {
+export class ContactComponent implements OnInit {
   
   formContactGroup: FormGroup;
-  datosContacto!: Contacto;
+  datosContacto!: Contact;
   asuntoContacto = Object.values(asunto);
 
   constructor(private fb:FormBuilder) { 

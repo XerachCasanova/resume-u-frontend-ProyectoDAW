@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ContactoComponent } from 'src/app/curriculum/contacto/contacto.component';
+import { ContactComponent } from 'src/app/curriculum/contact/contact.component';
 
 @Component({
   selector: 'curriculum-header',
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
     this.activarMenu();
 
-    const contactDialogRef = this.contactDialog.open(ContactoComponent, {width: '800px'})
+    const contactDialogRef = this.contactDialog.open(ContactComponent, {width: '800px'})
     
   }
 

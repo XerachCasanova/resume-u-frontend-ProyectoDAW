@@ -12,11 +12,19 @@
 }
 
 
-@media ALL and (min-width: 0px) and (max-width: 700px){
+@media ALL and (min-width: 0px) and (max-width: 849px){
 
   .charts {
     display: block;
     width: 100%;
+  }
+}
+
+@media ALL and (min-width: 850px) and (max-width: 1105px){
+
+  .chart{
+    flex: 0 0 85%;
+    padding: 0.5rem
   }
 }
 

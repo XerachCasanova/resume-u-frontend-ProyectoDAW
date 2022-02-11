@@ -1,0 +1,27 @@
+
+  {
+    "idCurriculum": 1,
+    "formacion": [
+       {
+        "titulo": "Bachillerato",
+        "descripcion": "",
+        "esTitulacionOficial": true,
+        "fechaComienzo": "01/09/2001",
+        "fechaFinalizacion": "01/07/2003"
+      },
+      {
+        "titulo": "Desarrollo de Aplicaciones Informáticas",
+        "descripcion": "",
+        "esTitulacionOficial": true,
+        "fechaComienzo": "01/09/2003",
+        "fechaFinalizacion": "01/07/2005"
+      },
+      {
+        "titulo": "Desarrollo de Aplicaciones Web",
+        "descripcion": "",
+        "esTitulacionOficial": true,
+        "fechaComienzo": "01/09/2003",
+        "fechaFinalizacion": ""
+      }
+    ]
+  }

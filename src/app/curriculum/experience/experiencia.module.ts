@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ExperienciaRoutingModule } from './experiencia-routing.module';
-import { ExperienciaComponent } from './experiencia.component';
+import { ExperienceRoutingModule } from './experience-routing.module';
+import { ExperienceComponent } from './experience.component';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    ExperienciaComponent
+    ExperienceComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ExperienciaRoutingModule,
+    ExperienceRoutingModule,
 
     MatCardModule
   ]
 })
-export class ExperienciaModule { }
+export class ExperienceModule { }

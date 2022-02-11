@@ -24,4 +24,4 @@ import { CurriculumRoutingModule } from '../curriculum-routing.module';
     HeaderComponent
   ]
 })
-export class ComunesModule { }
+export class SharedModule { }

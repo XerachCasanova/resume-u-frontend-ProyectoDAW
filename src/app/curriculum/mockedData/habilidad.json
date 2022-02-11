@@ -1,0 +1,114 @@
+{
+    "idCurriculum": 1,
+    "habilidades": [
+      {
+        "nombre": "lenguajes",
+        "conocimientos": [
+          {
+            "nombre": "javascript",
+            "nivel": "85"
+          },
+          {
+            "nombre": "java",
+            "nivel": "85"
+          },
+          {
+            "nombre": "HTML5",
+            "nivel": "95"
+          },
+          {
+            "nombre": "CSS3",
+            "nivel": "75"
+          },
+          {
+            "nombre": "GraphQL",
+            "nivel": "85"
+          },
+          {
+            "nombre": "SQL",
+            "nivel": "65"
+          }
+        ]
+      },
+      {
+        "nombre": "Frameworks",
+        "conocimientos": [
+          {
+            "nombre": "Angular",
+            "nivel": "90"
+          },
+          {
+            "nombre": "Spring",
+            "nivel": "70"
+          },
+          {
+            "nombre": "Hibernate",
+            "nivel": "60"
+          },
+          {
+            "nombre": "Bootstrap",
+            "nivel": "75"
+          },
+          {
+            "nombre": "Materialize",
+            "nivel": "85"
+          }
+        ]
+      },
+      {
+        "nombre": "Herramientas",
+        "conocimientos": [
+          {
+            "nombre": "React",
+            "nivel": "85"
+          },
+          {
+            "nombre": "Node.js",
+            "nivel": "90"
+          },
+          {
+            "nombre": "Express",
+            "nivel": "80"
+          },
+          {
+            "nombre": "Git",
+            "nivel": "60"
+          },
+          {
+            "nombre": "VScode",
+            "nivel": "90"
+          },
+          {
+            "nombre": "NetBeans",
+            "nivel": "80"
+          },
+          {
+            "nombre": "Eclipse",
+            "nivel": "75"
+          }
+        ]
+      },
+      {
+        "nombre": "BBDD",
+        "conocimientos": [
+          {
+            "nombre": "MySQL",
+            "nivel": "65"
+          },
+          {
+            "nombre": "Oracle",
+            "nivel": "60"
+          },
+          {
+            "nombre": "MariaDB",
+            "nivel": "85"
+          },
+          {
+            "nombre": "MongoDB",
+            "nivel": "85"
+          }
+        ]
+      }
+    ]
+  }
+  

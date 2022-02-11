@@ -1,14 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SkillsComponent } from '../skills/skills.component';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
   { 
-    path: '', component: MainComponent
-    //path: '',
-    //component: SkillsComponent
+    path: '', component: MainComponent,
+    children: [
+      
+      { 
+        path: 'skills', 
+        loadChildren: () => import('../skills/skills.module').then(m => m.SkillsModule),
+      },
+      { 
+        path: 'contact', 
+        loadChildren: () => import('../contact/contact.module').then(m => m.ContactModule),
+      },
+      { 
+        path: 'experience', 
+        loadChildren: () => import('../experience/experiencia.module').then(m => m.ExperienceModule),
+      }
+      
+    ]
   },
+  
 
   
 ];

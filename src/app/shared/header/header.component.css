@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width:100%;
+  height: 60px;
+  color: #FBF8F1;
+  background-color: #54BAB9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  z-index: 999
+}
+
+.content {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  
+}
+
+.logo-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.logo-container{
+  display: flex;
+}
+.logo {
+  width: 200px;
+}
+
+.menu{
+  display: flex;
+  font-size: 1.2rem;
+  
+}
+
+.menu-item{
+  display: flex;
+  margin: 0 10px
+}

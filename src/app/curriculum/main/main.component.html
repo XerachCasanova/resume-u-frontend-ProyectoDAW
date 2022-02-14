@@ -1,8 +1,16 @@
-<curriculum-header></curriculum-header>
-<div class="container-right">
-    <div class="ghost-space"></div>
-        <div class="content">
-             
-            <router-outlet></router-outlet>
-        </div>
-</div>
+<ng-container *ngIf="curriculum">
+  <curriculum-header [usuario]="usuario" [curriculum]="curriculum"></curriculum-header>
+    <div class="container-right">
+        <div class="ghost-space"></div>
+            <div class="content">
+
+                <router-outlet></router-outlet>
+            </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!curriculum">
+  <div>
+    CREAR PÁGINA SI NO SE ENCUENTRA UN CURRICULUM
+  </div>
+</ng-container>

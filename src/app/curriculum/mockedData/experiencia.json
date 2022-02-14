@@ -1,5 +1,6 @@
 
-  {
+  [
+    {
     "idCurriculum": 1,
     "experiencia": [
       {
@@ -56,8 +57,8 @@
         "logo": "",
         "cargo": "Junior Developer",
         "descripcion": "",
-        "tareas": [ 
-        ]
+        "tareas": []
       }
     ]
   }
+]

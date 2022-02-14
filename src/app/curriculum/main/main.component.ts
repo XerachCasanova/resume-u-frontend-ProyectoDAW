@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
+import { Usuario } from 'src/app/core/models/interfaces/usuario';
 import { CurriculumService } from '../curriculum.service';
-
+import { UsuariosService } from '../usuarios.service';
 @Component({
   selector: 'curriculum-main',
   templateUrl: './main.component.html',
@@ -8,14 +11,28 @@ import { CurriculumService } from '../curriculum.service';
 })
 export class MainComponent implements OnInit {
 
-  isInRoot = location.pathname === '/curriculum';
-  constructor(private curriculumService: CurriculumService) {  }
+  usuario: Usuario;
+  curriculum: Curriculum;
 
-  ngOnInit(): void {
+  constructor(private usuarioService:UsuariosService, private curriculumService: CurriculumService, private activateRoute: ActivatedRoute) {  }
 
-    console.log(this.curriculumService.getCurriculum("XerachCasanovaCabrera-FullStackDeveloper"))
-    
+  async ngOnInit() {
+
+    this.activateRoute.params.subscribe(async params => {
+
+      const alias = params.alias
+
+      this.curriculum = await this.curriculumService.getCurriculum(alias);
+      if(this.curriculum){
+        this.usuario = await this.usuarioService.getUsuario(this.curriculum.idUsuario);
+          this.curriculumService.changeCurriculum(this.curriculum);
+      }
+
+
+
+    })
+
+
   }
-
 
 }

@@ -1,9 +1,10 @@
 
-  {
+[ {
     "idCurriculum": 1,
     "formacion": [
        {
         "titulo": "Bachillerato",
+        "centro": "IES Poeta Viana",
         "descripcion": "",
         "esTitulacionOficial": true,
         "fechaComienzo": "01/09/2001",
@@ -11,6 +12,7 @@
       },
       {
         "titulo": "Desarrollo de Aplicaciones Informáticas",
+        "centro": "CEIP César Manrique",
         "descripcion": "",
         "esTitulacionOficial": true,
         "fechaComienzo": "01/09/2003",
@@ -18,10 +20,13 @@
       },
       {
         "titulo": "Desarrollo de Aplicaciones Web",
+        "centro": "CIDEAD e Ilerna Online",
         "descripcion": "",
         "esTitulacionOficial": true,
-        "fechaComienzo": "01/09/2003",
+        "fechaComienzo": "20/10/2020",
         "fechaFinalizacion": ""
       }
+      
     ]
   }
+]

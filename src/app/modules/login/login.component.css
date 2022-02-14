@@ -1,0 +1,80 @@
+/*
+PALETA DE COLORES
+#FBF8F1 CREMA CLARO
+#F7ECDE CREMA INTERMEDIO
+#E9DAC1 CREMA OSCURO
+#54BAB9 AZUL
+*/
+
+
+i{
+
+  color:#009688;
+  vertical-align: middle;
+}
+
+
+a{
+  color: #009688;
+  font-weight: 400;
+
+}
+
+a:hover{
+  color: #004D40;
+  font-weight: 400;
+
+}
+
+mat-icon {
+  color:#009688;
+}
+
+
+.form{
+  display: flex;
+  width:100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.col{
+  padding: 0.5rem;
+  flex: 1;
+  width: 100%
+}
+
+.mat-form-field{
+  width:100%;
+
+}
+
+button{
+  margin: 0.5rem;
+}
+
+@media all and (min-width:0px) and (max-width: 600px){
+
+  .form{
+      display: block;
+      width:100%;
+  }
+
+  .row {
+      display:block;
+  }
+
+  .col{
+      padding: 0;
+  }
+
+
+}

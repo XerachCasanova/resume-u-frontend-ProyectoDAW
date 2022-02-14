@@ -1,73 +1,65 @@
 
 <header class="header">
-  
+
   <div class="ghost-space"></div>
-  <div class="header-content">
-    
-    <div class="photo"></div>
+  <div class="header-content" *ngIf="curriculum && usuario">
+
+    <div class="photo" [style.background-image]="'url(' + curriculum.foto +')'"></div>
     <div class="burger-button-menu" (click) = activarMenu()><mat-icon>menu</mat-icon></div>
     <div>
-      <h1>Xerach Casanova</h1>
+      <h1>{{usuario.nombre}} {{usuario.apellidos}}</h1>
     <span class="h2-with-line">
-      <h2>Full-Stack Developer</h2>
+      <h2>{{ curriculum.profesion }}</h2>
       <hr>
     </span>
     </div>
-    
+
     <nav class="menu" [ngClass]="{'menu-hidden':!menuActivado}">
-      <a routerLink="aboutme" (click) = 'activarMenu()'><span class="button"><mat-icon>perm_identity</mat-icon><span class="button-text">acerca de</span></span></a>
-      <a routerLink="skills" (click) = 'activarMenu()'><span class="button"><mat-icon>settings</mat-icon><span class="button-text">habilidades</span></span></a>
-      <a routerLink="experience" (click) = 'activarMenu()'><span class="button"><mat-icon>work</mat-icon><span class="button-text">experiencia</span></span></a>
-      <a routerLink="education" (click) = 'activarMenu()'><span class="button"><mat-icon>menu_book</mat-icon><span class="button-text">formación</span></span></a>
-      <a  (click)="openContactDialog()"><span class="button"><mat-icon>3p</mat-icon><span class="button-text">contacto</span></span></a>
+      <a *ngIf="windowWidth < 851" routerLink="aboutme" (click) = 'activarMenu()'><span><mat-icon>perm_identity</mat-icon><span>acerca de</span></span></a>
+      <a routerLink="skills" (click) = 'activarMenu()'><span><mat-icon>settings</mat-icon><span class="button-text">habilidades</span></span></a>
+      <a routerLink="experience" (click) = 'activarMenu()'><span><mat-icon>work</mat-icon><span class="button-text">experiencia</span></span></a>
+      <a routerLink="education" (click) = 'activarMenu()'><span><mat-icon>menu_book</mat-icon><span class="button-text">formación</span></span></a>
+      <a  (click)="openContactDialog()"><span><mat-icon>3p</mat-icon><span class="button-text">contacto</span></span></a>
     </nav>
   </div>
 </header>
-<div class="container-left">
-    <div class="photo"></div>
-    <section class="column-left">
+<div class="container-left" *ngIf="curriculum && usuario">
+    <div class="photo"  [style.background-image]="'url(' + curriculum.foto +')'"></div>
+    <section class="column-left" *ngIf="curriculum">
 
       <article class="aboutme">
         <header><h1><i class="tiny material-icons">perm_identity</i>Acerca de</h1><hr></header>
-        <p>Me considero una persona muy activa y dinámica. Me adapto a cualquier situación y siempre he trabajado en grupo, también he estado en varias ocasiones al frente de equipos de trabajo.
-
-          Por diversas circunstancias, mi vida laboral siempre ha estado ligada al diseño gráfico, aunque mis estudios están relacionados con el desarrollo de software.
-  
-          A día de hoy, me estoy formando para reorientar mi vida laboral a la rama de la programación, la cual considero mi verdadera vocación.</p> 
+        <p>{{ curriculum.acercaDe }}</p>
       </article>
 
-      <article class="otherskills">
+      <article class="otherskills"  *ngIf="curriculum.habilidadesUnicas">
         <header><h1>Otras habilidades</h1><hr></header>
         <ul>
-          <li>Corel Draw</li>
-          <li>Adobe Indesign</li>
-          <li>Adobe Photoshop</li>
-          <li>Adobe Illustrator</li>
+          <li *ngFor="let habilidad of curriculum.habilidadesUnicas">{{ habilidad.nombre }}</li>
         </ul>
-        <footer>
-          <a href="https://xerachcasanova-blog.tumblr.com/"><span>Visita mi portafolio</span></a>
-        </footer>
       </article>
 
-      <article class="languages">
+      <article class="otherskills" *ngIf="curriculum.web">
+        <header><h1>Web</h1><hr></header>
+        <ul>
+          <li><a [href]='curriculum.web'>Visita mi web</a></li>
+        </ul>
+      </article>
+
+      <article class="languages" *ngIf="curriculum.idiomas">
         <header><h1>Idiomas</h1><hr></header>
         <ul>
-          <li>
-            Inglés (nivel medio, tanto hablado como escrito)
-          </li>
+          <li *ngFor="let idioma of curriculum.idiomas">{{ idioma.idioma }}, nivel: {{idioma.nivel}}</li>
+
         </ul>
       </article>
 
-      <article class="interestings">
+      <article class="interestings"  *ngIf="curriculum.datosInteres">
         <header><h1>Datos de interés</h1><hr></header>
         <ul>
-          <li>Carnet de conducir</li>
-          <li>Coche propio</li>
-          <li>Disponibilidad horaria</li>
-          <li>Disponibilidad geográfica</li>
+          <li *ngFor="let datoInteres of curriculum.datosInteres">{{ datoInteres.descripcion }}</li>
         </ul>
       </article>
     </section>
   </div>
 
-    

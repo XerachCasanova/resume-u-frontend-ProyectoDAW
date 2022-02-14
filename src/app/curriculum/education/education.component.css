@@ -12,7 +12,8 @@
 
     display: grid;
     height: 100%;
-    grid-row-end: auto;
+    /*grid-row-end: auto;*/
+    grid-auto-flow: dense;
     margin-bottom: 1em;
   }
 
@@ -39,35 +40,26 @@
     font-weight: 300;
   }
 
-  .position{
+  .education-center{
     font-family: roboto;
     font-size: 1.2em;
     font-weight: 400;
     margin-bottom: 5px;
   }
 
-  .position:before {
+  .education-center {
     font-family: roboto;
     content: "» ";
 
   }
 
-  .positionDesc{
+  .desc{
     font-family: roboto;
     font-size: 1em;
     font-weight: 300;
     color: rgba(0, 0, 0, 0.54)
   }
 
-  .tasks{
-    font-family: roboto;
-    font-size: 1em;
-    font-weight: 300;
-  }
-
-  .titleTasks{
-      text-decoration: underline;
-  }
 
   li{
     list-style-type: disc;

@@ -10,33 +10,32 @@ import { UsuariosService } from '../../usuarios.service';
 @Component({
   selector: 'curriculum-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
-  @Input() usuario: Usuario
+  @Input() usuario: Usuario;
   @Input() curriculum: Curriculum;
   menuActivado = false;
 
   windowWidth = window.innerWidth;
 
-  activarMenu(){
+  activarMenu() {
     this.menuActivado = !this.menuActivado;
-
   }
-  constructor(public contactDialog:MatDialog, private curriculumService: CurriculumService, private usuarioService: UsuariosService, private router: Router) { }
+  constructor(
+    public contactDialog: MatDialog,
+    private curriculumService: CurriculumService,
+    private usuarioService: UsuariosService,
+    private router: Router
+  ) {}
 
-  async ngOnInit() {
+  async ngOnInit() {}
 
-  }
-
-  openContactDialog(){
-
+  openContactDialog() {
     this.activarMenu();
 
-    const contactDialogRef = this.contactDialog.open(ContactComponent, {width: '800px'})
-
-
+    const contactDialogRef = this.contactDialog.open(ContactComponent, {
+      width: '800px',
+    });
   }
-
 }

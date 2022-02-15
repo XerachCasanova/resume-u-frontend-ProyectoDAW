@@ -5,17 +5,9 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
-  declarations: [
-    MainComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    MainRoutingModule,
-  ],exports:[
-    MainComponent
-  ]
+  declarations: [MainComponent],
+  imports: [CommonModule, SharedModule, MainRoutingModule],
+  exports: [MainComponent],
 })
-export class MainModule { }
+export class MainModule {}

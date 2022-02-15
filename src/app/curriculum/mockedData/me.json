@@ -1,0 +1,9 @@
+[
+  {
+    "idUsuario": 1,
+    "nombre": "Xerach",
+    "email": "xermam1984@hotmail.com",
+    "password": "prueba",
+    "token": "tokenDePrueba"
+  }
+]

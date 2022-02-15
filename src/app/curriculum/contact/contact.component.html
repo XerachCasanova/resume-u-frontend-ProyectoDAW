@@ -1,92 +1,125 @@
-<div class="container">
-    <header>
-      <h1>Contacto</h1>
-    </header>
-    <form [formGroup] = "formContactGroup">
+<div>
+  <header>
+    <h1>Contacto</h1>
+  </header>
+  <form [formGroup]="formContactGroup">
     <div class="form">
-      
-            <div class="row">
-              <div class="col">
-                <mat-form-field appearance="fill">
-                  <mat-label>Nombre</mat-label>
-                  <input matInput placeholder="Nombre" formControlName="nombre">
-                  <mat-error *ngIf="formContactGroup.controls['nombre'].hasError('required')">Campo obligatorio.</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col">
-                <mat-form-field appearance="fill">
-                  <mat-label>Apellidos</mat-label>
-                  <input matInput placeholder="Apellidos" formControlName="apellidos">
-                  <mat-error *ngIf="formContactGroup.controls['apellidos'].hasError('required')">Campo obligatorio.</mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <mat-form-field appearance="fill" >
-                  <mat-label>E-Mail</mat-label>
-                  <input type="email" matInput placeholder="E-mail" formControlName="email">
-                  <mat-icon matSuffix>mail</mat-icon>
-                  <mat-error *ngIf="formContactGroup.controls['email'].hasError('email')">Formato de e-mail incorrecto.</mat-error>
-                  <mat-error *ngIf="formContactGroup.controls['email'].hasError('required')">Campo obligatorio.</mat-error>
+      <div class="form__row">
+        <div class="form__row__col">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre" />
+            <mat-error
+              *ngIf="formContactGroup.controls['nombre'].hasError('required')"
+              >Campo obligatorio.</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="form__row__col">
+          <mat-form-field appearance="fill">
+            <mat-label>Apellidos</mat-label>
+            <input
+              matInput
+              placeholder="Apellidos"
+              formControlName="apellidos"
+            />
+            <mat-error
+              *ngIf="
+                formContactGroup.controls['apellidos'].hasError('required')
+              "
+              >Campo obligatorio.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__row__col">
+          <mat-form-field appearance="fill">
+            <mat-label>E-Mail</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="E-mail"
+              formControlName="email"
+            />
+            <mat-icon matSuffix>mail</mat-icon>
+            <mat-error
+              *ngIf="formContactGroup.controls['email'].hasError('email')"
+              >Formato de e-mail incorrecto.</mat-error
+            >
+            <mat-error
+              *ngIf="formContactGroup.controls['email'].hasError('required')"
+              >Campo obligatorio.</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="form__row__col">
+          <mat-form-field appearance="fill">
+            <mat-label>Teléfono</mat-label>
+            <input
+              type="tel"
+              matInput
+              placeholder="Teléfono"
+              formControlName="telefono"
+            />
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error
+              *ngIf="formContactGroup.controls['telefono'].hasError('pattern')"
+              >formato de teléfono incorrecto.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
 
-                </mat-form-field>
-              </div>
-              <div class="col">
-                <mat-form-field appearance="fill">
-                  <mat-label>Teléfono</mat-label>
-                  <input type="tel" matInput placeholder="Teléfono" formControlName="telefono">
-                  <mat-icon matSuffix>phone</mat-icon>
-                  <mat-error *ngIf="formContactGroup.controls['telefono'].hasError('pattern')">formato de teléfono incorrecto.</mat-error>
-                </mat-form-field>
-                
-              </div>
-            </div>
+      <div class="form__row">
+        <div class="form__row__col">
+          <mat-form-field appearance="fill">
+            <mat-label>Asunto</mat-label>
+            <mat-select formControlName="asunto">
+              <mat-option
+                *ngFor="let asunto of asuntoContacto"
+                value="{{ asunto }}"
+                >{{ asunto }}</mat-option
+              >
+            </mat-select>
+            <mat-error
+              *ngIf="formContactGroup.controls['asunto'].hasError('required')"
+              >Campo obligatorio.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
 
-            <div class="row">
-              <div class="col">
-                <mat-form-field appearance="fill">
-                  <mat-label>Asunto</mat-label>
-                  <mat-select formControlName="asunto">
-                    <mat-option *ngFor="let asunto of asuntoContacto" value={{asunto}}>{{asunto}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="formContactGroup.controls['asunto'].hasError('required')">Campo obligatorio.</mat-error>
-                </mat-form-field>
-    
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <mat-form-field appearance="fill">
-                  <mat-label>Mensaje</mat-label>
-                  <textarea matInput placeholder="Mensaje" rows=10 cols=150 formControlName="mensaje" ></textarea>
-                  <mat-error *ngIf="formContactGroup.controls['mensaje'].hasError('required')">Campo obligatorio.</mat-error>
-                </mat-form-field>
-      
-              </div>
-            </div>
-            <mat-dialog-actions>
-              <button mat-raised-button color="primary" [disabled] = "formContactGroup.invalid">Enviar</button>
-              <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>
-            </mat-dialog-actions>
-
+      <div class="form__row">
+        <div class="form__row__col">
+          <mat-form-field appearance="fill">
+            <mat-label>Mensaje</mat-label>
+            <textarea
+              matInput
+              placeholder="Mensaje"
+              rows="10"
+              cols="150"
+              formControlName="mensaje"
+            ></textarea>
+            <mat-error
+              *ngIf="formContactGroup.controls['mensaje'].hasError('required')"
+              >Campo obligatorio.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-dialog-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="formContactGroup.invalid"
+        >
+          Enviar
+        </button>
+        <button mat-raised-button color="warn" mat-dialog-close>
+          Cancelar
+        </button>
+      </mat-dialog-actions>
     </div>
-  </form> 
-        <!--
-          <p class="block-content">
-          <i class="tiny material-icons">contact_phone</i> 605 882 524
-        </p>
-        <p class="block-content">
-          <i class="tiny material-icons">mail</i> <a href="mailto:xermam1984@hotmail.com">xermam1984@hotmail.com</a> 
-        </p>
-        <p class="block-content">
-          <img src="../../assets/github-icon.svg" class="own-icons sm" alt="github"> <a href="https://github.com/XerachCasanova">Mi perfil de Gihub</a> 
-        </p>
-        <p class="block-content">
-          <img src="../../assets/linkedin-icon.svg" class="own-icons sm" alt="github"> <a href="https://www.linkedin.com/in/xerach-casanova-cabrera-8b15a0202/">Mi perfil de LinkedIn</a> 
-        </p>
-    -->
-        
-    
-  </div>
+  </form>
+</div>

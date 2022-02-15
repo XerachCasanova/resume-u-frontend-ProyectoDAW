@@ -1,6 +1,52 @@
 <div class="container">
   <div class="content">
-    <div class="h1">Login</div>
-    <div class=""></div>
+    <header>
+      <h1>Login</h1>
+    </header>
+    <form [formGroup]="formLoginGroup" (ngSubmit)="onSubmit()">
+      <div class="form">
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>E-mail</mat-label>
+              <input matInput placeholder="E-Mail" formControlName="email" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['email'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Contraseña</mat-label>
+              <input
+                matInput
+                type="password"
+                placeholder="Contraseña"
+                formControlName="password"
+              />
+              <mat-error
+                *ngIf="formLoginGroup.controls['password'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-dialog-actions class="actions">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="formLoginGroup.invalid"
+          >
+            Login
+          </button>
+        </mat-dialog-actions>
+        <span> {{ errorMsg }}</span>
+      </div>
+    </form>
   </div>
 </div>

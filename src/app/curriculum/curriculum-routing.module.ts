@@ -8,16 +8,11 @@ const routes: Routes = [
     path: '',
     component: CurriculumComponent,
     redirectTo: 'skills',
-    
   },
-  
-
-  
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CurriculumRoutingModule { }
+export class CurriculumRoutingModule {}

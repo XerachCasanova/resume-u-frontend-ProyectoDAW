@@ -4,19 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { HeadersComponent } from './header/headers.component';
 
-
-
 @NgModule({
-  declarations: [
-    HeadersComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatIconModule,
-  ],
-  exports: [
-    HeadersComponent
-  ]
+  declarations: [HeadersComponent],
+  imports: [CommonModule, RouterModule, MatIconModule],
+  exports: [HeadersComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

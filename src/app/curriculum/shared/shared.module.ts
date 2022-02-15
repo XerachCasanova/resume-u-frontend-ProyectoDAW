@@ -2,16 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CurriculumRoutingModule } from '../curriculum-routing.module';
 
-
-
 @NgModule({
-  declarations: [
-    HeaderComponent
-  ],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     CurriculumRoutingModule,
@@ -20,8 +16,6 @@ import { CurriculumRoutingModule } from '../curriculum-routing.module';
     MatIconModule,
     MatDialogModule,
   ],
-  exports: [
-    HeaderComponent
-  ]
+  exports: [HeaderComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

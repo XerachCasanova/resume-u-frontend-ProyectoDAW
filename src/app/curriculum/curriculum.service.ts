@@ -3,12 +3,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { Curriculum } from '../core/models/interfaces/curriculum';
 import curriculumsJson from './mockedData/curriculum.json';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurriculumService {
-
   public curriculum: Curriculum = {
     acercaDe: '',
     alias: '',
@@ -20,24 +18,23 @@ export class CurriculumService {
     idiomas: [],
     profesion: '',
     idCurriculum: 0,
-    web: null
+    web: null,
   };
   public subject = new Subject<Curriculum>();
 
-  private curriculumSource = new  BehaviorSubject(this.curriculum);
+  private curriculumSource = new BehaviorSubject(this.curriculum);
   currentCurriculum$ = this.curriculumSource.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   changeCurriculum(curriculum: Curriculum) {
-    this.curriculumSource.next(curriculum)
-    }
-
-  async getCurriculum(alias: string): Promise<any>{
-
-    const curriculums = curriculumsJson as Curriculum[];
-    return curriculums.find((curriculum:Curriculum) => curriculum.alias === alias);
+    this.curriculumSource.next(curriculum);
   }
 
-
+  async getCurriculum(alias: string): Promise<any> {
+    const curriculums = curriculumsJson as Curriculum[];
+    return curriculums.find(
+      (curriculum: Curriculum) => curriculum.alias === alias
+    );
+  }
 }

@@ -4,7 +4,6 @@ import { LoginComponent } from '../login/login.component';
 import { MainComponent } from '../main/main.component';
 import { indexComponent } from './index.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -12,22 +11,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainComponent
+        component: MainComponent,
       },
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
       },
-    ]
+    ],
   },
-
-
-
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class IndexRoutingModule { }
+export class IndexRoutingModule {}

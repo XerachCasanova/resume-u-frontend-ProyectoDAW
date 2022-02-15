@@ -1,0 +1,74 @@
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  align-items: stretch;
+
+  &__card {
+    display: grid;
+    height: 100%;
+    grid-row-end: auto;
+    margin-bottom: 1em;
+
+    &__title {
+      font-family: roboto;
+      font-size: 1.4em;
+      font-weight: 400;
+      color: white;
+      background-color: #009688;
+      padding: 0.5em;
+      border-radius: 5px;
+    }
+
+    &__subtitle {
+      font-family: roboto;
+      font-size: 0.9em;
+      font-weight: 300;
+    }
+
+    &__position {
+      font-family: roboto;
+      font-size: 1.2em;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    &__position:before {
+      font-family: roboto;
+      content: "» ";
+    }
+
+    &__positionDesc {
+      font-family: roboto;
+      font-size: 1em;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    &__tasks {
+      font-family: roboto;
+      font-size: 1em;
+      font-weight: 300;
+
+      &__titleTasks {
+        text-decoration: underline;
+      }
+
+      &__list {
+        list-style-type: disc;
+        margin-left: 1em;
+      }
+    }
+  }
+
+  &__card:first-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}
+
+@media ALL and (min-width: 0px) and (max-width: 700px) {
+  .cards {
+    display: block;
+    width: 100%;
+  }
+}

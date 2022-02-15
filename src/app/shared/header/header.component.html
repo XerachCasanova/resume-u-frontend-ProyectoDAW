@@ -2,14 +2,29 @@
   <div class="content">
     <div class="logo-container">
       <div class="logo-container">
-      <img class="logo" src="../../../assets/logo.png">
+        <a routerLink=""
+          ><img
+            class="logo"
+            src="../../../assets/logo.png"
+            (click)="onLogoClick()"
+        /></a>
+      </div>
     </div>
-  </div>
 
-    <nav class="menu">
-      <a routerLink="login" class="menu-item"><mat-icon class="menu-icon">login</mat-icon><span>Login</span></a> |
-      <a routerLink="signup" class="menu-item"><mat-icon class="menu-icon">new_releases</mat-icon><span>Regístrate</span></a>
+    <nav class="menu" *ngIf="!isLogged">
+      <a routerLink="login" class="menu-item" *ngIf="!loginButtonHidden"
+        ><mat-icon class="menu-icon">login</mat-icon><span>Entrar</span></a
+      >
+      <a routerLink="signup" class="menu-item"
+        ><mat-icon class="menu-icon">new_releases</mat-icon
+        ><span>Soy nuevo</span></a
+      >
+    </nav>
+    <nav class="menu" *ngIf="isLogged">
+      <a routerLink="private" class="menu-item"
+        ><mat-icon class="menu-icon">account_circle</mat-icon
+        ><span>Área privada</span></a
+      >
     </nav>
   </div>
-
 </div>

@@ -6,16 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { EducationComponent } from './education.component';
 import { EducationRoutingModule } from './education-routing.module';
 
-
 @NgModule({
-  declarations: [
-    EducationComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    EducationRoutingModule,
-    MatCardModule
-  ]
+  declarations: [EducationComponent],
+  imports: [CommonModule, FormsModule, EducationRoutingModule, MatCardModule],
 })
-export class EducationModule { }
+export class EducationModule {}

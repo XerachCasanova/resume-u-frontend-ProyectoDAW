@@ -1,6 +1,5 @@
-
-  [
-    {
+[
+  {
     "idCurriculum": 1,
     "experiencia": [
       {
@@ -10,7 +9,11 @@
         "logo": "",
         "cargo": "Diseñador gráfico y maquetación",
         "descripcion": "Diseño de publicidad y maquetación de un periódico de anuncios clasificados de tirada quincenal.",
-        "tareas": ["Diseño de publicidad", "Diseño de flyers, dípticos, trípticos, tarjetas de visita, cartelería, vinilos, etc...", "Maquetación de periódico"]
+        "tareas": [
+          "Diseño de publicidad",
+          "Diseño de flyers, dípticos, trípticos, tarjetas de visita, cartelería, vinilos, etc...",
+          "Maquetación de periódico"
+        ]
       },
       {
         "fechaComienzo": "01/03/2013",
@@ -19,7 +22,9 @@
         "logo": "",
         "cargo": "Diseñador gráfico",
         "descripcion": "Creativo, diseño corporativo y asesoramiento de imagen a empresas.",
-        "tareas": ["Diseño de flyers, dípticos, trípticos, tarjetas de visita, cartelería, vinilos, etc..."]
+        "tareas": [
+          "Diseño de flyers, dípticos, trípticos, tarjetas de visita, cartelería, vinilos, etc..."
+        ]
       },
       {
         "fechaComienzo": "01/11/2014",

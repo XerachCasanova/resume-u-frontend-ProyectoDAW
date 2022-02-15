@@ -11,9 +11,7 @@ import { CommonModule } from '@angular/common';
 import { CurriculumService } from './curriculum.service';
 
 @NgModule({
-  declarations: [
-    CurriculumComponent,
-  ],
+  declarations: [CurriculumComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,10 +19,9 @@ import { CurriculumService } from './curriculum.service';
     ContactModule,
     SharedModule,
     MainModule,
-    MatSelectModule
-
+    MatSelectModule,
   ],
   providers: [],
-  bootstrap: [CurriculumComponent]
+  bootstrap: [CurriculumComponent],
 })
-export class CurriculumModule { }
+export class CurriculumModule {}

@@ -1,32 +1,39 @@
 <section>
-    <header>
-      <h1>Experiencia</h1>
-    </header>
-    <div class="cards">
-        <div class="card" *ngFor="let exp of experience">
-            <mat-card >
-                <mat-card-title>
-                    {{exp.empresa}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    Desde: {{exp.fechaComienzo}} <span *ngIf="exp.fechaFinalizacion !==  ''">| Hasta: {{exp.fechaFinalizacion}} </span>
-                </mat-card-subtitle>
-                <mat-card-content class='position'>
-                    {{exp.cargo}}
-                </mat-card-content>
-                <mat-card-content class='positionDesc'>
-                    {{exp.descripcion}}
-                </mat-card-content>
-                <mat-card-content class='tasks'>
-                    <span class="titleTasks">Tareas a desempeñar:</span>
-                    <ul>
-                        <li *ngFor="let tarea of exp.tareas">
-                            {{tarea}}
-                        </li>
-                    </ul>
-                </mat-card-content>
-            </mat-card>
-
-      </div>
+  <header>
+    <h1>Experiencia</h1>
+  </header>
+  <div class="cards">
+    <div class="cards__card" *ngFor="let exp of experience">
+      <mat-card>
+        <mat-card-title class="cards__card__title">
+          {{ exp.empresa }}
+        </mat-card-title>
+        <mat-card-subtitle class="cards__card__subtitle">
+          Desde: {{ exp.fechaComienzo }}
+          <span *ngIf="exp.fechaFinalizacion !== ''"
+            >| Hasta: {{ exp.fechaFinalizacion }}
+          </span>
+        </mat-card-subtitle>
+        <mat-card-content class="cards__card__position">
+          {{ exp.cargo }}
+        </mat-card-content>
+        <mat-card-content class="cards__card__positionDesc">
+          {{ exp.descripcion }}
+        </mat-card-content>
+        <mat-card-content class="cards__card__tasks">
+          <span class="cards__card__tasks__titleTasks"
+            >Tareas a desempeñar:</span
+          >
+          <ul>
+            <li
+              class="cards__card__tasks__list"
+              *ngFor="let tarea of exp.tareas"
+            >
+              {{ tarea }}
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
     </div>
-  </section>
+  </div>
+</section>

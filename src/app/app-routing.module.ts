@@ -4,21 +4,19 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/index/index.module').then(m => m.IndexModule),
-
+    loadChildren: () =>
+      import('./modules/index/index.module').then((m) => m.IndexModule),
   },
 
   {
     path: ':alias',
-    loadChildren: () => import('./curriculum/curriculum.module').then(m => m.CurriculumModule)
+    loadChildren: () =>
+      import('./curriculum/curriculum.module').then((m) => m.CurriculumModule),
   },
-
-
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,23 +1,26 @@
 <section>
-    <header>
-      <h1>Formación</h1>
-    </header>
-    <div class="cards">
-        <div class="card" *ngFor="let educ of education">
-            <mat-card >
-                <mat-card-title>
-                    {{educ.titulo}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    Desde: {{educ.fechaComienzo}} <span *ngIf="educ.fechaFinalizacion !==  ''">| Hasta: {{educ.fechaFinalizacion}} </span>
-                </mat-card-subtitle>
-                <mat-card-content class='education-center'>
-                    Centro formativo: {{educ.centro}}
-                </mat-card-content>
-                <mat-card-content class='desc'>
-                    {{educ.descripcion}}
-                </mat-card-content>
-            </mat-card>
-      </div>
+  <header>
+    <h1>Formación</h1>
+  </header>
+  <div class="cards">
+    <div class="cards__card" *ngFor="let educ of education">
+      <mat-card>
+        <mat-card-title class="cards__card__title">
+          {{ educ.titulo }}
+        </mat-card-title>
+        <mat-card-subtitle class="cards__card__subtitle">
+          Desde: {{ educ.fechaComienzo }}
+          <span *ngIf="educ.fechaFinalizacion !== ''"
+            >| Hasta: {{ educ.fechaFinalizacion }}
+          </span>
+        </mat-card-subtitle>
+        <mat-card-content class="cards__card__education-center">
+          Centro formativo: {{ educ.centro }}
+        </mat-card-content>
+        <mat-card-content class="cards__card__desc">
+          {{ educ.descripcion }}
+        </mat-card-content>
+      </mat-card>
     </div>
-  </section>
+  </div>
+</section>

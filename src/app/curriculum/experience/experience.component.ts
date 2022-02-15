@@ -7,27 +7,24 @@ import { ExperienceService } from './experience.service';
 @Component({
   selector: 'curriculum-experience',
   templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.css']
+  styleUrls: ['./experience.component.scss'],
 })
 export class ExperienceComponent implements OnInit {
-
   experience: Experience[];
-  constructor(private curriculumService:CurriculumService, private experienceService: ExperienceService) {
-
-
-    this.curriculumService.currentCurriculum$.subscribe(async curriculum => {
+  constructor(
+    private curriculumService: CurriculumService,
+    private experienceService: ExperienceService
+  ) {
+    this.curriculumService.currentCurriculum$.subscribe(async (curriculum) => {
       //El valor inicial del behaviorSubject es un curriculum sin datos, cuya id es = 0, se debe evitar una petición al back con ese curriculum.
-      if(curriculum.idCurriculum != 0){
-        this.experience = await this.experienceService.getExperience(curriculum.idCurriculum);
-        console.log(this.experience)
+      if (curriculum.idCurriculum != 0) {
+        this.experience = await this.experienceService.getExperience(
+          curriculum.idCurriculum
+        );
+        console.log(this.experience);
       }
-    })
-
-
-
-   }
-
-  ngOnInit(): void {
+    });
   }
 
+  ngOnInit(): void {}
 }

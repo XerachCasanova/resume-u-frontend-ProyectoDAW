@@ -7,32 +7,29 @@ import { UsuariosService } from '../usuarios.service';
 @Component({
   selector: 'curriculum-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-
   usuario: Usuario;
   curriculum: Curriculum;
 
-  constructor(private usuarioService:UsuariosService, private curriculumService: CurriculumService, private activateRoute: ActivatedRoute) {  }
+  constructor(
+    private usuarioService: UsuariosService,
+    private curriculumService: CurriculumService,
+    private activateRoute: ActivatedRoute
+  ) {}
 
   async ngOnInit() {
-
-    this.activateRoute.params.subscribe(async params => {
-
-      const alias = params.alias
+    this.activateRoute.params.subscribe(async (params) => {
+      const alias = params.alias;
 
       this.curriculum = await this.curriculumService.getCurriculum(alias);
-      if(this.curriculum){
-        this.usuario = await this.usuarioService.getUsuario(this.curriculum.idUsuario);
-          this.curriculumService.changeCurriculum(this.curriculum);
+      if (this.curriculum) {
+        this.usuario = await this.usuarioService.getUsuario(
+          this.curriculum.idUsuario
+        );
+        this.curriculumService.changeCurriculum(this.curriculum);
       }
-
-
-
-    })
-
-
+    });
   }
-
 }

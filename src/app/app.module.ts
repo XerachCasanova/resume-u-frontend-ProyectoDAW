@@ -15,13 +15,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent
-  ],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     AppRoutingModule,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -35,10 +34,9 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatDialogModule,
     MatIconModule,
-    MatSelectModule
-
+    MatSelectModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

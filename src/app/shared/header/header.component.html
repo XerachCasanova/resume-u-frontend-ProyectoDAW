@@ -1,29 +1,32 @@
 <div class="container">
-  <div class="content">
-    <div class="logo-container">
-      <div class="logo-container">
+  <div class="container__content">
+    <div class="container__content__logo-container">
         <a routerLink=""
           ><img
-            class="logo"
+            class="container__content__logo-container__logo"
             src="../../../assets/logo.png"
             (click)="onLogoClick()"
         /></a>
-      </div>
+
     </div>
 
-    <nav class="menu" *ngIf="!isLogged">
-      <a routerLink="login" class="menu-item" *ngIf="!loginButtonHidden"
-        ><mat-icon class="menu-icon">login</mat-icon><span>Entrar</span></a
+    <nav class="container__content__menu" *ngIf="!isLogged">
+      <a routerLink="login" class="container__content__menu__menu-item" *ngIf="!loginButtonHidden"
+        ><mat-icon class="container__content__menu__menu-item__menu-icon">login</mat-icon><span>Entrar</span></a
       >
-      <a routerLink="signup" class="menu-item"
-        ><mat-icon class="menu-icon">new_releases</mat-icon
+      <a routerLink="signup" class="container__content__menu__menu-item"
+        ><mat-icon class="container__content__menu__menu-item__menu-icon">add_circle</mat-icon
         ><span>Soy nuevo</span></a
       >
     </nav>
-    <nav class="menu" *ngIf="isLogged">
-      <a routerLink="private" class="menu-item"
-        ><mat-icon class="menu-icon">account_circle</mat-icon
+    <nav class="container__content__menu" *ngIf="isLogged">
+      <a routerLink="private" class="container__content__menu__menu-item"
+        ><mat-icon class="container__content__menu__menu-item__menu-icon">account_circle</mat-icon
         ><span>Área privada</span></a
+      >
+      <a routerLink="" (click)="onLogoutClick()" class="container__content__menu__menu-item"
+        ><mat-icon class="container__content__menu__menu-item__menu-icon">logout</mat-icon
+        ><span>Salir</span></a
       >
     </nav>
   </div>

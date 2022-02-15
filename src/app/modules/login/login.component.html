@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="content">
+  <div class="container__content">
     <header>
       <h1>Login</h1>
     </header>
     <form [formGroup]="formLoginGroup" (ngSubmit)="onSubmit()">
-      <div class="form">
-        <div class="row">
-          <div class="col">
+      <div class="container__content__form">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
             <mat-form-field appearance="fill">
               <mat-label>E-mail</mat-label>
               <input matInput placeholder="E-Mail" formControlName="email" />
@@ -18,8 +18,8 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
             <mat-form-field appearance="fill">
               <mat-label>Contraseña</mat-label>
               <input

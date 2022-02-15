@@ -1,6 +1,6 @@
-import { Knowledge } from "./knowledge";
+import { Knowledge } from './knowledge';
 
 export interface Skill {
-  nombre: string,
-  conocimientos: Knowledge[],
+  nombre: string;
+  conocimientos: Knowledge[];
 }

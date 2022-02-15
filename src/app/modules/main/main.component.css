@@ -30,7 +30,7 @@ PALETA DE COLORES
   align-items: center;
 }
 
-.h1 {
+.title {
   font-size: 3rem;
   text-align: center;
   font-weight: 800;
@@ -38,7 +38,7 @@ PALETA DE COLORES
   line-height: 3rem;
 }
 
-.h2 {
+.description {
   font-size: 1.2rem;
   text-align: center;
   line-height: 1.2rem;

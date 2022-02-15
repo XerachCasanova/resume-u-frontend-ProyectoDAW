@@ -6,7 +6,7 @@ import { HeaderService } from './header.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
 })
 export class HeadersComponent implements OnInit {
   loginButtonHidden = false;
@@ -29,5 +29,11 @@ export class HeadersComponent implements OnInit {
 
   onLogoClick() {
     this.headerService.changeUrl('');
+  }
+
+  onLogoutClick(){
+
+    //TODO: Crear behavioursubject para escuchar botones del header.
+    localStorage.removeItem('token');
   }
 }

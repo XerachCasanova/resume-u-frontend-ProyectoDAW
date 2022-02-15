@@ -1,0 +1,168 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Registro</h1>
+    </header>
+    <form [formGroup]="formLoginGroup" (ngSubmit)="onSubmit()">
+
+      <!-- CAMPOS NOMBRE Y APELLIDOS -->
+      <div class="container__content__form">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="nombre" formControlName="nombre" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['nombre'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Apellidos</mat-label>
+              <input matInput placeholder="Apellidos" formControlName="apellidos" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['apellidos'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS DNI Y FECHA NACIMIENTO -->
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>DNI</mat-label>
+              <input matInput placeholder="DNI" formControlName="dni" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['dni'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input type="date" matInput placeholder="Fecha de nacimiento" formControlName="fechaNacimiento" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['fechaNacimiento'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPO DIRECCIÓN -->
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Dirección</mat-label>
+              <input matInput placeholder="direccion" formControlName="direccion" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['direccion'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS CÓDIGO POSTAL Y PROVINCIA -->
+
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Código postal</mat-label>
+              <input matInput placeholder="Código postal" formControlName="cp" />
+              <mat-error
+                *ngIf="formLoginGroup.controls['cp'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field  appearance="outline">
+              <mat-label>Provincia</mat-label>
+              <input matInput placeholder="Provincia" formControlName="fechaNacimiento" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS TELÉFONOS -->
+
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Teléfono 1</mat-label>
+              <input matInput placeholder="telefono1" formControlName="telefono1" />
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error
+                *ngIf="formLoginGroup.controls['telefono1'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Teléfono 2</mat-label>
+              <input matInput placeholder="Teléfono 2" formControlName="telefono2" />
+              <mat-icon matSuffix>phone_android</mat-icon>
+              <mat-error
+                *ngIf="formLoginGroup.controls['apellidos'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS EMAIL Y CONTRASEÑA -->
+
+        <h2>Datos de usuario</h2>
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>E-Mail</mat-label>
+              <input
+                matInput
+                placeholder="E-Mail"
+                formControlName="email"
+              />
+              <mat-icon matSuffix>mail</mat-icon>
+              <mat-error
+                *ngIf="formLoginGroup.controls['password'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Contraseña</mat-label>
+              <input
+                matInput
+                type="password"
+                placeholder="Contraseña"
+                formControlName="password"
+              />
+              <mat-error
+                *ngIf="formLoginGroup.controls['password'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-dialog-actions class="actions">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="formLoginGroup.invalid"
+          >
+            Continuar
+          </button>
+        </mat-dialog-actions>
+        <span> {{ errorMsg }}</span>
+      </div>
+    </form>
+  </div>
+</div>

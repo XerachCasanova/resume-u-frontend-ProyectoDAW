@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Login } from 'src/app/core/models/interfaces/login';
+import { Usuario } from 'src/app/core/models/interfaces/usuario';
 import { HeaderService } from 'src/app/shared/header/header.service';
 import { usersService } from '../users/users.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss'],
 })
-export class LoginComponent {
+export class SignupComponent {
   formLoginGroup: FormGroup;
-  login!: Login;
+  usuario!: Usuario;
   errorMsg: string;
   constructor(
     private fb: FormBuilder,
@@ -31,36 +32,29 @@ export class LoginComponent {
       this.headerService.changeUrl(urlSegment[0].path)
     );
 
-    this.formLoginGroup = this.fb.group(this.login);
+    this.formLoginGroup = this.fb.group(this.usuario);
     this.formLoginGroup.get('email')?.setValidators(Validators.required);
     this.formLoginGroup.get('password')?.setValidators(Validators.required);
   }
 
   resetLogin() {
-    this.login = {
+    this.usuario = {
+      nombre: '',
+      apellidos: '',
+      dni: '',
+      fechaNacimiento: '',
+      direccion: '',
+      localidad: '',
+      provincia: '',
+      cp:'',
+      telefono1: '',
+      telefono2: '',
       email: '',
       password: '',
     };
   }
 
   onSubmit() {
-    this.login = this.formLoginGroup.value;
-    this.usersService.login(this.login).subscribe(
-      (user) => {
-        const signedUser = {
-          email: user.email,
-          nombre: user.nombre,
-          idUsuario: user.idUsuario,
-          token: user.token,
-        };
-
-        localStorage.setItem('token', JSON.stringify(signedUser));
-      },
-      (error) =>
-        (this.errorMsg =
-          error.status === 400
-            ? 'Usuario o contraseña incorrectos'
-            : 'Ha ocurrido un error, vuelve a intentarlo más tarde.')
-    );
+    
   }
 }

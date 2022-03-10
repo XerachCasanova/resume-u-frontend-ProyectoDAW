@@ -36,16 +36,21 @@
           </div>
         </div>
 
-        <mat-dialog-actions class="actions">
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="formLoginGroup.invalid"
-          >
-            Login
-          </button>
-        </mat-dialog-actions>
-        <span> {{ errorMsg }}</span>
+        <div class="container__content__form__actions">
+          <div>
+            <mat-dialog-actions class="container__content__form__actions__button">
+              <button
+              mat-raised-button
+              color="primary"
+              [disabled]="formLoginGroup.invalid"
+            >
+              Login
+            </button>
+            </mat-dialog-actions>
+          </div>
+          <div class='spinner' *ngIf="spinnerOn"></div>
+          <span> {{ errorMsg }}</span>
+        </div>
       </div>
     </form>
   </div>

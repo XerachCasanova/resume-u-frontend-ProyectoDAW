@@ -1,0 +1,50 @@
+<div>
+  <header
+    class="{{ data.header === 'error' ? 'header-error' : 'header-info' }}"
+  >
+    <h1>
+      {{
+        data.type === "error"
+          ? "Aviso"
+          : userConfirmed
+          ? "¡Usuario confirmado!"
+          : "Ya casi estás"
+      }}
+    </h1>
+  </header>
+  <div class="content" *ngIf="data.type === 'error'">
+    <div class="content__text">
+      {{ data.errorMsg }}
+    </div>
+    <div class="content__button">
+      <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+    </div>
+
+  </div>
+
+  <div class="content" *ngIf="data.type === 'activationCode'">
+    <div class="content__text" [ngClass]="{ inputHide: userConfirmed }">
+      Has sido dado de alta correctamente. Introduce el código que hemos enviado
+      a tu correo electrónico para activar tu cuenta de usuario.
+    </div>
+
+    <div class="content__input">
+      <mat-form-field
+        [ngClass]="{ inputHide: userConfirmed }"
+        (input)="onInputActivate($event)"
+      >
+        <mat-label>Inserta tu códido de activiación</mat-label>
+        <input matInput placeholder="Inserta tu códido de activiación" />
+      </mat-form-field>
+    </div>
+    <div class="content__text">
+      {{ activationDoneMsg }}
+    </div>
+
+    <div class="content__button">
+      <button mat-raised-button color="warn" mat-dialog-close>
+        {{ userConfirmed ? "Cerrar" : "Activar más adelante" }}
+      </button>
+    </div>
+  </div>
+</div>

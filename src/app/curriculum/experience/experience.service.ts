@@ -8,7 +8,7 @@ import experienceJson from '../mockedData/experiencia.json';
 export class ExperienceService {
   constructor() {}
 
-  async getExperience(idCurriculum?: number): Promise<any> {
+  async getExperience(idCurriculum?: string): Promise<any> {
     const experiences = experienceJson;
     return experiences.find(
       (experience: any) => experience.idCurriculum === idCurriculum

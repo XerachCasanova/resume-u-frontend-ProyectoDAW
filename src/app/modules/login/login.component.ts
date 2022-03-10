@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/core/models/interfaces/login';
 import { HeaderService } from 'src/app/shared/header/header.service';
 import { usersService } from '../users/users.service';
+import { LoginService } from './login.service';
+import { TokenService } from './token.service';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +16,14 @@ export class LoginComponent {
   formLoginGroup: FormGroup;
   login!: Login;
   errorMsg: string;
+  spinnerOn=false;
   constructor(
     private fb: FormBuilder,
+    private router:Router,
     private headerService: HeaderService,
     private activatedRoute: ActivatedRoute,
-    private usersService: usersService
+    private loginService: LoginService,
+    private tokenService: TokenService
   ) {
     this.formLoginGroup = fb.group({});
     this.resetLogin();
@@ -41,26 +46,33 @@ export class LoginComponent {
       email: '',
       password: '',
     };
+
+    this.formLoginGroup = this.fb.group(this.login);
   }
 
   onSubmit() {
+    this.spinnerOn=true;
     this.login = this.formLoginGroup.value;
-    this.usersService.login(this.login).subscribe(
+    this.loginService.login(this.login).subscribe(
       (user) => {
-        const signedUser = {
-          email: user.email,
-          nombre: user.nombre,
-          idUsuario: user.idUsuario,
-          token: user.token,
-        };
 
-        localStorage.setItem('token', JSON.stringify(signedUser));
+        this.tokenService.saveToken(user.token);
+        this.tokenService.saveRefreshToken(user.refresToken);
+        this.tokenService.saveUser(user);
+        
+        this.headerService.changeLoginState(true);
+        this.spinnerOn=false;
+        this.router.navigate(['']);
       },
       (error) =>
-        (this.errorMsg =
+        {
+          this.spinnerOn=false;
+          this.resetLogin();
+          this.errorMsg =
           error.status === 400
-            ? 'Usuario o contraseña incorrectos'
-            : 'Ha ocurrido un error, vuelve a intentarlo más tarde.')
+            ? "Usuario o contraseña incorrectos."
+            : 'Ha ocurrido un error, vuelve a intentarlo más tarde.'
+          }
     );
   }
 }

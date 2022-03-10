@@ -40,9 +40,30 @@ PALETA DE COLORES
           }
         }
       }
+
+      &__actions {
+        display: flex;
+        flex-direction: row;
+        &__button{
+          margin-right: 1rem;
+        }
+      }
     }
   }
 }
+
+.mat-dialog-actions{
+  display: inline;
+}
+
+.input-large{
+  flex: 1;
+}
+
+.input-small{
+  flex: 0;
+}
+
 
 
 @media all and (min-width: 0px) and (max-width: 600px) {
@@ -50,7 +71,7 @@ PALETA DE COLORES
     &__content{
       &__form {
         display: block;
-        width: 100%;
+        width: 95%;
 
         &__row {
           display: block;

@@ -1,6 +1,6 @@
 [
   {
-    "idUsuario": 1,
+    "idUsuario": "1",
     "nombre": "Xerach",
     "apellidos": "Casanova Cabrera",
     "dni": "54050674F",
@@ -12,11 +12,11 @@
     "telefono1": "605882524",
     "telefono2": "922204450",
     "email": "xermam1984@hotmail.com",
-    "idCurriculum": 1,
-    "idRol": 1
+    "idCurriculum": "1",
+    "idRol": "1"
   },
   {
-    "idUsuario": 2,
+    "idUsuario": "2",
     "nombre": "José",
     "apellidos": "Gotera",
     "dni": "25046687D",
@@ -28,7 +28,7 @@
     "telefono1": "655448825",
     "telefono2": "672114485",
     "email": "jfp@hotmail.com",
-    "idCurriculum": 2,
-    "idRol": 2
+    "idCurriculum": "2",
+    "idRol": "2"
   }
 ]

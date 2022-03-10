@@ -1,5 +1,5 @@
-export interface Usuario {
-  idUsuario?: number;
+export interface User {
+  idUsuario?: string;
   nombre: string;
   apellidos: string;
   dni: string;
@@ -12,6 +12,11 @@ export interface Usuario {
   telefono2?: string;
   email: string;
   password?: string;
-  idCurriculum?: number;
-  idRol?: number;
+  activo: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+  idCurriculum?: string;
+  idRol?: string;
 }

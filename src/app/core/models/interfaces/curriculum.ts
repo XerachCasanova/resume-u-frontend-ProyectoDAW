@@ -1,5 +1,5 @@
 export interface Curriculum {
-  idCurriculum?: number;
+  idCurriculum?: string;
   alias: string;
   foto: string;
   acercaDe: string;
@@ -9,5 +9,5 @@ export interface Curriculum {
   idiomas: any[];
   datosInteres: any[];
   web?: string | null;
-  idUsuario: number;
+  idUsuario: string;
 }

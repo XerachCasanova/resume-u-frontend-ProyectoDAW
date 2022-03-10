@@ -16,9 +16,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { SignupComponent } from './modules/signup/signup.component';
+import { UsersFormComponent } from './modules/users/users-form.component';
+import { usersFormModalComponent } from './modules/users/modals/users-form-modal.component';
+import { PostalCodeValidatorDirective } from './core/validators/custom.validator.component';
+
+
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, LoginComponent, UsersFormComponent, usersFormModalComponent, PostalCodeValidatorDirective],
   imports: [
     AppRoutingModule,
     HttpClientModule,

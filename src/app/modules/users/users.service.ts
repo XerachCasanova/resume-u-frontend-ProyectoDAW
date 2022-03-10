@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Login } from 'src/app/core/models/interfaces/login';
-import me from 'src/app/curriculum/mockedData/me.json';
+
+import { User } from 'src/app/core/models/interfaces/user';
+
 
 @Injectable({
   providedIn: 'root',
@@ -10,31 +11,41 @@ import me from 'src/app/curriculum/mockedData/me.json';
 export class usersService {
   constructor(private http: HttpClient) {}
 
-  login(user: Login): Observable<any> {
-    const usuario = me.find(
-      (usuario) =>
-        usuario.email === user.email && user.password === usuario.password
-    );
+  getUsers(): Observable<any> {
 
-    console.log(usuario);
-    return of({
-      idUsuario: usuario?.idUsuario,
-      email: usuario?.email,
-      nombre: usuario?.nombre,
-      token: usuario?.token,
-    });
-    //return this.http.post("https://reqres.in/api/login", user);
+    return this.http.get('http://localhost/curriculum-api/usuario')
+
   }
 
-  signUp(user: Login): Observable<any> {
-    return this.http.post('https://reqres.in/api/register', user);
+  getUser(idUsuario:string): Observable<any> {
+
+    return this.http.get('http://localhost/curriculum-api/usuario?id=' + idUsuario)
+
   }
 
-  setToken(token: String) {
-    localStorage.set('token', token);
+  createUser(user:User): Observable<any> {
+
+    return this.http.post('http://localhost/curriculum-api/usuario', user)
+
   }
 
-  getToken() {
-    return localStorage.get('token');
+  checkDni(dni:string): Observable<any> {
+
+    return this.http.get('http://localhost/curriculum-api/usuario?dni='+ dni);
+
   }
+
+  checkEmail(email:string): Observable<any> {
+
+    return this.http.get('http://localhost/curriculum-api/usuario?email='+ email);
+
+  }
+
+  activateUser(activationCode:string, idUsuario:string): Observable<any> {
+
+    return this.http.get('http://localhost/curriculum-api/usuario?activationCode='+ activationCode + '&id='+idUsuario);
+
+  }
+
+
 }

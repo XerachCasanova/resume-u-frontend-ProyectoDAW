@@ -14,10 +14,10 @@ export class CurriculumService {
     foto: '',
     gamaColores: 0,
     habilidadesUnicas: [],
-    idUsuario: 0,
+    idUsuario: '',
     idiomas: [],
     profesion: '',
-    idCurriculum: 0,
+    idCurriculum: '',
     web: null,
   };
   public subject = new Subject<Curriculum>();

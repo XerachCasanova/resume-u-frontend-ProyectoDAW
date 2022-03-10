@@ -8,7 +8,7 @@ import skillsJson from '../mockedData/habilidades.json';
 export class SkillsService {
   constructor() {}
 
-  async getSkills(idCurriculum?: number): Promise<any> {
+  async getSkills(idCurriculum?: string): Promise<any> {
     const skills = skillsJson;
     return skills.find((skill: any) => skill.idCurriculum === idCurriculum)
       ?.habilidades;

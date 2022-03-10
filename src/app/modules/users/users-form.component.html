@@ -3,27 +3,27 @@
     <header>
       <h1>Registro</h1>
     </header>
-    <form [formGroup]="formLoginGroup" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formUserGroup" (ngSubmit)="onSubmit()">
 
       <!-- CAMPOS NOMBRE Y APELLIDOS -->
       <div class="container__content__form">
         <div class="container__content__form__row">
-          <div class="container__content__form__row__col">
+          <div class="container__content__form__row__col input-small">
             <mat-form-field appearance="fill">
               <mat-label>Nombre</mat-label>
               <input matInput placeholder="nombre" formControlName="nombre" />
               <mat-error
-                *ngIf="formLoginGroup.controls['nombre'].hasError('required')"
+                *ngIf="formUserGroup.controls['nombre'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
             </mat-form-field>
           </div>
-          <div class="container__content__form__row__col">
+          <div class="container__content__form__row__col input-large">
             <mat-form-field appearance="fill">
               <mat-label>Apellidos</mat-label>
               <input matInput placeholder="Apellidos" formControlName="apellidos" />
               <mat-error
-                *ngIf="formLoginGroup.controls['apellidos'].hasError('required')"
+                *ngIf="formUserGroup.controls['apellidos'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
             </mat-form-field>
@@ -33,12 +33,16 @@
         <!-- CAMPOS DNI Y FECHA NACIMIENTO -->
         <div class="container__content__form__row">
           <div class="container__content__form__row__col">
-            <mat-form-field appearance="fill">
-              <mat-label>DNI</mat-label>
+            <mat-form-field appearance="fill" (change)="onCheckableInputChange($event, 'dni')">
+              <mat-label>DNI/NIE</mat-label>
               <input matInput placeholder="DNI" formControlName="dni" />
               <mat-error
-                *ngIf="formLoginGroup.controls['dni'].hasError('required')"
+                *ngIf="formUserGroup.controls['dni'].hasError('required')"
                 >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="formUserGroup.controls['dni'].hasError('pattern')"
+                >DNI inválido.</mat-error
               >
             </mat-form-field>
           </div>
@@ -47,7 +51,7 @@
               <mat-label>Fecha de nacimiento</mat-label>
               <input type="date" matInput placeholder="Fecha de nacimiento" formControlName="fechaNacimiento" />
               <mat-error
-                *ngIf="formLoginGroup.controls['fechaNacimiento'].hasError('required')"
+                *ngIf="formUserGroup.controls['fechaNacimiento'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
             </mat-form-field>
@@ -56,12 +60,22 @@
 
         <!-- CAMPO DIRECCIÓN -->
         <div class="container__content__form__row">
-          <div class="container__content__form__row__col">
+          <div class="container__content__form__row__col input-large">
             <mat-form-field appearance="fill">
               <mat-label>Dirección</mat-label>
               <input matInput placeholder="direccion" formControlName="direccion" />
               <mat-error
-                *ngIf="formLoginGroup.controls['direccion'].hasError('required')"
+                *ngIf="formUserGroup.controls['direccion'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col input-small">
+            <mat-form-field appearance="fill">
+              <mat-label>Localidad</mat-label>
+              <input matInput placeholder="localidad" formControlName="localidad" />
+              <mat-error
+                *ngIf="formUserGroup.controls['localidad'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
             </mat-form-field>
@@ -74,17 +88,21 @@
           <div class="container__content__form__row__col">
             <mat-form-field appearance="fill">
               <mat-label>Código postal</mat-label>
-              <input matInput placeholder="Código postal" formControlName="cp" />
+              <input matInput placeholder="Código postal" formControlName="cp" postalcode (input)="onCpPressKey($event)"/>
               <mat-error
-                *ngIf="formLoginGroup.controls['cp'].hasError('required')"
+                *ngIf="formUserGroup.controls['cp'].hasError('required')"
                 >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="formUserGroup.controls['cp'].hasError('wrongPostalCode')"
+                >Código postal inválido.</mat-error
               >
             </mat-form-field>
           </div>
           <div class="container__content__form__row__col">
             <mat-form-field  appearance="outline">
               <mat-label>Provincia</mat-label>
-              <input matInput placeholder="Provincia" formControlName="fechaNacimiento" readonly />
+              <input matInput placeholder="Provincia" formControlName="provincia" readonly />
             </mat-form-field>
           </div>
         </div>
@@ -98,7 +116,7 @@
               <input matInput placeholder="telefono1" formControlName="telefono1" />
               <mat-icon matSuffix>phone</mat-icon>
               <mat-error
-                *ngIf="formLoginGroup.controls['telefono1'].hasError('required')"
+                *ngIf="formUserGroup.controls['telefono1'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
             </mat-form-field>
@@ -109,9 +127,51 @@
               <input matInput placeholder="Teléfono 2" formControlName="telefono2" />
               <mat-icon matSuffix>phone_android</mat-icon>
               <mat-error
-                *ngIf="formLoginGroup.controls['apellidos'].hasError('required')"
+                *ngIf="formUserGroup.controls['apellidos'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS REDES SOCIALES -->
+
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Facebook</mat-label>
+              <input matInput placeholder="facebook" formControlName="facebook" />
+              <mat-icon matSuffix>facebook</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Twitter</mat-label>
+              <input matInput placeholder="twitter" formControlName="twitter" />
+              <mat-icon matSuffix>twitter</mat-icon>
+              <mat-error
+                *ngIf="formUserGroup.controls['twitter'].hasError('pattern')"
+                >Twitter inválido.</mat-error
+              >
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Linkedin</mat-label>
+              <input matInput placeholder="linkedin" formControlName="linkedin" />
+              <mat-icon matSuffix>linkedin</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Instagram</mat-label>
+              <input matInput placeholder="instagram" formControlName="instagram" />
+
             </mat-form-field>
           </div>
         </div>
@@ -121,7 +181,7 @@
         <h2>Datos de usuario</h2>
         <div class="container__content__form__row">
           <div class="container__content__form__row__col">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" (change)="onCheckableInputChange($event, 'email')">
               <mat-label>E-Mail</mat-label>
               <input
                 matInput
@@ -130,8 +190,12 @@
               />
               <mat-icon matSuffix>mail</mat-icon>
               <mat-error
-                *ngIf="formLoginGroup.controls['password'].hasError('required')"
+                *ngIf="formUserGroup.controls['email'].hasError('required')"
                 >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="formUserGroup.controls['email'].hasError('pattern')"
+                >E-Mail inválido.</mat-error
               >
             </mat-form-field>
           </div>
@@ -145,23 +209,28 @@
                 formControlName="password"
               />
               <mat-error
-                *ngIf="formLoginGroup.controls['password'].hasError('required')"
+                *ngIf="formUserGroup.controls['password'].hasError('required')"
                 >Campo obligatorio.</mat-error
               >
             </mat-form-field>
           </div>
         </div>
+        <div class="container__content__form__actions">
+          <div>
+            <mat-dialog-actions class="container__content__form__actions__button">
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="formUserGroup.invalid || spinnerOn"
+              >
+                Continuar
+              </button>
+            </mat-dialog-actions>
+          </div>
+          <div class='spinner' *ngIf="spinnerOn"></div>
+          <span> {{ errorMsg }}</span>
+        </div>
 
-        <mat-dialog-actions class="actions">
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="formLoginGroup.invalid"
-          >
-            Continuar
-          </button>
-        </mat-dialog-actions>
-        <span> {{ errorMsg }}</span>
       </div>
     </form>
   </div>

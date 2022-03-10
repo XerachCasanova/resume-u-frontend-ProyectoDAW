@@ -1,12 +1,12 @@
 [
   {
-    "idCurriculum": 1,
+    "idCurriculum": "1",
     "alias": "XerachCasanovaCabrera-FullStackDeveloper",
     "foto": "../../../../assets/curriculum-photos/1.jpg",
     "acercaDe": "Me considero una persona muy activa y dinámica. Me adapto a cualquier situación y siempre he trabajado en grupo, también he estado en varias ocasiones al frente de equipos de trabajo. Por diversas circunstancias, mi vida laboral siempre ha estado ligada al diseño gráfico, aunque mis estudios están relacionados con el desarrollo de software. A día de hoy, me estoy formando para reorientar mi vida laboral a la rama de la programación, la cual considero mi verdadera vocación.",
     "profesion": "Full-Stack Developer",
     "gamaColores": 1,
-    "idUsuario": 1,
+    "idUsuario": "1",
     "habilidadesUnicas": [
       {
         "nombre": "Corel Draw",
@@ -48,7 +48,7 @@
     "web": null
   },
   {
-    "idCurriculum": 2,
+    "idCurriculum": "2",
     "alias": "PepeGotera-Albanil",
     "foto": "../../../../assets/curriculum-photos/2.jpg",
     "acercaDe": "Soy albañil de primera",

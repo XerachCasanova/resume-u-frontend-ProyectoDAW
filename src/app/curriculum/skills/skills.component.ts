@@ -48,7 +48,7 @@ export class SkillsComponent implements OnInit {
 
     this.curriculumService.currentCurriculum$.subscribe(async (curriculum) => {
       //El valor inicial del behaviorSubject es un curriculum sin datos, cuya id es = 0, se debe evitar una petición al back con ese curriculum.
-      if (curriculum.idCurriculum != 0) {
+      if (curriculum.idCurriculum != "0") {
         this.skills = await this.skillsService.getSkills(
           curriculum.idCurriculum
         );
@@ -85,7 +85,7 @@ export class SkillsComponent implements OnInit {
         chart: {
           width: '100%',
           height: '350',
-          type: 'bar',
+          type: 'radar',
           toolbar: {
             show: false,
           },

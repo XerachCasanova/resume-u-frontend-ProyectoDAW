@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 import { MainComponent } from '../main/main.component';
-import { SignupComponent } from '../signup/signup.component';
+import { UsersFormComponent } from '../users/users-form.component';
 import { indexComponent } from './index.component';
 
 const routes: Routes = [
@@ -19,8 +19,8 @@ const routes: Routes = [
         component: LoginComponent,
       },
       {
-        path: 'signup',
-        component: SignupComponent,
+        path: 'usuario/signup',
+        component: UsersFormComponent
       },
     ],
   },

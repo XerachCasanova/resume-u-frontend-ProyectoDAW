@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ContactComponent } from 'src/app/curriculum/contact/contact.component';
 import { Curriculum } from '../../../core/models/interfaces/curriculum';
-import { Usuario } from '../../../core/models/interfaces/usuario';
+import { User } from '../../../core/models/interfaces/user';
 import { CurriculumService } from '../../curriculum.service';
 import { UsuariosService } from '../../usuarios.service';
 
@@ -13,7 +13,7 @@ import { UsuariosService } from '../../usuarios.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() usuario: Usuario;
+  @Input() usuario: User;
   @Input() curriculum: Curriculum;
   menuActivado = false;
 
@@ -24,9 +24,6 @@ export class HeaderComponent implements OnInit {
   }
   constructor(
     public contactDialog: MatDialog,
-    private curriculumService: CurriculumService,
-    private usuarioService: UsuariosService,
-    private router: Router
   ) {}
 
   async ngOnInit() {}

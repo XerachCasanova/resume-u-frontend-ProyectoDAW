@@ -14,12 +14,12 @@
       <a routerLink="login" class="container__content__menu__menu-item" *ngIf="!loginButtonHidden"
         ><mat-icon class="container__content__menu__menu-item__menu-icon">login</mat-icon><span>Entrar</span></a
       >
-      <a routerLink="signup" class="container__content__menu__menu-item"
+      <a routerLink="usuario/signup" class="container__content__menu__menu-item"  *ngIf="!signUpButtonHidden"
         ><mat-icon class="container__content__menu__menu-item__menu-icon">add_circle</mat-icon
         ><span>Soy nuevo</span></a
       >
     </nav>
-    <nav class="container__content__menu" *ngIf="isLogged">
+    <nav class="container__content__menu" *ngIf="isLogged ">
       <a routerLink="private" class="container__content__menu__menu-item"
         ><mat-icon class="container__content__menu__menu-item__menu-icon">account_circle</mat-icon
         ><span>Área privada</span></a

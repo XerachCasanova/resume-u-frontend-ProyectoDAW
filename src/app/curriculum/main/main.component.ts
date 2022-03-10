@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
-import { Usuario } from 'src/app/core/models/interfaces/usuario';
+import { User } from 'src/app/core/models/interfaces/user';
 import { CurriculumService } from '../curriculum.service';
 import { UsuariosService } from '../usuarios.service';
 @Component({
@@ -10,7 +10,7 @@ import { UsuariosService } from '../usuarios.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  usuario: Usuario;
+  usuario: User;
   curriculum: Curriculum;
 
   constructor(

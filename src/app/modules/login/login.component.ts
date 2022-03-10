@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/core/models/interfaces/login';
 import { HeaderService } from 'src/app/shared/header/header.service';
-import { usersService } from '../users/users.service';
 import { LoginService } from './login.service';
 import { TokenService } from './token.service';
 
@@ -57,9 +56,8 @@ export class LoginComponent {
       (user) => {
 
         this.tokenService.saveToken(user.token);
-        this.tokenService.saveRefreshToken(user.refresToken);
         this.tokenService.saveUser(user);
-        
+
         this.headerService.changeLoginState(true);
         this.spinnerOn=false;
         this.router.navigate(['']);
@@ -67,6 +65,7 @@ export class LoginComponent {
       (error) =>
         {
           this.spinnerOn=false;
+          this.tokenService.signOut();
           this.resetLogin();
           this.errorMsg =
           error.status === 400

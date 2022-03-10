@@ -15,15 +15,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersFormComponent } from './modules/users/users-form.component';
 import { usersFormModalComponent } from './modules/users/modals/users-form-modal.component';
-import { PostalCodeValidatorDirective } from './core/validators/custom.validator.component';
+import { ValidatorsModule } from './core/validators/validators.module';
+import { AuthInterceptorService } from './modules/login/auth.interceptor';
+import { RepeatPasswordValidatorDirective } from './core/validators/repeatpassword.component';
+import { PostalCodeValidatorDirective } from './core/validators/postalcode.validator';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, UsersFormComponent, usersFormModalComponent, PostalCodeValidatorDirective],
+  declarations: [AppComponent, LoginComponent, UsersFormComponent, usersFormModalComponent],
   imports: [
+    ValidatorsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
@@ -32,7 +36,6 @@ import { PostalCodeValidatorDirective } from './core/validators/custom.validator
     MatSelectModule,
     IndexModule,
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -41,7 +44,12 @@ import { PostalCodeValidatorDirective } from './core/validators/custom.validator
     MatIconModule,
     MatSelectModule,
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
+  exports: [RepeatPasswordValidatorDirective, PostalCodeValidatorDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

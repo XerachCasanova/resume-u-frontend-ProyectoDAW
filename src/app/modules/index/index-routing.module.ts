@@ -22,6 +22,11 @@ const routes: Routes = [
         path: 'usuario/signup',
         component: UsersFormComponent
       },
+      {
+        path: 'private',
+        loadChildren: () =>
+          import('../private/private.module').then((m) => m.PrivateModule),
+      },
     ],
   },
 ];

@@ -8,7 +8,7 @@ import { User } from 'src/app/core/models/interfaces/user';
 @Injectable({
   providedIn: 'root',
 })
-export class usersService {
+export class UsersService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
@@ -28,6 +28,13 @@ export class usersService {
     return this.http.post('http://localhost/curriculum-api/usuario', user)
 
   }
+
+  updateUser(user:User): Observable<any> {
+
+    return this.http.put('http://localhost/curriculum-api/usuario', user)
+
+  }
+
 
   checkDni(dni:string): Observable<any> {
 

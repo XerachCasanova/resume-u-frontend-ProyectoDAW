@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Login } from 'src/app/core/models/interfaces/login';
 import { Provincia } from 'src/app/core/models/interfaces/provincia';
 import { User } from 'src/app/core/models/interfaces/user';
-import { PostalCodeValidatorDirective } from 'src/app/core/validators/custom.validator.component';
-
 import { HeaderService } from 'src/app/shared/header/header.service';
-import { usersService } from '../users/users.service';
+import { UsersService } from '../users/users.service';
 import { usersFormModalComponent } from './modals/users-form-modal.component';
 import { provinciasService } from './provincias.service';
 
@@ -21,14 +18,14 @@ export class UsersFormComponent {
   formUserGroup: FormGroup;
   usuario!: User;
   errorMsg: string;
-  provinces: Provincia[];
+  provinces: Provincia[]=[];
   selectedProvince: Provincia | undefined;
   spinnerOn=false;
   constructor(
     private fb: FormBuilder,
     private headerService: HeaderService,
     private activatedRoute: ActivatedRoute,
-    private usersService: usersService,
+    private usersService: UsersService,
     private provinciasService: provinciasService,
     private usersFormDialog: MatDialog
   ) {
@@ -48,6 +45,8 @@ export class UsersFormComponent {
     });
 
     this.formUserGroup = this.fb.group(this.usuario);
+    this.formUserGroup.addControl('repeatPassword', this.fb.control('', Validators.required))
+
     this.formUserGroup.get('nombre')?.setValidators(Validators.required);
     this.formUserGroup.get('apellidos')?.setValidators(Validators.required);
     this.formUserGroup
@@ -73,6 +72,7 @@ export class UsersFormComponent {
       ?.setValidators([
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+
       ]);
     this.formUserGroup.get('password')?.setValidators(Validators.required);
     this.formUserGroup
@@ -117,7 +117,6 @@ export class UsersFormComponent {
   }
 
   onCheckableInputChange($event: any, valueToCheck:string) {
-    console.log(this.formUserGroup.get('cp')?.errors)
     if ($event.target.value != '') {
       if(valueToCheck === 'dni') {
         this.usersService.checkDni($event.target.value).subscribe((resp) => {

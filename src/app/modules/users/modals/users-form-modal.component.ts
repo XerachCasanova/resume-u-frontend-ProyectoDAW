@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatFormFieldAppearance, MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { usersService } from '../users.service';
+import { UsersService } from '../users.service';
 
 export interface Contact {
   nombre: string;
@@ -28,7 +27,7 @@ export class usersFormModalComponent implements OnInit {
   activationDoneMsg:string;
   userConfirmed = false;
 
-  constructor(private usersService:usersService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private usersService:UsersService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
 

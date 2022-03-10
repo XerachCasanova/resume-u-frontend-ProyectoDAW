@@ -1,0 +1,74 @@
+<div class="header">
+  <div class="burger-button-menu" [ngClass]="{ 'menu-hidden': menuActivado }" (click)="activarMenu()">
+    <mat-icon>menu</mat-icon>
+  </div>
+  <nav
+      class="header__header-content__menu"
+      [ngClass]="{ 'menu-hidden': !menuActivado }"
+    >
+      <a
+        class="header__header-content__menu__link"
+        routerLink="user-data"
+        (click)="activarMenu()"
+        ><span
+          ><span
+            class="header__header-content__menu__link__button-text first-letter-uppercase"
+            >datos personales</span
+          ></span
+        ></a
+      >
+      <a
+        class="header__header-content__menu__link"
+        routerLink="aboutme"
+        (click)="activarMenu()"
+        ><span
+          ><span
+            class="header__header-content__menu__link__button-text first-letter-uppercase"
+            >acerca de</span
+          ></span
+        ></a
+      >
+      <a
+        class="header__header-content__menu__link"
+        routerLink="languages"
+        (click)="activarMenu()"
+        ><span
+          ><span
+            class="header__header-content__menu__link__button-text first-letter-uppercase"
+            >Idiomas</span
+          ></span
+        ></a
+      >
+      <a
+        class="header__header-content__menu__link"
+        routerLink="skills"
+        (click)="activarMenu()"
+        ><span
+          ><span class="header__header-content__menu__link__button-text"
+            >habilidades</span
+          ></span
+        ></a
+      >
+      <a
+        class="header__header-content__menu__link"
+        routerLink="experience"
+        (click)="activarMenu()"
+        ><span
+          ><span class="header__header-content__menu__link__button-text"
+            >experiencia</span
+          ></span
+        ></a
+      >
+      <a
+        class="header__header-content__menu__link"
+        routerLink="education"
+
+        ><span
+          ><span class="header__header-content__menu__link__button-text"
+            >formación</span
+          ></span
+        ></a
+      >
+    </nav>
+</div>
+<router-outlet></router-outlet>

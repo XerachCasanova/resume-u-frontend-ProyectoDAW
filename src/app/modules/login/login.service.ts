@@ -17,9 +17,10 @@ export class LoginService {
 
   login(user: Login): Observable<any> {
 
-    return this.http.post('http://localhost/curriculum-api/auth', user)
+    return this.http.post('http://localhost/curriculum-api/auth', user);
 
   }
+
 
   refreshToken(token: string){
 
@@ -33,11 +34,5 @@ export class LoginService {
     return this.http.post('https://reqres.in/api/register', user);
   }
 
-  setToken(token: String) {
-    localStorage.set('token', token);
-  }
 
-  getToken() {
-    return localStorage.get('token');
-  }
 }

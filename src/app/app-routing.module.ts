@@ -7,7 +7,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/index/index.module').then((m) => m.IndexModule),
   },
-
   {
     path: ':alias',
     loadChildren: () =>

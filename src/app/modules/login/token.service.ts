@@ -13,7 +13,7 @@ const USER_KEY = 'auth-user';
 })
 export class TokenService {
 
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
   signOut(){ //Cierra sesión
     localStorage.clear();
@@ -26,14 +26,21 @@ export class TokenService {
     if(this.getUser()) this.saveUser({...this.getUser(), accessToken: token}); //Añade el token al usuario.
   }
 
-  public saveRefreshToken(token: string): void { //Elimina el refreshtoken existente y añade el nuevo token que se pasa por parámetro.
+  checkToken(){
+
+    return this.http.get('http://localhost/curriculum-api/checkToken');
+  }
+
+  /*public saveRefreshToken(token: string): void { //Elimina el refreshtoken existente y añade el nuevo token que se pasa por parámetro.
+
+    console.log(token)
     localStorage.removeItem(REFRESHTOKEN_KEY);
     localStorage.setItem(REFRESHTOKEN_KEY, token);
   }
 
   public getRefreshToken(): string | null { //Devuelve el refrestoken o un nulo si no hay token.
-    return window.sessionStorage.getItem(REFRESHTOKEN_KEY);
-  }
+    return localStorage.getItem(REFRESHTOKEN_KEY);
+  }*/
 
   getToken(): string | null { //Devuelve el token o un nulo si no hay token.
     return localStorage.getItem(TOKEN_KEY);

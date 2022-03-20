@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { User } from 'src/app/core/models/interfaces/user';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -13,44 +14,50 @@ export class UsersService {
 
   getUsers(): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/usuario')
+    return this.http.get(environment.apiUrl+'usuario')
 
   }
 
   getUser(idUsuario:string): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/usuario?id=' + idUsuario)
+    return this.http.get(environment.apiUrl+'usuario?id=' + idUsuario)
 
   }
 
   createUser(user:User): Observable<any> {
 
-    return this.http.post('http://localhost/curriculum-api/usuario', user)
+    return this.http.post(environment.apiUrl+'usuarioa', user)
+
+  }
+
+  generateActivationCode(user:User): Observable<any> {
+
+    return this.http.put(environment.apiUrl+'usuario?activarUsuario='+user.idUsuario, user)
 
   }
 
   updateUser(user:User): Observable<any> {
 
-    return this.http.put('http://localhost/curriculum-api/usuario', user)
+    return this.http.put(environment.apiUrl+'usuario', user)
 
   }
 
 
   checkDni(dni:string): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/usuario?dni='+ dni);
+    return this.http.get(environment.apiUrl+'usuario?dni='+ dni);
 
   }
 
   checkEmail(email:string): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/usuario?email='+ email);
+    return this.http.get(environment.apiUrl+'usuario?email='+ email);
 
   }
 
   activateUser(activationCode:string, idUsuario:string): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/usuario?activationCode='+ activationCode + '&id='+idUsuario);
+    return this.http.get(environment.apiUrl+'usuario?activationCode='+ activationCode + '&id='+idUsuario);
 
   }
 

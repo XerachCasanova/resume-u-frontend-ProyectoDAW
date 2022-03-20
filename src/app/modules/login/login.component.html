@@ -42,7 +42,7 @@
               <button
               mat-raised-button
               color="primary"
-              [disabled]="formLoginGroup.invalid"
+              [disabled]="formLoginGroup.invalid || spinnerOn"
             >
               Login
             </button>

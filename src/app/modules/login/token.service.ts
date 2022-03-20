@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Login } from 'src/app/core/models/interfaces/login';
-import me from 'src/app/curriculum/mockedData/me.json';
+import { environment } from 'src/environments/environment';
 
 const TOKEN_KEY = 'auth-token';
 const REFRESHTOKEN_KEY = 'auth-refreshtoken';
@@ -28,7 +26,7 @@ export class TokenService {
 
   checkToken(){
 
-    return this.http.get('http://localhost/curriculum-api/checkToken');
+    return this.http.get(environment.apiUrl+'checkToken');
   }
 
   /*public saveRefreshToken(token: string): void { //Elimina el refreshtoken existente y añade el nuevo token que se pasa por parámetro.

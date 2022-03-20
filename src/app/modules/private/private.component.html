@@ -1,15 +1,30 @@
 <div class="header">
-  <div class="burger-button-menu" [ngClass]="{ 'menu-hidden': menuActivado }" (click)="activarMenu()">
+  <div *ngIf="curriculumCreated" class="burger-button-menu" [ngClass]="{ 'menu-hidden': menuActivado }" (click)="activarMenu('')">
     <mat-icon>menu</mat-icon>
   </div>
   <nav
+      *ngIf="curriculumCreated"
       class="header__header-content__menu"
       [ngClass]="{ 'menu-hidden': !menuActivado }"
+
     >
+    <a
+        class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'configuration' }"
+        routerLink="configuration"
+        (click)="activarMenu('configuration')"
+        ><span
+          ><span
+            class="header__header-content__menu__link__button-text first-letter-uppercase"
+            >Configuración</span
+          ></span
+        ></a
+      >
       <a
         class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'user-data' }"
         routerLink="user-data"
-        (click)="activarMenu()"
+        (click)="activarMenu('user-data')"
         ><span
           ><span
             class="header__header-content__menu__link__button-text first-letter-uppercase"
@@ -19,19 +34,21 @@
       >
       <a
         class="header__header-content__menu__link"
-        routerLink="aboutme"
-        (click)="activarMenu()"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'interesting-data' }"
+        routerLink="interesting-data"
+        (click)="activarMenu('interesting-data')"
         ><span
           ><span
             class="header__header-content__menu__link__button-text first-letter-uppercase"
-            >acerca de</span
+            >Datos de interés</span
           ></span
         ></a
       >
       <a
         class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'languages' }"
         routerLink="languages"
-        (click)="activarMenu()"
+        (click)="activarMenu('languages')"
         ><span
           ><span
             class="header__header-content__menu__link__button-text first-letter-uppercase"
@@ -42,7 +59,8 @@
       <a
         class="header__header-content__menu__link"
         routerLink="skills"
-        (click)="activarMenu()"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'skills' }"
+        (click)="activarMenu('skills')"
         ><span
           ><span class="header__header-content__menu__link__button-text"
             >habilidades</span
@@ -52,7 +70,8 @@
       <a
         class="header__header-content__menu__link"
         routerLink="experience"
-        (click)="activarMenu()"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'experience' }"
+        (click)="activarMenu('experience')"
         ><span
           ><span class="header__header-content__menu__link__button-text"
             >experiencia</span
@@ -61,8 +80,9 @@
       >
       <a
         class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'education' }"
         routerLink="education"
-
+        (click)="activarMenu('education')"
         ><span
           ><span class="header__header-content__menu__link__button-text"
             >formación</span

@@ -1,113 +1,155 @@
-
-  <div class="container">
-    <div class="container__content">
-      <header>
-        <h1>Idiomas</h1>
-      </header>
-      <h2>Añadir idioma</h2>
-      <form [formGroup]="formLanguageGroup" (ngSubmit)="onSubmit()">
-
-        <div class="container__content__form" *ngIf="languages">
-          <div class="container__content__form__row">
-            <div class="container__content__form__row__col input-small">
-              <mat-form-field appearance="fill" >
-                <mat-label>Idioma</mat-label>
-                <mat-select formControlName="idIdioma" >
-                  <mat-option *ngFor="let language of languages" [value]="language.idIdioma">
-                    {{language.idioma}}
-                  </mat-option>
-                </mat-select>
-                <mat-error
-                  *ngIf="formLanguageGroup.controls['idIdioma'].hasError('required')"
-                  >Campo obligatorio.</mat-error
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Idiomas</h1>
+    </header>
+    <div class="curriculum-link"><div class="curriculum-link__item" (click)="goToCurriculum()"><mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum</div></div>
+    <h2>Añadir idioma</h2>
+    <form [formGroup]="formLanguageGroup" (ngSubmit)="onSubmit()" *ngIf="languageToAdd">
+      En la parte destacable de tu currículum, junto con los datos de interés y
+      la sección "Acerca De", se listarán los idiomas que sabes. Selecciona el
+      nivel de cada idioma que consideres que se ajusta más a tu perfil.
+      <div class="container__content__form" *ngIf="languages">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col input-small">
+            <mat-form-field appearance="fill">
+              <mat-label>Idioma</mat-label>
+              <mat-select formControlName="idIdioma">
+                <mat-option
+                  *ngFor="let language of languages"
+                  [value]="language.idIdioma"
                 >
-              </mat-form-field>
-            </div>
-            <div class="container__content__form__row__col input-large">
-              <mat-form-field appearance="fill">
-                <mat-label>Nivel</mat-label>
-                <mat-select formControlName="nivel" >
-                  <mat-option [value]="'Hablado: Alto. Escrito: Alto'">
-                    Hablado: Alto, Escrito: Alto
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Alto. Escrito: Medio'">
-                    Hablado: Alto. Escrito: Medio
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Alto. Escrito: Bajo'">
-                    Hablado: Alto. Escrito: Bajo
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Medio. Escrito: Alto'">
-                    Hablado: Medio. Escrito: Alto
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Medio. Escrito: Medio'">
-                    Hablado: Medio. Escrito: Medio
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Medio. Escrito: Bajo'">
-                    Hablado: Medio. Escrito: Bajo
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Bajo. Escrito: Alto'">
-                    Hablado: Bajo. Escrito: Alto
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Bajo. Escrito: Medio'">
-                    Hablado: Bajo. Escrito: Medio
-                  </mat-option>
-                  <mat-option [value]="'Hablado: Bajo. Escrito: Bajo'">
-                    Hablado: Bajo. Escrito: Bajo
-                  </mat-option>
-                </mat-select>
-                <mat-error
-                  *ngIf="formLanguageGroup.controls['nivel'].hasError('required')"
-                  >Campo obligatorio.</mat-error
-                >
-              </mat-form-field>
-            </div>
-
+                  {{ language.idioma }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  formLanguageGroup.controls['idIdioma'].hasError('required')
+                "
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
           </div>
-
-          <div class="container__content__form__actions">
-            <div>
-              <mat-dialog-actions class="container__content__form__actions__button">
-                <button
-                  mat-raised-button
-                  color="primary"
-                  [disabled]="formLanguageGroup.invalid || spinnerOn"
-                >
-                  Añadir
-                </button>
-              </mat-dialog-actions>
-            </div>
-            <div class='spinner' *ngIf="spinnerOn"></div>
-            <span> {{ errorMsg }}</span>
+          <div class="container__content__form__row__col input-large">
+            <mat-form-field appearance="fill">
+              <mat-label>Nivel</mat-label>
+              <mat-select formControlName="nivel">
+                <mat-option [value]="'Hablado: Alto. Escrito: Alto'">
+                  Hablado: Alto, Escrito: Alto
+                </mat-option>
+                <mat-option [value]="'Hablado: Alto. Escrito: Medio'">
+                  Hablado: Alto. Escrito: Medio
+                </mat-option>
+                <mat-option [value]="'Hablado: Alto. Escrito: Bajo'">
+                  Hablado: Alto. Escrito: Bajo
+                </mat-option>
+                <mat-option [value]="'Hablado: Medio. Escrito: Alto'">
+                  Hablado: Medio. Escrito: Alto
+                </mat-option>
+                <mat-option [value]="'Hablado: Medio. Escrito: Medio'">
+                  Hablado: Medio. Escrito: Medio
+                </mat-option>
+                <mat-option [value]="'Hablado: Medio. Escrito: Bajo'">
+                  Hablado: Medio. Escrito: Bajo
+                </mat-option>
+                <mat-option [value]="'Hablado: Bajo. Escrito: Alto'">
+                  Hablado: Bajo. Escrito: Alto
+                </mat-option>
+                <mat-option [value]="'Hablado: Bajo. Escrito: Medio'">
+                  Hablado: Bajo. Escrito: Medio
+                </mat-option>
+                <mat-option [value]="'Hablado: Bajo. Escrito: Bajo'">
+                  Hablado: Bajo. Escrito: Bajo
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="formLanguageGroup.controls['nivel'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
           </div>
-
         </div>
-      </form>
-      <div class="container__content__table mt-20">
-        <table mat-table [dataSource]="languagesCurriculum" class="mat-elevation-z8">
 
-          <ng-container matColumnDef="idioma">
-            <th mat-header-cell *matHeaderCellDef> Idioma </th>
-            <td mat-cell *matCellDef="let language"> {{language.idioma}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="nivel">
-            <th mat-header-cell *matHeaderCellDef> Nivel </th>
-            <td mat-cell *matCellDef="let language"> {{language.nivel}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let language"> <mat-icon (click)="onDeleteClick(language)">delete</mat-icon> </td>
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
+        <div class="container__content__form__actions">
+          <div>
+            <mat-dialog-actions
+              class="container__content__form__actions__button"
+            >
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="formLanguageGroup.invalid || spinnerOn"
+              >
+                Añadir
+              </button>
+            </mat-dialog-actions>
+          </div>
+          <div class="spinner" *ngIf="spinnerOn"></div>
+          <span> {{ errorMsg }}</span>
+        </div>
       </div>
+    </form>
+    <div class="container__content__table mt-20" *ngIf="!isSmallScreen && languagesCurriculum.length > 0">
+      <table
+        mat-table
+        [dataSource]="languagesCurriculum"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="idioma">
+          <th mat-header-cell *matHeaderCellDef>Idioma</th>
+          <td mat-cell *matCellDef="let language">{{ language.idioma }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nivel">
+          <th mat-header-cell *matHeaderCellDef>Nivel</th>
+          <td mat-cell *matCellDef="let language">{{ language.nivel }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell class="link-pointer" *matCellDef="let language">
+            <mat-icon (click)="onDeleteClick(language)">delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
+    <div class="container__content__table mt-20" *ngIf="isSmallScreen && languagesCurriculum.length > 0">
+      <table
+        mat-table
+        [dataSource]="languagesCurriculum"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="info">
+          <th mat-header-cell *matHeaderCellDef>Info</th>
+          <td mat-cell *matCellDef="let language">
+            <div><span>Idioma </span></div>
+            <div class="mb-10">{{ language.idioma }}</div>
+            <div><span>Nivel </span></div>
+            <div class="mb-10">{{ language.nivel }}</div>
+          </td>
+        </ng-container>
 
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell class="link-pointer" *matCellDef="let language">
+            <div class="actions">
+              <mat-icon (click)="onDeleteClick(language)">delete</mat-icon>
+            </div>
+          </td>
+        </ng-container>
 
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSmallScreen"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumnsSmallScreen"
+        ></tr>
+      </table>
+    </div>
+    <div class="container__content__no-table" *ngIf="chargeCompleted && languagesCurriculum.length === 0">
+      Aún no tienes ningún idioma añadido a tu currículum
+    </div>
+  </div>
 </div>
-

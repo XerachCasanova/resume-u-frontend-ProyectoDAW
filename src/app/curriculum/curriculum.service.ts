@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Curriculum } from '../core/models/interfaces/curriculum';
-import curriculumsJson from './mockedData/curriculum.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CurriculumService {
   public curriculum: Curriculum = {
+    esPrivado: false,
+    tipoHabilidades: '',
     acercaDe: '',
     alias: '',
     datosInteres: [],
     foto: '',
-    gamaColores: 0,
+    gamaColores: '',
     habilidadesUnicas: [],
     idUsuario: '',
     idiomas: [],
@@ -35,27 +37,36 @@ export class CurriculumService {
 
   getCurriculums(idUsuario: string): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/curriculum?idUsuario='+idUsuario);
+    return this.http.get(environment.apiUrl+'curriculum?idUsuario='+idUsuario);
 
   }
 
+  getCurriculumByAlias(alias: string): Observable<any> {
+
+    return this.http.get(environment.apiUrl+'curriculum?alias='+alias);
+
+  }
+
+  checkAlias(alias: string, idCurriculum: string): Observable<any> {
+
+    return this.http.get(environment.apiUrl+'curriculum?alias='+alias+'&idCurriculum='+idCurriculum);
+
+  }
+
+
+
   createCurriculum(curriculum: Curriculum): Observable<any> {
 
-    return this.http.post('http://localhost/curriculum-api/curriculum', curriculum);
+    return this.http.post(environment.apiUrl+'curriculum', curriculum);
 
   }
 
   updateCurriculum(curriculum: any): Observable<any> {
 
-    return this.http.put('http://localhost/curriculum-api/curriculum', curriculum);
+    return this.http.put(environment.apiUrl+'curriculum', curriculum);
 
   }
 
 
-  async getCurriculum(alias: string): Promise<any> {
-    const curriculums = curriculumsJson as Curriculum[];
-    return curriculums.find(
-      (curriculum: Curriculum) => curriculum.alias === alias
-    );
-  }
+
 }

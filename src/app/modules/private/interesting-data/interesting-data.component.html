@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Datos de interés</h1>
+    </header>
+    <div class="curriculum-link"><div class="curriculum-link__item" (click)="goToCurriculum()"><mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum</div></div>
+    <h2>Añadir dato de interés</h2>
+    En la parte destacable de tu currículum, junto con los idiomas y el apartado
+    "Acerca De", se listarán los datos de interés que consideres. Ej.: Movilidad
+    geográfica, Disponibilidad horaria, Carnet de conducir, etc...
+    <form [formGroup]="formInterestingDataGroup" (ngSubmit)="onSubmit()">
+      <div class="container__content__form" *ngIf="interestingDataToAdd">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Descripción</mat-label>
+              <input
+                matInput
+                placeholder="Descripción Datos de interés"
+                formControlName="descripcion"
+              />
+              <mat-error
+                *ngIf="
+                  formInterestingDataGroup.controls['descripcion'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  formInterestingDataGroup.controls['descripcion'].hasError(
+                    'maxlength'
+                  )
+                "
+                >Longitud máxima:
+                {{ maxLengthDescription }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="container__content__form__actions">
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="formInterestingDataGroup.invalid || spinnerOn"
+                >
+                  Guardar
+                </button>
+              </mat-dialog-actions>
+            </div>
+
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  type="button"
+                  mat-raised-button
+                  color="primary"
+                  (click)="resetForm()"
+                >
+                  Resetear
+                </button>
+              </mat-dialog-actions>
+            </div>
+            <div class="spinner" *ngIf="spinnerOn"></div>
+            <span> {{ errorMsg }}</span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="container__content__table mt-20" *ngIf="interestingData.length > 0">
+      <table mat-table [dataSource]="interestingData" class="mat-elevation-z8">
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>Dato de Interés</th>
+          <td mat-cell *matCellDef="let interesting">
+            {{ interesting.descripcion }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let interesting">
+            <mat-icon
+              class="mat-icon link-pointer"
+              (click)="onDeleteClick(interesting)"
+              >delete</mat-icon
+            >
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div
+      class="container__content__no-table"
+      *ngIf="chargeCompleted && interestingData.length === 0"
+    >
+      Aún no tienes ningún dato de interés añadido en tu currículum
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { User } from 'src/app/core/models/interfaces/user';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -13,38 +14,38 @@ export class LanguageService {
 
   getLanguages(): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/idioma')
+    return this.http.get(environment.apiUrl+'idioma')
 
   }
 
 
   createLanguage(language:any): Observable<any> {
 
-    return this.http.post('http://localhost/curriculum-api/idioma', language)
+    return this.http.post(environment.apiUrl+'idioma', language)
 
   }
 
   createLanguageCurriculum(language:any): Observable<any> {
 
-    return this.http.post('http://localhost/curriculum-api/idioma?idCurriculum='+language.idCurriculum, language)
+    return this.http.post(environment.apiUrl+'idioma?idCurriculum='+language.idCurriculum, language)
 
   }
 
   updateLanguage(language:any): Observable<any> {
 
-    return this.http.put('http://localhost/curriculum-api/idioma', language)
+    return this.http.put(environment.apiUrl+'idioma', language)
 
   }
 
   deleteLanguage(language:any): Observable<any> {
 
-    return this.http.delete('http://localhost/curriculum-api/idioma', language)
+    return this.http.delete(environment.apiUrl+'idioma', language)
 
   }
 
   deleteLanguageCurriculum(language:any): Observable<any> {
 
-    return this.http.delete('http://localhost/curriculum-api/idioma?idRelIdiomaCurriculum='+language.idRelIdiomaCurriculum, language)
+    return this.http.delete(environment.apiUrl+'idioma?idRelIdiomaCurriculum='+language.idRelIdiomaCurriculum)
 
   }
 

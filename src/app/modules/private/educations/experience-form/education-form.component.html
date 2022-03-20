@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Formación</h1>
+    </header>
+
+    <h2>{{ titleForm }}</h2>
+
+    <form
+      [formGroup]="formEducationGroup"
+      (ngSubmit)="onSubmit()"
+      *ngIf="education"
+    >
+      <!-- CAMPOS NOMBRE Y APELLIDOS -->
+      <div class="container__content__form">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col input-large">
+            <mat-form-field appearance="fill">
+              <mat-label>Titulación</mat-label>
+              <input
+                matInput
+                placeholder="Titulación"
+                formControlName="titulo"
+              />
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['titulo'].hasError('required')
+                "
+                >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['titulo'].hasError('maxlength')
+                "
+                >Máximo: {{ lengthForm.titulo }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Centro</mat-label>
+              <input matInput placeholder="Centro" formControlName="centro" />
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['centro'].hasError('required')
+                "
+                >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['centro'].hasError('maxlength')
+                "
+                >Máximo: {{ lengthForm.centro }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS DESCRIPCIÓN Y TAREAS-->
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Descripción del curso</mat-label>
+              <textarea
+                placeholder="Añade una pequeña descripción de tu puesto."
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="4"
+                matInput
+                formControlName="descripcion"
+              ></textarea>
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['descripcion'].hasError(
+                    'maxlength'
+                  )
+                "
+                >Máximo: {{ lengthForm.descripcion }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- FECHAS DE COMIENZO Y FINALIZACIÓN -->
+
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de comienzo</mat-label>
+              <input
+                type="date"
+                matInput
+                placeholder="Fecha de comienzo"
+                formControlName="fechaComienzo"
+                (change) = checkEndingDate()
+              />
+
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['fechaComienzo'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col input-small">
+            <mat-checkbox
+              [checked]="cursandoActualmente"
+              (change)="onCoursingNowadaysClick()"
+              >Cursando actualmente</mat-checkbox
+            >
+          </div>
+          <div
+            class="container__content__form__row__col"
+            *ngIf="!cursandoActualmente"
+          >
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de finalización</mat-label>
+              <input
+                type="date"
+                matInput
+                placeholder="Fecha de finalización"
+                formControlName="fechaFinalizacion"
+                (change)="checkEndingDate()"
+              />
+
+              <mat-error
+                *ngIf="
+                  formEducationGroup.controls['fechaFinalizacion'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="container__content__form__actions">
+          <div>
+            <mat-dialog-actions
+              class="container__content__form__actions__button"
+            >
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="formEducationGroup.invalid || spinnerOn"
+              >
+                {{ isAdding ? "Añadir" : "Modificar" }}
+              </button>
+            </mat-dialog-actions>
+          </div>
+          <div class="spinner" *ngIf="spinnerOn"></div>
+          <span> {{ errorMsg }}</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

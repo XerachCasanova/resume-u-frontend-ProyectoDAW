@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ContactModule } from './contact/contact.module';
 import { CommonModule } from '@angular/common';
 import { CurriculumService } from './curriculum.service';
+import { GeneralInfoModule } from './general-info/general-info.module';
 
 @NgModule({
   declarations: [CurriculumComponent],
@@ -16,6 +17,7 @@ import { CurriculumService } from './curriculum.service';
     CommonModule,
     FormsModule,
     CurriculumRoutingModule,
+    GeneralInfoModule,
     ContactModule,
     SharedModule,
     MainModule,

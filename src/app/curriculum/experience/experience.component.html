@@ -1,17 +1,18 @@
-<section>
+
+  <section>
   <header>
     <h1>Experiencia</h1>
   </header>
   <div class="cards">
-    <div class="cards__card" *ngFor="let exp of experience">
+    <div [ngClass]="experiences.length===2 ? 'cards__card-2-items' : 'cards__card' " *ngFor="let exp of experiences">
       <mat-card>
         <mat-card-title class="cards__card__title">
           {{ exp.empresa }}
         </mat-card-title>
         <mat-card-subtitle class="cards__card__subtitle">
-          Desde: {{ exp.fechaComienzo }}
-          <span *ngIf="exp.fechaFinalizacion !== ''"
-            >| Hasta: {{ exp.fechaFinalizacion }}
+          Desde: {{ exp.fechaComienzo | date: 'dd/MM/yyyy' }}
+          <span *ngIf="exp.fechaFinalizacion"
+            >| Hasta: {{ exp.fechaFinalizacion | date: 'dd/MM/yyyy' }}
           </span>
         </mat-card-subtitle>
         <mat-card-content class="cards__card__position">
@@ -24,16 +25,13 @@
           <span class="cards__card__tasks__titleTasks"
             >Tareas a desempeñar:</span
           >
-          <ul>
-            <li
-              class="cards__card__tasks__list"
-              *ngFor="let tarea of exp.tareas"
-            >
-              {{ tarea }}
-            </li>
-          </ul>
+          <span class="cards__card__tasks__list">
+            {{ exp.tareas }}
+          </span>
+
         </mat-card-content>
       </mat-card>
     </div>
   </div>
 </section>
+

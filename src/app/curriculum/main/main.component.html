@@ -1,6 +1,6 @@
-<ng-container *ngIf="curriculum">
+<ng-container *ngIf="curriculum && user">
   <curriculum-header
-    [usuario]="usuario"
+    [user]="user"
     [curriculum]="curriculum"
   ></curriculum-header>
   <div class="container-right">
@@ -12,5 +12,5 @@
 </ng-container>
 
 <ng-container *ngIf="!curriculum">
-  <div>CREAR PÁGINA SI NO SE ENCUENTRA UN CURRICULUM</div>
+  <div></div>
 </ng-container>

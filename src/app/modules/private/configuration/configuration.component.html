@@ -1,0 +1,253 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Información general</h1>
+    </header>
+    <div class="curriculum-link">
+      <div class="curriculum-link__item" (click)="goToCurriculum()">
+        <mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum
+      </div>
+    </div>
+    <div>
+      <p>
+        Algunos parámetros de configuración afectarán a la visualización final
+        del mismo. Si no deseas subir una foto, se mostrará una imagen genérica
+        en su lugar. El alias es la url a la que podrás acceder para ver tu
+        currículum. Ej.: www.resumeu.es/FranciscoAlvarez-abogado.
+      </p>
+      <p>
+        Puedes elegir la gama de colores y la manera en la que se visualizarán
+        tus habilidades. Prueba a guardar cambios y visualizar tu currículum
+        hasta que logres el aspecto deseado.
+      </p>
+    </div>
+
+    <!-- CONFIGURACIÓN DEL CURRICULUM-->
+
+    <div class="container__content__logo" *ngIf="curriculum.foto !== ''">
+      <img
+        class="container__content__logo__pic"
+        [src]="apiUrl + curriculum.foto"
+      />
+    </div>
+
+    <div class="container__content__form">
+      <div class="container__content__form__row__col">
+        <div>
+          <button mat-flat-button color="primary">
+            Subir foto...
+            <input
+              (change)="onChargePicture($event)"
+              style="
+                opacity: 0;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+              "
+              type="file"
+            />
+          </button>
+          <span class="ml-10">{{
+            imageCompany && (imageCompany?.name ?? (imageCompany.name | json))
+          }}</span>
+        </div>
+        <div class="spinner" *ngIf="spinnerImageOn"></div>
+      </div>
+    </div>
+    <div class="mt-20">
+      <h2>Configuración del currículum</h2>
+      <form
+        [formGroup]="formCurriculumGroup"
+        (ngSubmit)="onCurriculumConfigSubmit()"
+        *ngIf="chargeForm"
+      >
+        <!-- ALIAS Y PROFESION -->
+        <div class="container__content__form">
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Alias</mat-label>
+                <input matInput placeholder="alias" formControlName="alias" (change)="checkAlias()" />
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['alias'].hasError('required')
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['alias'].hasError('pattern')
+                  "
+                  >El alias debe contenter solamente números, letras (sin tildes) y guiones. Los guiones no pueden estar al principio o al final. Tampoco pueden haber más de un guión consecutivo.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['alias'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.alias }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Profesión</mat-label>
+                <input
+                  matInput
+                  placeholder="profesion"
+                  formControlName="profesion"
+                />
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['profesion'].hasError(
+                      'required'
+                    )
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['profesion'].hasError(
+                      'maxlength'
+                    )
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.profesion }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- CAMPOS WEB -->
+
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Web</mat-label>
+                <input matInput placeholder="Web" formControlName="web" />
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['web'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres: {{ lengthForm.web }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- CAMPOS GAMA DE COLORES Y TIPO DE HABILIDADES Y ES PRIVADO -->
+
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Gama de colores</mat-label>
+                <mat-select formControlName="gamaColores">
+                  <mat-option [value]="'Verde'"> Verde </mat-option>
+                  <mat-option [value]="'Azul'"> Azul </mat-option>
+                  <mat-option [value]="'Rosa'"> Rosa </mat-option>
+                  <mat-option [value]="'Naranja'"> Naranja </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['gamaColores'].hasError(
+                      'required'
+                    )
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Apariencia de habilidades</mat-label>
+                <mat-select formControlName="tipoHabilidades">
+                  <mat-option [value]="'no-levels'">
+                    Listado de conocimientos sin niveles.
+                  </mat-option>
+                  <mat-option [value]="'basic'">
+                    Con barras según nivel de conocimientos.
+                  </mat-option>
+                  <mat-option [value]="'bar'">
+                    Estadísticas tipo barras.
+                  </mat-option>
+                  <mat-option [value]="'radar'">
+                    Estadísticas tipo radar.
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['tipoHabilidades'].hasError(
+                      'required'
+                    )
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col" *ngIf="isPrivate">
+              <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  placeholder="Password"
+                  formControlName="password"
+                />
+                <mat-error
+                  *ngIf="
+                    formCurriculumGroup.controls['password'].hasError(
+                      'maxlength'
+                    )
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.password }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-checkbox [checked]="isPrivate" (change)="onIsPrivateClick()"
+                >Proteger con contraseña</mat-checkbox
+              >
+            </div>
+          </div>
+
+          <div class="container__content__form__actions">
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="formCurriculumGroup.invalid || spinnerOn"
+                >
+                  Guardar
+                </button>
+              </mat-dialog-actions>
+            </div>
+
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  type="button"
+                  mat-raised-button
+                  color="primary"
+                  (click)="resetForm()"
+                >
+                  Resetear
+                </button>
+              </mat-dialog-actions>
+            </div>
+            <div class="spinner" *ngIf="spinnerOn"></div>
+            <span> {{ errorMsg }}</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

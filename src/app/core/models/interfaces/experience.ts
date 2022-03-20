@@ -1,9 +1,11 @@
 export interface Experience {
+  idExperiencia?: string;
   empresa: string;
-  logo: string;
   cargo: string;
+  logo?: string;
   descripcion: string;
   tareas: string;
-  fechaComienzo: string; //cambiar a date más adelante,
-  fechaFinalizacion: string; //cambiar a date más adelante
+  fechaComienzo: string;
+  fechaFinalizacion: string | null;
+  idCurriculum: string;
 }

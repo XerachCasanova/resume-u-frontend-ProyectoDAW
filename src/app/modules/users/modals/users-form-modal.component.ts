@@ -36,15 +36,15 @@ export class usersFormModalComponent implements OnInit {
   }
 
   onInputActivate($event:any){
-    console.log(this.data)
     this.usersService.activateUser($event.target.value, this.data.idUsuario).subscribe(resp => {
       if(resp) {
-        this.activationDoneMsg ="¡Enhorabuena!, has activado tu cuenta de usuario. Serás redirigido en 5 segundos.";
+        this.activationDoneMsg ="¡Enhorabuena!, has activado tu cuenta de usuario. Vuelve a iniciar sesión y podrás acceder a tu configuración.";
         this.userConfirmed=true;
       }
 
     })
   }
+
 
 
 }

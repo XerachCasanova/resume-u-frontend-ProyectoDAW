@@ -2,34 +2,43 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
 import { User } from 'src/app/core/models/interfaces/user';
+import { UsersService } from 'src/app/modules/users/users.service';
 import { CurriculumService } from '../curriculum.service';
-import { UsuariosService } from '../usuarios.service';
+
 @Component({
   selector: 'curriculum-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  usuario: User;
+  user: User;
   curriculum: Curriculum;
 
   constructor(
-    private usuarioService: UsuariosService,
+    private usersService: UsersService,
     private curriculumService: CurriculumService,
     private activateRoute: ActivatedRoute
   ) {}
 
   async ngOnInit() {
+
     this.activateRoute.params.subscribe(async (params) => {
       const alias = params.alias;
+      this.curriculumService.getCurriculumByAlias(alias).subscribe(async curriculums => {
+        this.curriculum = curriculums[0];
 
-      this.curriculum = await this.curriculumService.getCurriculum(alias);
-      if (this.curriculum) {
-        this.usuario = await this.usuarioService.getUsuario(
-          this.curriculum.idUsuario
-        );
-        this.curriculumService.changeCurriculum(this.curriculum);
-      }
+        if (this.curriculum) {
+          this.usersService.getUser(
+            this.curriculum.idUsuario
+          ).subscribe(user => {
+            this.user = user[0];
+
+            this.curriculumService.changeCurriculum(this.curriculum);
+          });
+
+        }
+      });
+
     });
   }
 }

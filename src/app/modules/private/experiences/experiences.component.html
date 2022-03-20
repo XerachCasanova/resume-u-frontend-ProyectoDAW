@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Experiencia laboral</h1>
+    </header>
+    <div class="curriculum-link"><div class="curriculum-link__item" (click)="goToCurriculum()"><mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum</div></div>
+    <div>
+      <mat-dialog-actions
+        (click)="onAddClick()"
+        class="container__content__form__actions__button"
+      >
+        <button mat-raised-button color="primary">
+          Añadir experiencia laboral
+        </button>
+      </mat-dialog-actions>
+    </div>
+    <div class="container__content__table mt-20" *ngIf="!isSmallScreen && experiences.length > 0">
+      <table mat-table [dataSource]="experiences" class="mat-elevation-z8">
+        <ng-container matColumnDef="empresa">
+          <th mat-header-cell *matHeaderCellDef>Empresa</th>
+          <td mat-cell *matCellDef="let experience">
+            {{ experience.empresa }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="cargo">
+          <th mat-header-cell *matHeaderCellDef>Cargo</th>
+          <td mat-cell *matCellDef="let experience">{{ experience.cargo }}</td>
+        </ng-container>
+        <ng-container matColumnDef="fechaComienzo">
+          <th mat-header-cell *matHeaderCellDef>Fecha Comienzo |</th>
+          <td mat-cell *matCellDef="let experience">
+            {{ experience.fechaComienzo | date: 'dd/MM/yyyy'  }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fechaFinalizacion">
+          <th mat-header-cell *matHeaderCellDef>Fecha Fin.</th>
+          <td mat-cell *matCellDef="let experience">
+            {{ experience.fechaFinalizacion | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let experience">
+            <mat-icon
+              class="mr-10 link-pointer"
+              (click)="onDeleteClick(experience)"
+              >delete</mat-icon
+            >
+            <mat-icon class="link-pointer" (click)="onUpdateClick(experience)"
+              >update</mat-icon
+            >
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="container__content__table mt-20" *ngIf="isSmallScreen && experiences.length > 0">
+      <table mat-table [dataSource]="experiences" class="mat-elevation-z8">
+        <ng-container matColumnDef="info">
+          <th mat-header-cell *matHeaderCellDef>Info</th>
+          <td mat-cell *matCellDef="let experience">
+            <div><span>Empresa </span></div>
+            <div class="mb-10">{{ experience.empresa }}</div>
+            <div><span>Cargo </span></div>
+            <div class="mb-10">{{ experience.cargo }}</div>
+            <div><span>F. Comienzo </span></div>
+            <div class="mb-10">{{ experience.fechaComienzo | date: 'dd/MM/yyyy' }}</div>
+            <div *ngIf=" experience.fechaFinalizacion"><span>F. Finalización </span></div>
+            <div class="mb-10">{{ experience.fechaFinalizacion | date: 'dd/MM/yyyy' }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let experience">
+            <div class="actions"> <mat-icon
+              class="mr-10 link-pointer"
+              (click)="onDeleteClick(experience)"
+              >delete</mat-icon
+            >
+            <mat-icon class="link-pointer" (click)="onUpdateClick(experience)"
+              >update</mat-icon
+            ></div>
+
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumnsSmallScreens"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumnsSmallScreens"
+        ></tr>
+      </table>
+    </div>
+    <div
+    class="container__content__no-table"
+    *ngIf="chargeCompleted && experiences.length === 0"
+  >
+    Aún no tienes ninguna experiencia laboral asignada a tu currículum.
+  </div>
+  </div>
+</div>

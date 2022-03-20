@@ -23,10 +23,10 @@ import { AuthInterceptorService } from './modules/login/auth.interceptor';
 import { RepeatPasswordValidatorDirective } from './core/validators/repeatpassword.component';
 import { PostalCodeValidatorDirective } from './core/validators/postalcode.validator';
 
-
 @NgModule({
   declarations: [AppComponent, LoginComponent, UsersFormComponent, usersFormModalComponent],
   imports: [
+
     ValidatorsModule,
     AppRoutingModule,
     HttpClientModule,

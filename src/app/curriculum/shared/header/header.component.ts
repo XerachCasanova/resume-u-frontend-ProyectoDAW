@@ -1,11 +1,14 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Skill } from 'src/app/core/models/interfaces/skill';
 import { ContactComponent } from 'src/app/curriculum/contact/contact.component';
+import { SkillsService } from 'src/app/modules/private/skills/skills.service';
+import { environment } from 'src/environments/environment';
 import { Curriculum } from '../../../core/models/interfaces/curriculum';
 import { User } from '../../../core/models/interfaces/user';
-import { CurriculumService } from '../../curriculum.service';
-import { UsuariosService } from '../../usuarios.service';
+import { CurriculumHeaderService } from './curriculum-header.service';
 
 @Component({
   selector: 'curriculum-header',
@@ -13,25 +16,57 @@ import { UsuariosService } from '../../usuarios.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() usuario: User;
+  @Input() user: User;
   @Input() curriculum: Curriculum;
+  apiUrl = environment.apiUrl;
+  activeMenuItem = "skills"
   menuActivado = false;
+  isSmallScreen = false;
+  skills: Skill[] = [];
 
-  windowWidth = window.innerWidth;
-
-  activarMenu() {
+  activarMenu(route: string) {
     this.menuActivado = !this.menuActivado;
+    this.curriculumHeaderService.changeUrl(route);
   }
   constructor(
     public contactDialog: MatDialog,
-  ) {}
+    private breakpointObserver:BreakpointObserver,
+    private skillsService: SkillsService,
+    private curriculumHeaderService: CurriculumHeaderService,
+  
 
-  async ngOnInit() {}
+  ) { }
+
+  async ngOnInit() {
+
+    this.curriculumHeaderService.changeUrl('skills');
+    this.curriculumHeaderService.currentUrl$.subscribe((url) => {
+      this.activeMenuItem = url;
+    });
+
+
+    //Nos suscribimos a breackpointobserver para escuchar cuando cambia el tamaño de la pantalla y cambiar el flag cuando se pasa el límite de 500px
+    this.breakpointObserver.observe(['(max-width: 850px)']).subscribe((state) => this.isSmallScreen = state.matches);
+    if(this.curriculum && this.curriculum.idCurriculum) {
+      this.skillsService.getSkills(this.curriculum.idCurriculum).subscribe((skills: Skill[]) => {
+        this.skills = skills.filter(skill => Number(Boolean(skill.habilidadUnica)) === 1);
+      })
+    }
+
+
+
+
+  }
+
+  onButtonClick(route: string){
+    this.curriculumHeaderService.changeUrl(route);
+
+  }
 
   openContactDialog() {
-    this.activarMenu();
-
-    const contactDialogRef = this.contactDialog.open(ContactComponent, {
+    this.activarMenu('');
+    console.log(this.curriculum)
+    this.contactDialog.open(ContactComponent, {
       width: '800px',
     });
   }

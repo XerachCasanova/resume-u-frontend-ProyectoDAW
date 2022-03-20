@@ -4,10 +4,13 @@ export interface Curriculum {
   foto: string;
   acercaDe: string;
   profesion: string;
-  gamaColores: number;
-  habilidadesUnicas: any[];
-  idiomas: any[];
-  datosInteres: any[];
+  gamaColores: string;
+  habilidadesUnicas?: any[];
+  idiomas?: any[];
+  datosInteres?: any[];
+  password?:string;
   web?: string | null;
   idUsuario: string;
+  esPrivado: boolean;
+  tipoHabilidades: string,
 }

@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Login } from 'src/app/core/models/interfaces/login';
-import { User } from 'src/app/core/models/interfaces/user';
-import me from 'src/app/curriculum/mockedData/me.json';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +11,13 @@ export class provinciasService {
 
   getProvincias(): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/provincia');
+    return this.http.get(environment.apiUrl+'provincia');
 
   }
 
   getProvincia(cp:string): Observable<any> {
 
-    return this.http.get('http://localhost/curriculum-api/provincia?cp=' + cp);
+    return this.http.get(environment.apiUrl+'provincia?cp=' + cp);
 
   }
 

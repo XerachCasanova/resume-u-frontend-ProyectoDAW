@@ -1,3 +1,4 @@
+
 export interface User {
   idUsuario?: string;
   nombre: string;
@@ -11,6 +12,7 @@ export interface User {
   telefono1?: string;
   telefono2?: string;
   email: string;
+  acercaDe?: string;
   password?: string;
   activo: string;
   facebook?: string;

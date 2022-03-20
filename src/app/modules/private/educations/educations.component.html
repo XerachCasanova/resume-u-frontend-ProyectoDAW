@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Formación</h1>
+    </header>
+    <div class="curriculum-link"><div class="curriculum-link__item" (click)="goToCurriculum()"><mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum</div></div>
+    <div>
+      <mat-dialog-actions
+        (click)="onAddClick()"
+        class="container__content__form__actions__button"
+      >
+        <button mat-raised-button color="primary">
+          Añadir formación
+        </button>
+      </mat-dialog-actions>
+    </div>
+    <div class="container__content__table mt-20" *ngIf="!isSmallScreen && educations.length > 0">
+      <table mat-table [dataSource]="educations" class="mat-elevation-z8">
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef>Títulación</th>
+          <td mat-cell *matCellDef="let education">
+            {{ education.titulo }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="centro">
+          <th mat-header-cell *matHeaderCellDef>Centro</th>
+          <td mat-cell *matCellDef="let education">{{ education.centro }}</td>
+        </ng-container>
+        <ng-container matColumnDef="fechaComienzo">
+          <th mat-header-cell *matHeaderCellDef>Fecha Comienzo</th>
+          <td mat-cell *matCellDef="let education">
+            {{ education.fechaComienzo | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fechaFinalizacion" >
+          <th mat-header-cell *matHeaderCellDef>Fecha Fin.</th>
+          <td mat-cell *matCellDef="let education">
+            {{ education.fechaFinalizacion | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let education">
+            <mat-icon
+              class="mr-10 link-pointer"
+              (click)="onDeleteClick(education)"
+              >delete</mat-icon
+            >
+            <mat-icon class="link-pointer" (click)="onUpdateClick(education)"
+              >update</mat-icon
+            >
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div class="container__content__table mt-20" *ngIf="isSmallScreen  && educations.length > 0">
+      <table mat-table [dataSource]="educations" class="mat-elevation-z8">
+        <ng-container matColumnDef="info">
+          <th mat-header-cell *matHeaderCellDef>Info</th>
+          <td mat-cell *matCellDef="let education">
+            <div><span>Titulación </span></div>
+            <div class="mb-10">{{ education.titulo }}</div>
+            <div><span>Centro </span></div>
+            <div class="mb-10">{{ education.centro }}</div>
+            <div><span>F. Comienzo </span></div>
+            <div class="mb-10">{{ education.fechaComienzo | date: 'dd/MM/yyyy' }}</div>
+            <div *ngIf=" education.fechaFinalizacion"><span>F. Finalización </span></div>
+            <div class="mb-10">{{ education.fechaFinalizacion | date: 'dd/MM/yyyy' }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let education">
+            <div class="actions">
+              <mat-icon
+              class="mr-10 link-pointer"
+              (click)="onDeleteClick(education)"
+              >delete</mat-icon
+            >
+            <mat-icon class="link-pointer" (click)="onUpdateClick(education)"
+              >update</mat-icon
+            >
+            </div>
+
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumnsSmallScreens"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumnsSmallScreens"
+        ></tr>
+      </table>
+    </div>
+    <div
+    class="container__content__no-table"
+    *ngIf="chargeCompleted && educations.length === 0"
+  >
+    Aún no tienes ninguna formación asignada a tu currículum.
+  </div>
+  </div>
+
+</div>

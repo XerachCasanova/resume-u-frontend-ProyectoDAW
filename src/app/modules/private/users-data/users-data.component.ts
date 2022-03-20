@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MAX_LENGTH } from 'src/app/core/enums/max-length.enum';
 import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
 import { Provincia } from 'src/app/core/models/interfaces/provincia';
 import { User } from 'src/app/core/models/interfaces/user';
 import { CurriculumService } from 'src/app/curriculum/curriculum.service';
 import { HeaderService } from 'src/app/shared/header/header.service';
 import { TokenService } from '../../login/token.service';
-import { usersFormModalComponent } from '../../users/modals/users-form-modal.component';
+import { UsersFormModalService } from '../../users/modals/users-form-modal.service';
 import { provinciasService } from '../../users/provincias.service';
 import { UsersService } from '../../users/users.service';
 
@@ -24,14 +19,15 @@ import { UsersService } from '../../users/users.service';
 })
 export class UsersDataComponent {
   formUserGroup: FormGroup;
-  usuario: User;
+  user: User;
   errorMsg: string;
   provinces: Provincia[];
   selectedProvince: Provincia | undefined;
   spinnerOn = false;
   chargeForm = false;
   curriculum: Curriculum;
-  curriculumAcercaDe: any;
+  isPrivate: boolean;
+  lengthForm: any;
   constructor(
     private fb: FormBuilder,
     private headerService: HeaderService,
@@ -39,15 +35,26 @@ export class UsersDataComponent {
     private usersService: UsersService,
     private tokenService: TokenService,
     private provinciasService: provinciasService,
-    private usersFormDialog: MatDialog,
-    private curriculumService: CurriculumService
-  ) {
-
-  }
+    private curriculumService: CurriculumService,
+    private usersFormModalService:UsersFormModalService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     /*A través del servicio activatedRoute, llamo al servicio headerService, el cual está a la escucha del segmento de url que se le pasa como string.
     Eso hará que desde la cabecera podamos suscribirnos a dicho servicio y saber en que url estamos en cada momento.*/
+
+    this.lengthForm = {
+      nombre: MAX_LENGTH.LENGTH_50,
+      apellidos: MAX_LENGTH.LENGTH_100,
+      cp: MAX_LENGTH.LENGTH_5,
+      acercaDe: MAX_LENGTH.LENGTH_500,
+      telefonos: MAX_LENGTH.LENGTH_15,
+      facebook: MAX_LENGTH.LENGTH_150,
+      linkedin: MAX_LENGTH.LENGTH_150,
+      instagram: MAX_LENGTH.LENGTH_150,
+      password: MAX_LENGTH.LENGTH_50,
+    }
     this.formUserGroup = this.fb.group({});
     this.resetForm();
     this.setValidators();
@@ -55,74 +62,69 @@ export class UsersDataComponent {
       this.headerService.changeUrl(urlSegment[0].path)
     );
 
-
-
     this.usersService
       .getUser(this.tokenService.getUser().idUsuario)
       .subscribe((userData) => {
-        this.usuario.idUsuario = userData[0].idUsuario;
-        this.usuario.nombre = userData[0].nombre;
-        this.usuario.apellidos = userData[0].apellidos;
-        this.usuario.cp = userData[0].cp;
-        this.usuario.telefono1 = userData[0].telefono1;
-        this.usuario.telefono2 = userData[0].telefono2;
-        this.usuario.facebook = userData[0].facebook;
-        this.usuario.twitter = userData[0].twitter;
-        this.usuario.instagram = userData[0].instagram;
-        this.usuario.linkedin = userData[0].linkedin;
+        this.user.idUsuario = userData[0].idUsuario;
+        this.user.nombre = userData[0].nombre;
+        this.user.apellidos = userData[0].apellidos;
+        this.user.cp = userData[0].cp;
+        this.user.telefono1 = userData[0].telefono1;
+        this.user.telefono2 = userData[0].telefono2;
+        this.user.facebook = userData[0].facebook;
+        this.user.twitter = userData[0].twitter;
+        this.user.instagram = userData[0].instagram;
+        this.user.linkedin = userData[0].linkedin;
+        this.user.acercaDe = userData[0].acercaDe;
 
-
-        if (this.usuario.idUsuario) {
+        if (this.user.idUsuario) {
           this.curriculumService
-            .getCurriculums(this.usuario.idUsuario)
+            .getCurriculums(this.user.idUsuario)
             .subscribe((curriculum) => {
               this.curriculum = curriculum[0];
-              this.curriculumAcercaDe = {acercaDe: this.curriculum.acercaDe, idCurriculum: this.curriculum.idCurriculum }
+              if(Number(this.curriculum.esPrivado)===1) this.isPrivate = true;
+
               this.formUserGroup = this.fb.group({
-                ...this.usuario,
-                formAcercaDeGroup: this.fb.group(this.curriculumAcercaDe),
+                ...this.user,
               });
 
               this.provinciasService.getProvincias().subscribe((provinces) => {
                 this.provinces = provinces;
 
-                this.onCpPressKey(this.usuario.cp);
+                this.onCpPressKey(this.user.cp);
                 this.chargeForm = true;
               });
 
               this.setValidators();
-
             });
-
         }
-
-
       });
-
-    //this.formUserGroup = this.fb.group({...this.usuario,  formAcercaDeGroup: this.fb.group(this.curriculumAcercaDe)});
-
-    //this.setValidators();
-
   }
 
-  setValidators(){
-    this.formUserGroup.get('nombre')?.setValidators(Validators.required);
-    this.formUserGroup.get('apellidos')?.setValidators(Validators.required);
-    this.formUserGroup.get('cp')?.setValidators([Validators.required]);
+  setValidators() {
+    this.formUserGroup.get('nombre')?.setValidators([Validators.required, Validators.maxLength(this.lengthForm.nombre)]);
+    this.formUserGroup.get('apellidos')?.setValidators([Validators.required, Validators.maxLength(this.lengthForm.apellidos)]);
+    this.formUserGroup.get('cp')?.setValidators([Validators.required, Validators.maxLength(this.lengthForm.cp)]);
     this.formUserGroup
       .get('twitter')
       ?.setValidators(Validators.pattern('^@[A-Za-z0-9_]{1,15}$'));
 
-    this.formUserGroup.get('formAcercaDeGroup')?.get('acercaDe')?.setValidators([Validators.maxLength(500)]);
+    this.formUserGroup.get('telefono1')?.setValidators([Validators.pattern('^[0-9]*$'),  Validators.maxLength(this.lengthForm.telefonos)]);
+    this.formUserGroup.get('telefono2')?.setValidators([Validators.pattern('^[0-9]*$'),  Validators.maxLength(this.lengthForm.telefonos)]);
+    this.formUserGroup.get('facebook')?.setValidators([ Validators.maxLength(this.lengthForm.facebook)]);
+    this.formUserGroup.get('linkedin')?.setValidators([ Validators.maxLength(this.lengthForm.linkedin)]);
+    this.formUserGroup.get('instagram')?.setValidators([ Validators.maxLength(this.lengthForm.instagram)]);
+    this.formUserGroup.get('acercaDe')?.setValidators([Validators.maxLength(this.lengthForm.acercaDe)]);
 
   }
 
   resetForm() {
-    this.usuario = {
+    this.user = {
       nombre: '',
       apellidos: '',
       dni: '',
       fechaNacimiento: '',
+      acercaDe: '',
       direccion: '',
       localidad: '',
       provincia: '',
@@ -139,14 +141,9 @@ export class UsersDataComponent {
       idRol: '',
     };
 
-    this.curriculumAcercaDe = {
-      idCurriculum: '',
-      acercaDe: '',
-    };
   }
 
   onCpPressKey($event: any | string) {
-
     this.selectedProvince = this.provinces.find(
       (province) =>
         province.prefijoCp ==
@@ -158,18 +155,11 @@ export class UsersDataComponent {
   }
 
   onCheckableInputChange($event: any, valueToCheck: string) {
-
     if ($event.target.value != '') {
       if (valueToCheck === 'dni') {
         this.usersService.checkDni($event.target.value).subscribe((resp) => {
           if (resp) {
-            const usersFormModal = this.usersFormDialog.open(
-              usersFormModalComponent,
-              this.errorModalInfo(
-                ' El DNI introducido pertenece a un usuario ya existente.'
-              )
-            );
-
+            const usersFormModal = this.usersFormModalService.openModal(false, ' El DNI introducido pertenece a un usuario ya existente.');
             usersFormModal
               .afterClosed()
               .subscribe(() =>
@@ -180,12 +170,7 @@ export class UsersDataComponent {
       } else if (valueToCheck === 'email') {
         this.usersService.checkEmail($event.target.value).subscribe((resp) => {
           if (resp) {
-            const usersFormModal = this.usersFormDialog.open(
-              usersFormModalComponent,
-              this.errorModalInfo(
-                ' El E-mail introducido pertenece a un usuario ya existente.'
-              )
-            );
+            const usersFormModal = this.usersFormModalService.openModal(false, ' El E-mail introducido pertenece a un usuario ya existente.');
 
             usersFormModal
               .afterClosed()
@@ -198,56 +183,29 @@ export class UsersDataComponent {
     }
   }
 
-  errorModalInfo(errorMsg: string) {
-    return {
-      maxWidth: '300px',
-      data: {
-        header: 'error',
-        type: 'error',
-        errorMsg: errorMsg,
-      },
-    };
-  }
-
-  onSubmit() {
+  onPersonalDataSubmit() {
     this.spinnerOn = true;
-    this.usuario = {
+    this.user = {
       ...this.formUserGroup.value,
       provincia: this.selectedProvince?.idProvincia,
     };
-
-    this.usersService.updateUser(this.usuario).subscribe(
+    this.usersService.updateUser(this.user).subscribe(
       (resp) => {
         if (resp.status && resp.status === 'ok') {
-          const formUserModal = this.usersFormDialog.open(
-            usersFormModalComponent,
-            {
-              maxWidth: '300px',
-              data: {
-                header: 'info',
-                type: 'ok',
-                msg: 'Has modificado tus datos personales correctamente.',
-              },
-            }
-          );
+          this.usersFormModalService.openModal(true, 'Has modificado tus datos personales correctamente.')
 
-
-          this.curriculumAcercaDe = this.formUserGroup.get("formAcercaDeGroup")?.value;
-
-          this.curriculumService.updateCurriculum(this.curriculumAcercaDe).subscribe();
         }
         this.spinnerOn = false;
       },
-      (error) => {
-
-        this.usersFormDialog.open(
-          usersFormModalComponent,
-          this.errorModalInfo(
-            'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'
-          )
-        );
+      () => {
+        this.usersFormModalService.openModal(false, 'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.')
         this.spinnerOn = false;
       }
     );
   }
+
+  goToCurriculum(){
+    this.router.navigate([this.curriculum.alias])
+  }
+
 }

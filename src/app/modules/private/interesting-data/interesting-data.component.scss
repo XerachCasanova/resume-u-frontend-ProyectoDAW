@@ -1,0 +1,122 @@
+/*
+PALETA DE COLORES
+#FBF8F1 CREMA CLARO
+#F7ECDE CREMA INTERMEDIO
+#E9DAC1 CREMA OSCURO
+#54BAB9 AZUL
+*/
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  &__content {
+    margin: 10px;
+    color: #54bab9;
+    width:100%;
+    max-width: 1024px;
+
+    &__form {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+
+      &__row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &__col {
+          padding: 0.5rem;
+          flex: 1;
+          width: 100%;
+
+          mat-icon {
+            color: #009688;
+          }
+
+          mat-form-field {
+            width: 100%;
+          }
+        }
+      }
+
+      &__actions {
+        display: flex;
+        flex-direction: row;
+        &__button{
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    &__table{
+      width:100%;
+      table{
+        width:100%;
+      }
+      .mat-icon{
+        color: #009688;
+      }
+
+    }
+
+    &__no-table{
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 200;
+    }
+  }
+}
+
+.curriculum-link{
+  margin: 20px 0;
+  display:flex;
+  width: 100%;
+  justify-content: right;
+  padding-right: 10px;
+  &__item {
+    cursor: pointer;
+    width: 150px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+}
+
+
+.mat-dialog-actions{
+  display: inline;
+}
+
+.input-large{
+  flex: 1;
+}
+
+.input-small{
+  flex: 0;
+}
+
+
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+  .container {
+    &__content{
+      &__form {
+        display: block;
+        width: 95%;
+
+        &__row {
+          display: block;
+        }
+
+        &__col {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+}

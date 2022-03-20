@@ -1,17 +1,17 @@
 <header class="header">
   <div class="ghost-space"></div>
-  <div class="header__header-content" *ngIf="curriculum && usuario">
+  <div class="header__header-content" *ngIf="curriculum && user">
     <div class="header__header-content__personal-data">
       <div
         class="header__header-content__personal-data__photo"
-        [style.background-image]="'url(' + curriculum.foto + ')'"
+        [style.background]="'url(' +apiUrl + curriculum.foto + ')'"
       ></div>
-      <div class="burger-button-menu" (click)="activarMenu()">
+      <div class="burger-button-menu" (click)="activarMenu('')">
         <mat-icon>menu</mat-icon>
       </div>
       <div class="header__header-content__personal-data__info">
         <h1 class="header__header-content__personal-data__info__name">
-          {{ usuario.nombre }} {{ usuario.apellidos }}
+          {{ user.nombre }} {{ user.apellidos }}
         </h1>
         <span
           class="header__header-content__personal-data__info__profession-with-line"
@@ -30,9 +30,10 @@
     >
       <a
         class="header__header-content__menu__link"
-        *ngIf="windowWidth < 851"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'aboutme' }"
+        *ngIf="isSmallScreen"
         routerLink="aboutme"
-        (click)="activarMenu()"
+        (click)="activarMenu('aboutme')"
         ><span
           ><mat-icon>perm_identity</mat-icon
           ><span
@@ -43,8 +44,9 @@
       >
       <a
         class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'skills' }"
         routerLink="skills"
-        (click)="activarMenu()"
+        (click)="activarMenu('skills')"
         ><span
           ><mat-icon>settings</mat-icon
           ><span class="header__header-content__menu__link__button-text"
@@ -54,8 +56,9 @@
       >
       <a
         class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'experience' }"
         routerLink="experience"
-        (click)="activarMenu()"
+        (click)="activarMenu('experience')"
         ><span
           ><mat-icon>work</mat-icon
           ><span class="header__header-content__menu__link__button-text"
@@ -65,8 +68,9 @@
       >
       <a
         class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'education' }"
         routerLink="education"
-        (click)="activarMenu()"
+        (click)="activarMenu('education')"
         ><span
           ><mat-icon>menu_book</mat-icon
           ><span class="header__header-content__menu__link__button-text"
@@ -87,10 +91,10 @@
     </nav>
   </div>
 </header>
-<div class="container-left" *ngIf="curriculum && usuario">
+<div class="container-left" *ngIf="curriculum && user">
   <div
     class="photo"
-    [style.background-image]="'url(' + curriculum.foto + ')'"
+    [style.background]="'url(' +apiUrl + curriculum.foto + ')'"
   ></div>
   <section class="column-left" *ngIf="curriculum">
     <article class="aboutme">
@@ -100,7 +104,7 @@
         </h1>
         <hr class="container-left__separator" />
       </header>
-      <p>{{ curriculum.acercaDe }}</p>
+      <p>{{ user.acercaDe }}</p>
     </article>
 
     <article class="otherskills" *ngIf="curriculum.habilidadesUnicas">
@@ -133,6 +137,18 @@
       <ul>
         <li *ngFor="let idioma of curriculum.idiomas">
           {{ idioma.idioma }}, nivel: {{ idioma.nivel }}
+        </li>
+      </ul>
+    </article>
+
+    <article class="skills" *ngIf="skills.length > 0">
+      <header>
+        <h1 class="container-left__title">Habilidades</h1>
+        <hr class="container-left__separator" />
+      </header>
+      <ul>
+        <li *ngFor="let skill of skills">
+          {{ skill.nombre }}
         </li>
       </ul>
     </article>

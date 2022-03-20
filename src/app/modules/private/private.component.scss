@@ -59,8 +59,14 @@
   display: none;
 }
 
+.activeMenuItem{
+  color: #FBF8F1;
+  background-color: #54BAB9;
+}
 
-@media all and (min-width: 0px) and (max-width: 800px) {
+
+
+@media all and (min-width: 0px) and (max-width: 990px) {
 
   .burger-button-menu:hover {
     background-color: #0f423d;

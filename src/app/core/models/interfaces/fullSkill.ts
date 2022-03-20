@@ -1,6 +1,6 @@
 import { Knowledge } from './knowledge';
 
-export interface Skill {
+export interface FullSkill {
   nombre: string;
   conocimientos: Knowledge[];
 }

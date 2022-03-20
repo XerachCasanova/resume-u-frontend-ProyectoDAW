@@ -1,0 +1,212 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Experiencia laboral</h1>
+    </header>
+
+    <h2>{{ titleForm }}</h2>
+
+    <form
+      [formGroup]="formExperienceGroup"
+      (ngSubmit)="onSubmit()"
+      *ngIf="experience"
+    >
+      <div class="container__content__logo">
+        <img
+          class="container__content__logo__pic"
+          [src]="apiUrl + experience.logo"
+          *ngIf="!isAdding && experience.logo != ''"
+        />
+      </div>
+      <div class="container__content__form">
+        <div class="container__content__form__row__col">
+          <div>
+            <button mat-flat-button color="primary">
+              Subir logo...
+              <input
+                (change)="onChargePicture($event)"
+                style="
+                  opacity: 0;
+                  position: absolute;
+                  left: 0px;
+                  top: 0px;
+                  width: 100%;
+                  height: 100%;
+                "
+                type="file"
+              />
+            </button>
+            <span class="ml-10">{{
+              imageCompany && (imageCompany?.name ?? (imageCompany.name | json))
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPOS EMPRESA Y CARGO-->
+      <div class="container__content__form">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col input-large">
+            <mat-form-field appearance="fill">
+              <mat-label>Compañía</mat-label>
+              <input
+                matInput
+                placeholder="Compañía"
+                formControlName="empresa"
+              />
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['empresa'].hasError('required')
+                "
+                >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['empresa'].hasError('maxlength')
+                "
+                >Máximo: {{ lengthForm.empresa }} caracteres</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Cargo</mat-label>
+              <input matInput placeholder="Cargo" formControlName="cargo" />
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['cargo'].hasError('required')
+                "
+                >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['empresa'].hasError('maxlength')
+                "
+                >Máximo: {{ lengthForm.empresa }} caracteres</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPOS DESCRIPCIÓN Y TAREAS-->
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Descripción del puesto</mat-label>
+              <textarea
+                placeholder="Añade una pequeña descripción de tu puesto."
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="4"
+                matInput
+                formControlName="descripcion"
+              ></textarea>
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['descripcion'].hasError(
+                    'maxlength'
+                  )
+                "
+                >Máximo: {{ lengthForm.descripcion }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Tareas</mat-label>
+              <textarea
+                placeholder="Describe un poco un poco las tareas que realizabas en tu puesto de trabajo."
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="4"
+                matInput
+                formControlName="tareas"
+              ></textarea>
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['tareas'].hasError('maxlength')
+                "
+                >Máximo: {{ lengthForm.tareas }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- FECHAS DE COMIENZO Y FINALIZACIÓN -->
+
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de comienzo</mat-label>
+              <input
+                type="date"
+                matInput
+                placeholder="Fecha de comienzo"
+                formControlName="fechaComienzo"
+                (change)="checkEndingDate()"
+              />
+
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['fechaComienzo'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="container__content__form__row__col input-small">
+            <mat-checkbox
+              [checked]="trabajandoActualmente"
+              (change)="onWorkingNowadaysClick()"
+              >Trabajando actualmente</mat-checkbox
+            >
+          </div>
+          <div
+            class="container__content__form__row__col"
+            *ngIf="!trabajandoActualmente"
+          >
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de finalización</mat-label>
+              <input
+                type="date"
+                matInput
+                placeholder="Fecha de finalización"
+                formControlName="fechaFinalizacion"
+                (change)="checkEndingDate()"
+              />
+
+              <mat-error
+                *ngIf="
+                  formExperienceGroup.controls['fechaFinalizacion'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- BOTONES DE ACCIÓN -->
+
+        <div class="container__content__form__actions">
+          <div>
+            <mat-dialog-actions
+              class="container__content__form__actions__button"
+            >
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="formExperienceGroup.invalid || spinnerOn"
+              >
+                {{ isAdding ? "Añadir" : "Modificar" }}
+              </button>
+            </mat-dialog-actions>
+          </div>
+          <div class="spinner" *ngIf="spinnerOn"></div>
+          <span> {{ errorMsg }}</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

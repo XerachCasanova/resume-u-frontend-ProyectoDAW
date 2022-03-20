@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Login } from 'src/app/core/models/interfaces/login';
-import me from 'src/app/curriculum/mockedData/me.json';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class LoginService {
 
   login(user: Login): Observable<any> {
 
-    return this.http.post('http://localhost/curriculum-api/auth', user);
+    return this.http.post(environment.apiUrl+'auth', user);
 
   }
 
@@ -27,12 +27,12 @@ export class LoginService {
     const refreshtoken = {
       refreshToken: token
     }
-    return this.http.post('http://localhost/curriculum-api/auth/refreshtoken',refreshtoken, this.httpOptions);
+    return this.http.post(environment.apiUrl+'auth/refreshtoken',refreshtoken, this.httpOptions);
   }
 
-  signUp(user: Login): Observable<any> {
+  /*signUp(user: Login): Observable<any> {
     return this.http.post('https://reqres.in/api/register', user);
-  }
+  }*/
 
 
 }

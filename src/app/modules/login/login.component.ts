@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/core/models/interfaces/login';
 import { HeaderService } from 'src/app/shared/header/header.service';
+import { usersFormModalComponent } from '../users/modals/users-form-modal.component';
+import { UsersService } from '../users/users.service';
 import { LoginService } from './login.service';
 import { TokenService } from './token.service';
 
@@ -15,14 +18,16 @@ export class LoginComponent {
   formLoginGroup: FormGroup;
   login!: Login;
   errorMsg: string;
-  spinnerOn=false;
+  spinnerOn = false;
   constructor(
     private fb: FormBuilder,
-    private router:Router,
+    private router: Router,
     private headerService: HeaderService,
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private usersService: UsersService,
+    private usersFormDialog: MatDialog
   ) {
     this.formLoginGroup = fb.group({});
     this.resetLogin();
@@ -50,28 +55,40 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.spinnerOn=true;
+    this.errorMsg = '';
+    this.spinnerOn = true;
     this.login = this.formLoginGroup.value;
     this.loginService.login(this.login).subscribe(
       (user) => {
+        if (user.activo === '0') {
+          this.usersService.generateActivationCode(user).subscribe(() => {this.usersFormDialog.open(usersFormModalComponent, {
+            maxWidth: '800px',
+            data: {
+              header: 'advise',
+              type: 'activationCode',
+              idUsuario: user.idUsuario,
+              msg: 'Tu cuenta está desactivada. Para poder empezar a disfrutar del servicio, debes introducir el código que hemos enviado a tu correo electrónico.',
+            },
+          });}, (error) => console.log(error))
+          this.spinnerOn = false;
+        } else {
+          this.tokenService.saveToken(user.token);
+          this.tokenService.saveUser(user);
 
-        this.tokenService.saveToken(user.token);
-        this.tokenService.saveUser(user);
-
-        this.headerService.changeLoginState(true);
-        this.spinnerOn=false;
-        this.router.navigate(['']);
+          this.headerService.changeLoginState(true);
+          this.spinnerOn = false;
+          this.router.navigate(['']);
+        }
       },
-      (error) =>
-        {
-          this.spinnerOn=false;
-          this.tokenService.signOut();
-          this.resetLogin();
-          this.errorMsg =
+      (error) => {
+        this.spinnerOn = false;
+        this.tokenService.signOut();
+        this.resetLogin();
+        this.errorMsg =
           error.status === 400
-            ? "Usuario o contraseña incorrectos."
-            : 'Ha ocurrido un error, vuelve a intentarlo más tarde.'
-          }
+            ? 'Usuario o contraseña incorrectos.'
+            : 'Ha ocurrido un error, vuelve a intentarlo más tarde.';
+      }
     );
   }
 }

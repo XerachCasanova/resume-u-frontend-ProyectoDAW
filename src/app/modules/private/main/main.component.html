@@ -1,13 +1,18 @@
-<div class="container">
+<div *ngIf="chargeCompleted" class="container" >
   <div class="container__content">
     <div class="container__content__title">
       Aún no has creado tu currículum...
     </div>
-    <div class="container__content__button">
-      <div class="container__content__button__text">
+    <div *ngIf="!spinnerOn" class="container__content__button" (click)="createCurriculum()">
+      <div class="container__content__button__text" >
         ¿Empezamos?
       </div>
     </div>
+    <div *ngIf="spinnerOn" class="container__content__disabled-button">
+      <div class="container__content__button__text" >
+        ¿Empezamos?
+      </div>
+    </div>
+    <div class="spinner mt-10" *ngIf="spinnerOn"></div>
   </div>
-  <div class="container__footer"></div>
 </div>

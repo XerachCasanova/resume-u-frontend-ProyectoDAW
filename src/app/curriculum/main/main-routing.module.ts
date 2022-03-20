@@ -31,6 +31,11 @@ const routes: Routes = [
             (m) => m.EducationModule
           ),
       },
+      {
+        path: 'aboutme',
+        loadChildren: () =>
+          import('../general-info/general-info.module').then((m) => m.GeneralInfoModule),
+      },
     ],
   },
 ];

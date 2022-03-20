@@ -11,10 +11,12 @@ import {
   ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
-import { SkillsService } from './skills.service';
-import { Skill } from 'src/app/core/models/interfaces/skills';
+import { Skill } from 'src/app/core/models/interfaces/skill';
 import { CurriculumService } from '../curriculum.service';
 import { of } from 'rxjs';
+import { SkillsService } from 'src/app/modules/private/skills/skills.service';
+import { FullSkill } from 'src/app/core/models/interfaces/fullSkill';
+import { Knowledge } from 'src/app/core/models/interfaces/knowledge';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -37,7 +39,7 @@ export class SkillsComponent implements OnInit {
   public chartOptions: Partial<ChartOptions> | any;
   public chartOptionsArray: Partial<ChartOptions>[] | any;
 
-  skills: Skill[];
+  skills: FullSkill[] = [];
   constructor(
     private skillsService: SkillsService,
     private curriculumService: CurriculumService
@@ -48,18 +50,42 @@ export class SkillsComponent implements OnInit {
 
     this.curriculumService.currentCurriculum$.subscribe(async (curriculum) => {
       //El valor inicial del behaviorSubject es un curriculum sin datos, cuya id es = 0, se debe evitar una petición al back con ese curriculum.
-      if (curriculum.idCurriculum != "0") {
-        this.skills = await this.skillsService.getSkills(
-          curriculum.idCurriculum
-        );
-        this.buildCharts();
+      if (curriculum.idCurriculum && curriculum.idCurriculum != "0") {
+
+        //Se llama al servicio que recibe las habilidades
+        this.skillsService.getSkills(curriculum.idCurriculum).subscribe(async skills => {
+
+          /*Cada habilidad hace una llamada al servidor para buscar los conocimientos asociados y se le asigna a cada elemento del array,
+          al ser cada petición asíncrona, hay que convertirlas en promesas
+          y utilizar Promise.all para recibir todas las peticiones antes de continuar.*/
+          this.skills = await  Promise.all( skills.map(async ( skill:any) => {
+            if (skill.idHabilidad) {
+              skill.conocimientos = await this.skillsService.getKnowledges(skill.idHabilidad).toPromise();
+              return skill;
+            }
+            else return [];
+          }))
+
+          /*Una vez construido el array, se eliminan las habilidades únicas, que no se mostrarán en esta pantalla, así como los elementos de cada objeto que no son necesarios*/
+          this.skills = this.skills.filter((skill:any) => skill.habilidadUnica === "0").map(skill => {
+            return {
+              nombre: skill.nombre,
+              conocimientos: skill.conocimientos
+            } as FullSkill
+          })
+          this.buildCharts();
+        });
+
+
       }
     });
   }
 
   buildCharts() {
     for (let skill in this.skills) {
+
       const skillData = this.skills[skill];
+
       const skillName = skillData.nombre;
       const knowledgeLevels = skillData.conocimientos.map(
         (conocimiento) => conocimiento.nivel

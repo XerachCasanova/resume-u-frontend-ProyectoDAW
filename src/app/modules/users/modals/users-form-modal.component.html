@@ -14,7 +14,7 @@
   </header>
   <div class="content" *ngIf="data.type === 'error'">
     <div class="content__text">
-      {{ data.errorMsg }}
+      {{ data.msg }}
     </div>
     <div class="content__button">
       <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
@@ -34,8 +34,7 @@
 
   <div class="content" *ngIf="data.type === 'activationCode'">
     <div class="content__text" [ngClass]="{ inputHide: userConfirmed }">
-      Has sido dado de alta correctamente. Introduce el código que hemos enviado
-      a tu correo electrónico para activar tu cuenta de usuario.
+      {{data.msg}}
     </div>
 
     <div class="content__input">

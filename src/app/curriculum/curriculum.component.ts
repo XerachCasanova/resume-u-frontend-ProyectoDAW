@@ -9,5 +9,5 @@ import { CurriculumService } from './curriculum.service';
 export class CurriculumComponent {
   title = 'curriculum-ang';
 
-  constructor(private curriculumService: CurriculumService) {}
+  constructor() {}
 }

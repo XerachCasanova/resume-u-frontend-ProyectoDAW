@@ -3,10 +3,12 @@
   <div class="header__header-content" *ngIf="curriculum && user">
     <div class="header__header-content__personal-data">
       <div
-        class="header__header-content__personal-data__photo"
+        class="header__header-content__personal-data__photo "
+        [ngStyle]="{'border': '3px solid' + gamaColores.darkColor, 'box-shadow': '0 0 5px' + gamaColores.darkColor}"
         [style.background]="'url(' +apiUrl + curriculum.foto + ')'"
+
       ></div>
-      <div class="burger-button-menu" (click)="activarMenu('')">
+      <div class="burger-button-menu" [ngStyle]="{'background-color': gamaColores.mainColor }" (click)="activarMenu('')">
         <mat-icon>menu</mat-icon>
       </div>
       <div class="header__header-content__personal-data__info">
@@ -19,18 +21,19 @@
           <h2 class="header__header-content__personal-data__info__profession">
             {{ curriculum.profesion }}
           </h2>
-          <hr class="header__header-content__separator" />
+          <hr class="header__header-content__separator" [ngStyle]="{'background-color': gamaColores.mainColor }" />
         </span>
       </div>
     </div>
 
     <nav
       class="header__header-content__menu"
-      [ngClass]="{ 'menu-hidden': !menuActivado }"
+      [ngStyle]="{'background-color': gamaColores.mainColor }"
+      *ngIf="menuActivado || !isBurguerMenu"
     >
       <a
-        class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'aboutme' }"
+        class="header__header-content__menu__link "
+        [style.backgroundColor]=" activeMenuItem === 'aboutme' ? gamaColores.darkColor : '' "
         *ngIf="isSmallScreen"
         routerLink="aboutme"
         (click)="activarMenu('aboutme')"
@@ -44,7 +47,7 @@
       >
       <a
         class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'skills' }"
+        [style.backgroundColor]=" activeMenuItem === 'skills' ? gamaColores.darkColor : '' "
         routerLink="skills"
         (click)="activarMenu('skills')"
         ><span
@@ -56,7 +59,7 @@
       >
       <a
         class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'experience' }"
+        [style.backgroundColor]=" activeMenuItem === 'experience' ? gamaColores.darkColor : '' "
         routerLink="experience"
         (click)="activarMenu('experience')"
         ><span
@@ -68,7 +71,8 @@
       >
       <a
         class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'education' }"
+
+        [style.backgroundColor]=" activeMenuItem === 'education' ? gamaColores.darkColor : '' "
         routerLink="education"
         (click)="activarMenu('education')"
         ><span
@@ -91,9 +95,10 @@
     </nav>
   </div>
 </header>
-<div class="container-left" *ngIf="curriculum && user">
+<div class="container-left" [ngStyle]="{'background-color': gamaColores.mainColor }" *ngIf="curriculum && user">
   <div
     class="photo"
+    [ngStyle]="{'border': '3px solid' + gamaColores.darkColor, 'box-shadow': '0 0 5px' + gamaColores.darkColor}"
     [style.background]="'url(' +apiUrl + curriculum.foto + ')'"
   ></div>
   <section class="column-left" *ngIf="curriculum">
@@ -122,7 +127,7 @@
     <article class="otherskills" *ngIf="curriculum.web">
       <header>
         <h1 class="container-left__title">Web</h1>
-        <hr class="container-left__separator" />
+        <hr class="container-left__separator"  />
       </header>
       <ul>
         <li><a [href]="curriculum.web">Visita mi web</a></li>
@@ -144,7 +149,7 @@
     <article class="skills" *ngIf="skills.length > 0">
       <header>
         <h1 class="container-left__title">Habilidades</h1>
-        <hr class="container-left__separator" />
+        <hr class="container-left__separator">
       </header>
       <ul>
         <li *ngFor="let skill of skills">
@@ -156,7 +161,7 @@
     <article class="interestings" *ngIf="curriculum.datosInteres">
       <header>
         <h1 class="container-left__title">Datos de interés</h1>
-        <hr class="container-left__separator" />
+        <hr class="container-left__separator"/>
       </header>
       <ul>
         <li *ngFor="let datoInteres of curriculum.datosInteres">

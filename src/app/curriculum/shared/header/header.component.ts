@@ -8,6 +8,7 @@ import { SkillsService } from 'src/app/modules/private/skills/skills.service';
 import { environment } from 'src/environments/environment';
 import { Curriculum } from '../../../core/models/interfaces/curriculum';
 import { User } from '../../../core/models/interfaces/user';
+import { CurriculumColorsService } from '../../curriculum-colors.service';
 import { CurriculumHeaderService } from './curriculum-header.service';
 
 @Component({
@@ -21,7 +22,9 @@ export class HeaderComponent implements OnInit {
   apiUrl = environment.apiUrl;
   activeMenuItem = "skills"
   menuActivado = false;
+  gamaColores: any;
   isSmallScreen = false;
+  isBurguerMenu = false;
   skills: Skill[] = [];
 
   activarMenu(route: string) {
@@ -33,7 +36,8 @@ export class HeaderComponent implements OnInit {
     private breakpointObserver:BreakpointObserver,
     private skillsService: SkillsService,
     private curriculumHeaderService: CurriculumHeaderService,
-  
+    private curriculumColorsService: CurriculumColorsService
+
 
   ) { }
 
@@ -47,13 +51,14 @@ export class HeaderComponent implements OnInit {
 
     //Nos suscribimos a breackpointobserver para escuchar cuando cambia el tamaño de la pantalla y cambiar el flag cuando se pasa el límite de 500px
     this.breakpointObserver.observe(['(max-width: 850px)']).subscribe((state) => this.isSmallScreen = state.matches);
+    this.breakpointObserver.observe(['(max-width: 600px)']).subscribe((state) => this.isBurguerMenu = state.matches);
     if(this.curriculum && this.curriculum.idCurriculum) {
+      this.gamaColores = this.curriculumColorsService.buildColorRange(this.curriculum.gamaColores);
+
       this.skillsService.getSkills(this.curriculum.idCurriculum).subscribe((skills: Skill[]) => {
         this.skills = skills.filter(skill => Number(Boolean(skill.habilidadUnica)) === 1);
       })
     }
-
-
 
 
   }
@@ -65,7 +70,6 @@ export class HeaderComponent implements OnInit {
 
   openContactDialog() {
     this.activarMenu('');
-    console.log(this.curriculum)
     this.contactDialog.open(ContactComponent, {
       width: '800px',
     });

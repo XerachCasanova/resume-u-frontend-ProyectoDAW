@@ -26,7 +26,7 @@ export class UsersService {
 
   createUser(user:User): Observable<any> {
 
-    return this.http.post(environment.apiUrl+'usuarioa', user)
+    return this.http.post(environment.apiUrl+'usuario', user)
 
   }
 

@@ -6,7 +6,7 @@
   <div class="cards">
     <div [ngClass]="experiences.length===2 ? 'cards__card-2-items' : 'cards__card' " *ngFor="let exp of experiences">
       <mat-card>
-        <mat-card-title class="cards__card__title">
+        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }" >
           {{ exp.empresa }}
         </mat-card-title>
         <mat-card-subtitle class="cards__card__subtitle">

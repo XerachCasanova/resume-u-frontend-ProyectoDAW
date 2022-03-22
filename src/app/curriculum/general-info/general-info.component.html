@@ -5,7 +5,7 @@
   <div class="cards">
     <div class="cards__card">
       <mat-card>
-        <mat-card-title class="cards__card__title">
+        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }">
           <mat-icon>perm_identity</mat-icon>Acerca de mi
         </mat-card-title>
         <mat-card-content class="cards__card__content">
@@ -15,7 +15,7 @@
     </div>
     <div class="cards__card">
       <mat-card>
-        <mat-card-title class="cards__card__title"> Idiomas </mat-card-title>
+        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }"> Idiomas </mat-card-title>
         <mat-card-content class="cards__card__content">
           <ul class="cards__card__content__list">
             <li *ngFor="let language of languages">{{ language.idioma }}, nivel: {{ language.nivel }}</li>
@@ -26,7 +26,7 @@
     </div>
     <div class="cards__card">
       <mat-card>
-        <mat-card-title class="cards__card__title"> Datos de interés </mat-card-title>
+        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }"> Datos de interés </mat-card-title>
         <mat-card-content class="cards__card__content">
           <ul class="cards__card__content__list">
             <li *ngFor="let interesting of interestingData">{{ interesting.descripcion }}</li>
@@ -37,7 +37,7 @@
     </div>
     <div class="cards__card">
       <mat-card>
-        <mat-card-title class="cards__card__title"> Habilidades de interés </mat-card-title>
+        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }"> Habilidades de interés </mat-card-title>
         <mat-card-content class="cards__card__content">
           <ul class="cards__card__content__list">
             <li *ngFor="let skill of skills">{{ skill.nombre }}</li>

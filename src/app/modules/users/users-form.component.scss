@@ -52,6 +52,7 @@ PALETA DE COLORES
   }
 }
 
+
 .mat-dialog-actions{
   display: inline;
 }
@@ -66,11 +67,11 @@ PALETA DE COLORES
 
 
 
-@media all and (min-width: 0px) and (max-width: 600px) {
+@media all and (min-width: 0px) and (max-width: 650px) {
   .container {
     &__content{
       &__form {
-        display: block;
+        display: flex;
         width: 95%;
 
         &__row {

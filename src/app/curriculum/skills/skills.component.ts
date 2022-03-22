@@ -17,6 +17,7 @@ import { of } from 'rxjs';
 import { SkillsService } from 'src/app/modules/private/skills/skills.service';
 import { FullSkill } from 'src/app/core/models/interfaces/fullSkill';
 import { Knowledge } from 'src/app/core/models/interfaces/knowledge';
+import { CurriculumColorsService } from '../curriculum-colors.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -36,13 +37,15 @@ export type ChartOptions = {
 })
 export class SkillsComponent implements OnInit {
   @ViewChild('chart', { static: false }) chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions> | any;
-  public chartOptionsArray: Partial<ChartOptions>[] | any;
+  chartOptions: Partial<ChartOptions> | any;
+  chartOptionsArray: Partial<ChartOptions>[] | any;
+  gamaColores: any;
 
   skills: FullSkill[] = [];
   constructor(
     private skillsService: SkillsService,
-    private curriculumService: CurriculumService
+    private curriculumService: CurriculumService,
+    private curriculumColorsService: CurriculumColorsService,
   ) {}
 
   async ngOnInit() {
@@ -52,6 +55,8 @@ export class SkillsComponent implements OnInit {
       //El valor inicial del behaviorSubject es un curriculum sin datos, cuya id es = 0, se debe evitar una petición al back con ese curriculum.
       if (curriculum.idCurriculum && curriculum.idCurriculum != "0") {
 
+
+        this.gamaColores = this.curriculumColorsService.buildColorRange(curriculum.gamaColores);
         //Se llama al servicio que recibe las habilidades
         this.skillsService.getSkills(curriculum.idCurriculum).subscribe(async skills => {
 
@@ -97,7 +102,7 @@ export class SkillsComponent implements OnInit {
       let colorsMarkers = new Array();
       let colorsXaxis = new Array();
       this.skills.forEach(() => {
-        colorsMarkers.push('#26a69a');
+        colorsMarkers.push(this.gamaColores.chartsColor);
         colorsXaxis.push('#696969');
       });
 
@@ -120,7 +125,7 @@ export class SkillsComponent implements OnInit {
           text: '» ' + skillName.charAt(0).toUpperCase() + skillName.slice(1),
 
           style: {
-            colors: ['#696969'],
+            colors: [this.gamaColores.chartsColor],
             fontSize: '20px',
             fontWeight: '300',
             fontFamily: 'Roboto',
@@ -140,12 +145,12 @@ export class SkillsComponent implements OnInit {
         },
         fill: {
           opacity: 0.5,
-          colors: ['#26a69a'],
+          colors: [this.gamaColores.chartsColor],
         },
         stroke: {
           show: true,
           width: 2,
-          colors: ['#26a69a'],
+          colors: [this.gamaColores.chartsColor],
           dashArray: 0,
         },
         markers: {

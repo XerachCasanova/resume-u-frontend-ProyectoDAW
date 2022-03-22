@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Experience } from 'src/app/core/models/interfaces/experience';
 import { ExperiencesService } from 'src/app/modules/private/experiences/experiences.service';
 import { environment } from 'src/environments/environment';
+import { CurriculumColorsService } from '../curriculum-colors.service';
 import { CurriculumService } from '../curriculum.service';
 
 @Component({
@@ -11,14 +12,17 @@ import { CurriculumService } from '../curriculum.service';
 })
 export class ExperienceComponent implements OnInit {
   experiences: Experience[];
+  gamaColores: any;
   constructor(
     private curriculumService: CurriculumService,
-    private experiencesService: ExperiencesService
+    private experiencesService: ExperiencesService,
+    private curriculumColorsService: CurriculumColorsService
   ) {
     this.curriculumService.currentCurriculum$.subscribe(async (curriculum) => {
       //El valor inicial del behaviorSubject es un curriculum sin datos, cuya id es = 0, se debe evitar una petición al back con ese curriculum.
       if (curriculum.idCurriculum && curriculum.idCurriculum != '0') {
 
+        this.gamaColores = this.curriculumColorsService.buildColorRange(curriculum.gamaColores);
         this.experiencesService
           .getExperiences(curriculum.idCurriculum)
           .subscribe((experiences) => {

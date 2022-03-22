@@ -13,7 +13,7 @@ export class CustomValidators {
   postalCode(provinces:any[]): ValidatorFn {
 
     return (control: AbstractControl): { [key: string]: any } | null =>
-        provinces.find(province => control.value?.length <= 5 && province.prefijoCp == control.value?.slice(0,2) ) ? null : { wrongPostalCode: control.value};
+        provinces.find(province => control.value?.length <= 5 && province.prefijoCp == control.value?.slice(0,2) ) || control.value.length==0 ? null : { wrongPostalCode: control.value};
 
   }
 

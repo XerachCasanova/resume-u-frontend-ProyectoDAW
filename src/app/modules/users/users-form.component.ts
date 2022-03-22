@@ -109,7 +109,7 @@ export class UsersFormComponent {
         Validators.required,
         Validators.maxLength(this.lengthForm.apellidos),
       ]);
-    this.formUserGroup
+    /*this.formUserGroup
       .get('dni')
       ?.setValidators([
         Validators.required,
@@ -117,24 +117,24 @@ export class UsersFormComponent {
       ]);
     this.formUserGroup
       .get('fechaNacimiento')
-      ?.setValidators(Validators.required);
+      ?.setValidators(Validators.required);*/
     this.formUserGroup
       .get('direccion')
       ?.setValidators([
-        Validators.required,
+        //Validators.required,
         Validators.maxLength(this.lengthForm.direccion),
       ]);
     this.formUserGroup
       .get('cp')
       ?.setValidators([
-        Validators.required,
+        //Validators.required,
         Validators.maxLength(this.lengthForm.cp),
         Validators.minLength(this.lengthForm.cp),
       ]);
     this.formUserGroup
       .get('localidad')
       ?.setValidators([
-        Validators.required,
+        //Validators.required,
         Validators.maxLength(this.lengthForm.localidad),
       ]);
     this.formUserGroup
@@ -237,7 +237,8 @@ export class UsersFormComponent {
         }
         this.spinnerOn = false;
       },
-      () => {
+      (error) => {
+        console.log(error)
         const userFormModal = this.usersFormModalService.openModal(
           false,
           'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'

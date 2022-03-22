@@ -10,7 +10,7 @@
         <div class="container__content__form__row">
           <div class="container__content__form__row__col input-small">
             <mat-form-field appearance="fill">
-              <mat-label>Nombre</mat-label>
+              <mat-label>*Nombre</mat-label>
               <input matInput placeholder="nombre" formControlName="nombre" />
               <mat-error
                 *ngIf="formUserGroup.controls['nombre'].hasError('required')"
@@ -24,7 +24,7 @@
           </div>
           <div class="container__content__form__row__col input-large">
             <mat-form-field appearance="fill">
-              <mat-label>Apellidos</mat-label>
+              <mat-label>*Apellidos</mat-label>
               <input matInput placeholder="Apellidos" formControlName="apellidos" />
               <mat-error
                 *ngIf="formUserGroup.controls['apellidos'].hasError('required')"
@@ -36,10 +36,20 @@
               >
             </mat-form-field>
           </div>
+          <div class="container__content__form__row__col input-small">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input type="date" matInput placeholder="Fecha de nacimiento" formControlName="fechaNacimiento" />
+              <mat-error
+                *ngIf="formUserGroup.controls['fechaNacimiento'].hasError('required')"
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+          </div>
         </div>
 
         <!-- CAMPOS DNI Y FECHA NACIMIENTO -->
-        <div class="container__content__form__row">
+        <!--<div class="container__content__form__row">
           <div class="container__content__form__row__col">
             <mat-form-field appearance="fill" (change)="onCheckableInputChange($event, 'dni')">
               <mat-label>DNI/NIE</mat-label>
@@ -54,18 +64,9 @@
               >
             </mat-form-field>
           </div>
-          <div class="container__content__form__row__col">
-            <mat-form-field appearance="fill">
-              <mat-label>Fecha de nacimiento</mat-label>
-              <input type="date" matInput placeholder="Fecha de nacimiento" formControlName="fechaNacimiento" />
-              <mat-error
-                *ngIf="formUserGroup.controls['fechaNacimiento'].hasError('required')"
-                >Campo obligatorio.</mat-error
-              >
-            </mat-form-field>
-          </div>
-        </div>
 
+        </div>
+         -->
         <!-- CAMPO DIRECCIÓN -->
         <div class="container__content__form__row">
           <div class="container__content__form__row__col input-large">
@@ -180,7 +181,6 @@
             <mat-form-field appearance="fill">
               <mat-label>Twitter</mat-label>
               <input matInput placeholder="twitter" formControlName="twitter" />
-              <mat-icon matSuffix>twitter</mat-icon>
               <mat-error
                 *ngIf="formUserGroup.controls['twitter'].hasError('pattern')"
                 >Twitter inválido.</mat-error
@@ -196,7 +196,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Linkedin</mat-label>
               <input matInput placeholder="linkedin" formControlName="linkedin" />
-              <mat-icon matSuffix>linkedin</mat-icon>
+
             </mat-form-field>
             <mat-error
                 *ngIf="formUserGroup.controls['linkedin'].hasError('maxlength')"
@@ -221,7 +221,7 @@
         <div class="container__content__form__row">
           <div class="container__content__form__row__col">
             <mat-form-field appearance="fill" (change)="onCheckableInputChange($event, 'email')">
-              <mat-label>E-Mail</mat-label>
+              <mat-label>*E-Mail</mat-label>
               <input
                 matInput
                 placeholder="E-Mail"
@@ -240,7 +240,7 @@
           </div>
           <div class="container__content__form__row__col">
             <mat-form-field appearance="fill">
-              <mat-label>Contraseña</mat-label>
+              <mat-label>*Contraseña</mat-label>
               <input
                 matInput
                 type="password"

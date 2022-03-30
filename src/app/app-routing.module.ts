@@ -12,6 +12,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./curriculum/curriculum.module').then((m) => m.CurriculumModule),
   },
+
 ];
 
 @NgModule({

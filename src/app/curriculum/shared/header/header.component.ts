@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ColorRange } from 'src/app/core/models/interfaces/colorRange';
 import { Skill } from 'src/app/core/models/interfaces/skill';
 import { ContactComponent } from 'src/app/curriculum/contact/contact.component';
 import { SkillsService } from 'src/app/modules/private/skills/skills.service';
@@ -22,7 +23,7 @@ export class HeaderComponent implements OnInit {
   apiUrl = environment.apiUrl;
   activeMenuItem = "skills"
   menuActivado = false;
-  gamaColores: any;
+  gamaColores: ColorRange
   isSmallScreen = false;
   isBurguerMenu = false;
   skills: Skill[] = [];
@@ -56,7 +57,7 @@ export class HeaderComponent implements OnInit {
       this.gamaColores = this.curriculumColorsService.buildColorRange(this.curriculum.gamaColores);
 
       this.skillsService.getSkills(this.curriculum.idCurriculum).subscribe((skills: Skill[]) => {
-        this.skills = skills.filter(skill => Number(Boolean(skill.habilidadUnica)) === 1);
+        this.skills = skills.filter(skill => Boolean(Number(skill.habilidadUnica)) === true);
       })
     }
 
@@ -72,6 +73,9 @@ export class HeaderComponent implements OnInit {
     this.activarMenu('');
     this.contactDialog.open(ContactComponent, {
       width: '800px',
+      maxWidth: '80%',
+      height: '80vh',
+      data: {curriculum: this.curriculum, user: this.user}
     });
   }
 }

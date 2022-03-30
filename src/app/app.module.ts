@@ -22,11 +22,15 @@ import { ValidatorsModule } from './core/validators/validators.module';
 import { AuthInterceptorService } from './modules/login/auth.interceptor';
 import { RepeatPasswordValidatorDirective } from './core/validators/repeatpassword.component';
 import { PostalCodeValidatorDirective } from './core/validators/postalcode.validator';
+import { GenericControlsModule } from './core/generic-controls/generic-controls.module';
+
+
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, UsersFormComponent, usersFormModalComponent],
   imports: [
 
+    GenericControlsModule,
     ValidatorsModule,
     AppRoutingModule,
     HttpClientModule,

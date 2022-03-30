@@ -6,8 +6,18 @@
   <div class="cards">
     <div [ngClass]="experiences.length===2 ? 'cards__card-2-items' : 'cards__card' " *ngFor="let exp of experiences">
       <mat-card>
+        <div class="cards__card__logo" [ngStyle]="{'border': 'solid 2px'+gamaColores.mainColor}" *ngIf="exp.logo !== ''">
+          <img
+            class="cards__card__logo__pic"
+            [src]="apiUrl + exp.logo"
+          />
+        </div>
+
         <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }" >
-          {{ exp.empresa }}
+          <div class="cards__card__title__text">
+            {{ exp.empresa }}
+          </div>
+
         </mat-card-title>
         <mat-card-subtitle class="cards__card__subtitle">
           Desde: {{ exp.fechaComienzo | date: 'dd/MM/yyyy' }}
@@ -18,10 +28,10 @@
         <mat-card-content class="cards__card__position">
           {{ exp.cargo }}
         </mat-card-content>
-        <mat-card-content class="cards__card__positionDesc">
+        <mat-card-content class="cards__card__positionDesc" *ngIf="exp.descripcion != ''">
           {{ exp.descripcion }}
         </mat-card-content>
-        <mat-card-content class="cards__card__tasks">
+        <mat-card-content class="cards__card__tasks" *ngIf="exp.tareas != ''">
           <span class="cards__card__tasks__titleTasks"
             >Tareas a desempeñar:</span
           >
@@ -32,6 +42,9 @@
         </mat-card-content>
       </mat-card>
     </div>
+  </div>
+  <div class="no-data" *ngIf="chargeCompleted && experiences.length==0">
+    <div class="no-data__text">No tengo experiencia, pero busco una oportunidad laboral.</div>
   </div>
 </section>
 

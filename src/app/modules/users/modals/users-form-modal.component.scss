@@ -36,6 +36,28 @@ button {
   display: none;
 }
 
+
+
+/* FORMATEO DEL COLOR DEL FORMULARIO PARA EVITAR QUE TENGA EL COLOR GENÉRICO DE LA WEB*/
+
+:host ::ng-deep .mat-form-field-label {
+  color: BLACK !important;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  background-color: black !important;
+}
+:host ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+background-color: black !important;
+}
+:host ::ng-deep input {
+color: black !important;
+}
+:host ::ng-deep input {
+color: black !important;
+}
+
+
 @media all and (min-width: 0px) and (max-width: 660px) {
 
 }

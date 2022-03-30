@@ -9,9 +9,14 @@ import {Directive, forwardRef,  Input} from '@angular/core';
 export class CustomValidators {
 
   repeatPassword(password:string): ValidatorFn {
-
+    console.log(password)
     return (control: AbstractControl): { [key: string]: any } | null =>
-       password === control.value ? null : { wrongRepeatPassword: control.value};
+
+      {
+        const ctrol = control.value
+        console.log(ctrol)
+         return password === control.value ? null : { wrongRepeatPassword: control.value };
+      }
 
   }
 

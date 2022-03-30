@@ -21,6 +21,7 @@ import { ChargeImagesService } from '../chargeImages.service';
 export class ConfigurationComponent {
   formCurriculumGroup: FormGroup;
   idUsuario: string;
+  nameFocusField: string;
   errorMsg: string;
   apiUrl = environment.apiUrl;
   imageCompany: File;
@@ -177,12 +178,13 @@ export class ConfigurationComponent {
         this.usersFormModalService.openModal(true, 'Currículum modificado correctamente.');
         this.spinnerOn = false;
       },
-      () => {
+      (error) => {
         this.usersFormModalService.openModal(false, 'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.');
         this.spinnerOn = false;
       }
     );
   }
+
 
   checkAlias(){
 

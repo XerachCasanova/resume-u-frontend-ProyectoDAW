@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Login } from 'src/app/core/models/interfaces/login';
+import { LoginService } from 'src/app/modules/login/login.service';
 import { TokenService } from 'src/app/modules/login/token.service';
 import { HeaderService } from './header.service';
 
@@ -13,10 +14,12 @@ export class HeadersComponent implements OnInit {
   loginButtonHidden = false;
   signUpButtonHidden = false;
   isLogged = false;
+  isAdmin = false;
   loggedUser: any;
   constructor(
     private headerService: HeaderService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private loginService: LoginService,
   ) {}
 
   async ngOnInit() {
@@ -25,6 +28,8 @@ export class HeadersComponent implements OnInit {
       this.tokenService.checkToken().subscribe(
         () => {
           this.headerService.changeLoginState(true);
+
+          this.loginService.isAdmin().subscribe(isAdmin =>  this.isAdmin = isAdmin);
         },
         (error) => {
 

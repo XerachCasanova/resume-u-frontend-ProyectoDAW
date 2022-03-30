@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ColorRange } from 'src/app/core/models/interfaces/colorRange';
+import { Provincia } from 'src/app/core/models/interfaces/provincia';
+import { provinciasService } from 'src/app/modules/users/provincias.service';
+import { CurriculumColorsService } from '../curriculum-colors.service';
 
 export interface Contact {
   nombre: string;
@@ -24,16 +29,26 @@ export class ContactComponent implements OnInit {
   formContactGroup: FormGroup;
   datosContacto!: Contact;
   asuntoContacto = Object.values(asunto);
-
-  constructor(private fb: FormBuilder) {
+  gamaColores: ColorRange;
+  province: string ='';
+  constructor(
+    private fb: FormBuilder,
+    private curriculumColorsService: CurriculumColorsService,
+    private provincesService: provinciasService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ContactComponent>
+  ) {
     this.formContactGroup = fb.group({});
 
     this.resetContact();
   }
 
   ngOnInit(): void {
+    this.provincesService.getProvincia(this.data.user.cp.toString().substr(0,2)).subscribe(province =>  this.province = province[0].provincia);
     this.formContactGroup = this.fb.group(this.datosContacto);
-
+    this.gamaColores = this.curriculumColorsService.buildColorRange(
+      this.data.curriculum.gamaColores
+    );
     this.formContactGroup.get('nombre')?.setValidators(Validators.required);
     this.formContactGroup.get('apellidos')?.setValidators(Validators.required);
     this.formContactGroup

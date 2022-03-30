@@ -1,0 +1,150 @@
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  &__chart {
+    flex: 0 0 48%;
+    padding: 0.5rem;
+  }
+
+  &__chart:first-child:nth-child(odd) {
+    flex: none;
+    width: 98%;
+  }
+
+
+  &__no-chart {
+    display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  align-items: stretch;
+  &__card{
+    display: grid;
+    height: 100%;
+    grid-row-end: auto;
+    margin-bottom: 1em;
+
+      &__title {
+        font-family: roboto;
+        font-size: 1.4em;
+        font-weight: 400;
+        color: white;
+        //background-color: #009688;
+        padding: 0.5em;
+        border-radius: 5px;
+      }
+
+      &__knowledges {
+        display: flex;
+        width: 100%;
+        &__name {
+          font-size: 1.1rem;
+          width: 40%;
+        }
+
+        &__bar {
+          border-radius: 10px;
+          width: 50%;
+          padding: 1px;
+          border: solid 1px;
+          width: 100%;
+          height: 20px;
+          &__level {
+            border-radius: 10px;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    &__card:first-child:nth-child(odd) {
+      grid-column: span 2;
+    }
+
+    &__card:last-child:nth-child(even) {
+      grid-column: span 2;
+    }
+
+    &__card-2-items {
+      display: grid;
+      grid-column: 50%, 50%;
+      height: 100%;
+      grid-row-end: auto;
+      margin-bottom: 1em;
+    }
+
+  }
+
+}
+
+.leyend {
+  color: #009688;
+  margin-bottom: 10px;
+}
+
+.example-select{
+
+  width: 100%;
+}
+
+.no-data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 200;
+  background-image: url(../../../assets/no-data-image.png);
+  background-size: auto 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width:100%;
+  height: 300px;
+  &__text{
+    padding:10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+  }
+}
+
+
+@media ALL and (min-width: 0px) and (max-width: 849px) {
+  .content {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media ALL and (min-width: 850px) and (max-width: 1105px) {
+  .chart {
+    flex: 0 0 85%;
+    padding: 0.5rem;
+  }
+}
+
+@media ALL and (min-width: 0px) and (max-width: 700px) {
+  .content {
+    &__no-chart {
+      display: block;
+      width: 100%;
+      &__card{
+
+
+          &__knowledges {
+            display: block;
+            width: 100%;
+            &__name {
+
+              margin-bottom: 0.2rem;
+            }
+
+            &__bar {
+
+              width: 95%;
+
+            }
+          }
+        }
+    }
+
+  }
+}

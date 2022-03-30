@@ -5,7 +5,8 @@
       <div
         class="header__header-content__personal-data__photo "
         [ngStyle]="{'border': '3px solid' + gamaColores.darkColor, 'box-shadow': '0 0 5px' + gamaColores.darkColor}"
-        [style.background]="'url(' +apiUrl + curriculum.foto + ')'"
+        [style.background]="curriculum.foto != '' ? '#FFFFFF url(' +apiUrl + curriculum.foto + ')' : '#FFFFFF url(../../../../assets/no-data-image.png)' "
+
 
       ></div>
       <div class="burger-button-menu" [ngStyle]="{'background-color': gamaColores.mainColor }" (click)="activarMenu('')">
@@ -99,10 +100,10 @@
   <div
     class="photo"
     [ngStyle]="{'border': '3px solid' + gamaColores.darkColor, 'box-shadow': '0 0 5px' + gamaColores.darkColor}"
-    [style.background]="'url(' +apiUrl + curriculum.foto + ')'"
+    [style.background]="curriculum.foto != '' ? '#FFFFFF url(' +apiUrl + curriculum.foto + ')' : '#FFFFFF url(../../../../assets/no-data-image.png)' "
   ></div>
   <section class="column-left" *ngIf="curriculum">
-    <article class="aboutme">
+    <article class="aboutme" *ngIf="user.acercaDe != ''">
       <header>
         <h1 class="title">
           <i class="tiny material-icons">perm_identity</i>Acerca de
@@ -112,9 +113,9 @@
       <p>{{ user.acercaDe }}</p>
     </article>
 
-    <article class="otherskills" *ngIf="curriculum.habilidadesUnicas">
+    <article class="otherskills" *ngIf="curriculum.habilidadesUnicas && curriculum.habilidadesUnicas.length > 0">
       <header>
-        <h1 class="container-left__title">Otras habilidades</h1>
+        <h1 class="container-left__title">Habilidades Esp.</h1>
         <hr class="container-left__separator" />
       </header>
       <ul>
@@ -134,7 +135,7 @@
       </ul>
     </article>
 
-    <article class="languages" *ngIf="curriculum.idiomas">
+    <article class="languages" *ngIf="curriculum.idiomas && curriculum.idiomas.length > 0">
       <header>
         <h1 class="container-left__title">Idiomas</h1>
         <hr class="container-left__separator" />
@@ -158,7 +159,7 @@
       </ul>
     </article>
 
-    <article class="interestings" *ngIf="curriculum.datosInteres">
+    <article class="interestings" *ngIf="curriculum.datosInteres && curriculum.datosInteres.length >0">
       <header>
         <h1 class="container-left__title">Datos de interés</h1>
         <hr class="container-left__separator"/>

@@ -25,6 +25,7 @@ export class UsersDataComponent {
   selectedProvince: Provincia | undefined;
   spinnerOn = false;
   chargeForm = false;
+  nameFocusField: string;
   curriculum: Curriculum;
   isPrivate: boolean;
   lengthForm: any;
@@ -36,7 +37,7 @@ export class UsersDataComponent {
     private tokenService: TokenService,
     private provinciasService: provinciasService,
     private curriculumService: CurriculumService,
-    private usersFormModalService:UsersFormModalService,
+    private usersFormModalService: UsersFormModalService,
     private router: Router
   ) {}
 
@@ -47,14 +48,15 @@ export class UsersDataComponent {
     this.lengthForm = {
       nombre: MAX_LENGTH.LENGTH_50,
       apellidos: MAX_LENGTH.LENGTH_100,
+      direccion: MAX_LENGTH.LENGTH_200,
+      localidad: MAX_LENGTH.LENGTH_100,
       cp: MAX_LENGTH.LENGTH_5,
       acercaDe: MAX_LENGTH.LENGTH_500,
       telefonos: MAX_LENGTH.LENGTH_15,
       facebook: MAX_LENGTH.LENGTH_150,
       linkedin: MAX_LENGTH.LENGTH_150,
       instagram: MAX_LENGTH.LENGTH_150,
-      password: MAX_LENGTH.LENGTH_50,
-    }
+    };
     this.formUserGroup = this.fb.group({});
     this.resetForm();
     this.setValidators();
@@ -68,6 +70,9 @@ export class UsersDataComponent {
         this.user.idUsuario = userData[0].idUsuario;
         this.user.nombre = userData[0].nombre;
         this.user.apellidos = userData[0].apellidos;
+        this.user.direccion = userData[0].direccion;
+        this.user.fechaNacimiento = userData[0].fechaNacimiento;
+        this.user.localidad = userData[0].localidad;
         this.user.cp = userData[0].cp;
         this.user.telefono1 = userData[0].telefono1;
         this.user.telefono2 = userData[0].telefono2;
@@ -82,7 +87,8 @@ export class UsersDataComponent {
             .getCurriculums(this.user.idUsuario)
             .subscribe((curriculum) => {
               this.curriculum = curriculum[0];
-              if(Number(this.curriculum.esPrivado)===1) this.isPrivate = true;
+              if (Number(this.curriculum.esPrivado) === 1)
+                this.isPrivate = true;
 
               this.formUserGroup = this.fb.group({
                 ...this.user,
@@ -102,20 +108,69 @@ export class UsersDataComponent {
   }
 
   setValidators() {
-    this.formUserGroup.get('nombre')?.setValidators([Validators.required, Validators.maxLength(this.lengthForm.nombre)]);
-    this.formUserGroup.get('apellidos')?.setValidators([Validators.required, Validators.maxLength(this.lengthForm.apellidos)]);
-    this.formUserGroup.get('cp')?.setValidators([Validators.required, Validators.maxLength(this.lengthForm.cp)]);
+    this.formUserGroup
+      .get('nombre')
+      ?.setValidators([
+        Validators.required,
+        Validators.maxLength(this.lengthForm.nombre),
+      ]);
+    this.formUserGroup
+      .get('apellidos')
+      ?.setValidators([
+        Validators.required,
+        Validators.maxLength(this.lengthForm.apellidos),
+      ]);
+
+      this.formUserGroup
+      .get('direccion')
+      ?.setValidators([
+
+        Validators.maxLength(this.lengthForm.direccion),
+      ]);
+
+      this.formUserGroup
+      .get('cp')
+      ?.setValidators([
+        Validators.required,
+        Validators.maxLength(this.lengthForm.cp),
+        Validators.minLength(this.lengthForm.cp),
+      ]);
+
+      this.formUserGroup
+      .get('localidad')
+      ?.setValidators([
+        Validators.required,
+        Validators.maxLength(this.lengthForm.localidad),
+      ]);
+
     this.formUserGroup
       .get('twitter')
       ?.setValidators(Validators.pattern('^@[A-Za-z0-9_]{1,15}$'));
 
-    this.formUserGroup.get('telefono1')?.setValidators([Validators.pattern('^[0-9]*$'),  Validators.maxLength(this.lengthForm.telefonos)]);
-    this.formUserGroup.get('telefono2')?.setValidators([Validators.pattern('^[0-9]*$'),  Validators.maxLength(this.lengthForm.telefonos)]);
-    this.formUserGroup.get('facebook')?.setValidators([ Validators.maxLength(this.lengthForm.facebook)]);
-    this.formUserGroup.get('linkedin')?.setValidators([ Validators.maxLength(this.lengthForm.linkedin)]);
-    this.formUserGroup.get('instagram')?.setValidators([ Validators.maxLength(this.lengthForm.instagram)]);
-    this.formUserGroup.get('acercaDe')?.setValidators([Validators.maxLength(this.lengthForm.acercaDe)]);
-
+    this.formUserGroup
+      .get('telefono1')
+      ?.setValidators([
+        Validators.pattern('^[0-9]*$'),
+        Validators.maxLength(this.lengthForm.telefonos),
+      ]);
+    this.formUserGroup
+      .get('telefono2')
+      ?.setValidators([
+        Validators.pattern('^[0-9]*$'),
+        Validators.maxLength(this.lengthForm.telefonos),
+      ]);
+    this.formUserGroup
+      .get('facebook')
+      ?.setValidators([Validators.maxLength(this.lengthForm.facebook)]);
+    this.formUserGroup
+      .get('linkedin')
+      ?.setValidators([Validators.maxLength(this.lengthForm.linkedin)]);
+    this.formUserGroup
+      .get('instagram')
+      ?.setValidators([Validators.maxLength(this.lengthForm.instagram)]);
+    this.formUserGroup
+      .get('acercaDe')
+      ?.setValidators([Validators.maxLength(this.lengthForm.acercaDe)]);
   }
 
   resetForm() {
@@ -140,7 +195,6 @@ export class UsersDataComponent {
       activo: '',
       idRol: '',
     };
-
   }
 
   onCpPressKey($event: any | string) {
@@ -159,7 +213,10 @@ export class UsersDataComponent {
       if (valueToCheck === 'dni') {
         this.usersService.checkDni($event.target.value).subscribe((resp) => {
           if (resp) {
-            const usersFormModal = this.usersFormModalService.openModal(false, ' El DNI introducido pertenece a un usuario ya existente.');
+            const usersFormModal = this.usersFormModalService.openModal(
+              false,
+              ' El DNI introducido pertenece a un usuario ya existente.'
+            );
             usersFormModal
               .afterClosed()
               .subscribe(() =>
@@ -170,7 +227,10 @@ export class UsersDataComponent {
       } else if (valueToCheck === 'email') {
         this.usersService.checkEmail($event.target.value).subscribe((resp) => {
           if (resp) {
-            const usersFormModal = this.usersFormModalService.openModal(false, ' El E-mail introducido pertenece a un usuario ya existente.');
+            const usersFormModal = this.usersFormModalService.openModal(
+              false,
+              ' El E-mail introducido pertenece a un usuario ya existente.'
+            );
 
             usersFormModal
               .afterClosed()
@@ -192,20 +252,24 @@ export class UsersDataComponent {
     this.usersService.updateUser(this.user).subscribe(
       (resp) => {
         if (resp.status && resp.status === 'ok') {
-          this.usersFormModalService.openModal(true, 'Has modificado tus datos personales correctamente.')
-
+          this.usersFormModalService.openModal(
+            true,
+            'Has modificado tus datos personales correctamente.'
+          );
         }
         this.spinnerOn = false;
       },
       () => {
-        this.usersFormModalService.openModal(false, 'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.')
+        this.usersFormModalService.openModal(
+          false,
+          'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'
+        );
         this.spinnerOn = false;
       }
     );
   }
 
-  goToCurriculum(){
-    this.router.navigate([this.curriculum.alias])
+  goToCurriculum() {
+    this.router.navigate([this.curriculum.alias]);
   }
-
 }

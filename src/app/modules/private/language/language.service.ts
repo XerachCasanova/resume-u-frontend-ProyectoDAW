@@ -39,7 +39,7 @@ export class LanguageService {
 
   deleteLanguage(language:any): Observable<any> {
 
-    return this.http.delete(environment.apiUrl+'idioma', language)
+    return this.http.delete(environment.apiUrl+'idioma?idIdioma='+language.idIdioma);
 
   }
 

@@ -58,6 +58,7 @@ PALETA DE COLORES
       .mat-icon{
         color: #009688;
       }
+
     }
 
     &__no-table{
@@ -70,14 +71,21 @@ PALETA DE COLORES
   }
 }
 
-.see{
-  cursor: pointer;
+.curriculum-link{
+  margin: 20px 0;
   display:flex;
   width: 100%;
   justify-content: right;
   padding-right: 10px;
-  align-items: center;
+  &__item {
+    cursor: pointer;
+    width: 150px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
 }
+
 
 .mat-dialog-actions{
   display: inline;

@@ -141,7 +141,7 @@
                 matInput
                 placeholder="Fecha de comienzo"
                 formControlName="fechaComienzo"
-                (change)="checkEndingDate()"
+                (blur)="checkEndingDate()"
               />
 
               <mat-error
@@ -172,7 +172,7 @@
                 matInput
                 placeholder="Fecha de finalización"
                 formControlName="fechaFinalizacion"
-                (change)="checkEndingDate()"
+                (blur)="checkEndingDate()"
               />
 
               <mat-error
@@ -185,6 +185,8 @@
               >
             </mat-form-field>
           </div>
+
+
         </div>
 
         <!-- BOTONES DE ACCIÓN -->

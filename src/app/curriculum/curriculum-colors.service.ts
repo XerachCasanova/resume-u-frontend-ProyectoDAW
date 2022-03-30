@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Curriculum } from '../core/models/interfaces/curriculum';
+import { ColorRange } from '../core/models/interfaces/colorRange';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +12,7 @@ export class CurriculumColorsService {
 
   buildColorRange(color:string): any {
 
-    let objectColors = {}
+    let objectColors: ColorRange | null = null;
     switch(color){
       case 'Verde':
         objectColors = {

@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { ValidatorsModule } from 'src/app/core/validators/validators.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InterestingDataComponent } from './interesting-data/interesting-data.component';
 import { LanguageComponent } from './language/language.component';
@@ -26,7 +29,9 @@ import { EducationsComponent } from './educations/educations.component';
 import { EducationFormComponent } from './educations/experience-form/education-form.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { MainComponent } from './main/main.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { SkillsChartsModule } from 'src/app/core/skills-charts/skills-chats.module';
+import { AuthUserGuard } from '../login/auth-user.guard';
 
 @NgModule({
   declarations: [
@@ -43,9 +48,13 @@ import { MainComponent } from './main/main.component';
     EducationFormComponent,
   ],
   imports: [
+    SkillsChartsModule,
+    MatTabsModule,
     PrivateRoutingModule,
     MatDatepickerModule,
+    MatPaginatorModule,
     MatNativeDateModule,
+    MatSortModule,
     SharedModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -66,6 +75,7 @@ import { MainComponent } from './main/main.component';
   ],
   exports: [PrivateComponent],
   providers: [
+    [AuthUserGuard],
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
   ],
 })

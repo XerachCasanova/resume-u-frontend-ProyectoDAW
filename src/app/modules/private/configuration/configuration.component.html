@@ -8,19 +8,6 @@
         <mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum
       </div>
     </div>
-    <div>
-      <p>
-        Algunos parámetros de configuración afectarán a la visualización final
-        del mismo. Si no deseas subir una foto, se mostrará una imagen genérica
-        en su lugar. El alias es la url a la que podrás acceder para ver tu
-        currículum. Ej.: www.resumeu.es/FranciscoAlvarez-abogado.
-      </p>
-      <p>
-        Puedes elegir la gama de colores y la manera en la que se visualizarán
-        tus habilidades. Prueba a guardar cambios y visualizar tu currículum
-        hasta que logres el aspecto deseado.
-      </p>
-    </div>
 
     <!-- CONFIGURACIÓN DEL CURRICULUM-->
 
@@ -49,9 +36,11 @@
               type="file"
             />
           </button>
+
           <span class="ml-10">{{
             imageCompany && (imageCompany?.name ?? (imageCompany.name | json))
           }}</span>
+          Se recomienda que la foto sea cuadrada o ligeramente vertical para su correcta visualización.
         </div>
         <div class="spinner" *ngIf="spinnerImageOn"></div>
       </div>
@@ -68,8 +57,15 @@
           <div class="container__content__form__row">
             <div class="container__content__form__row__col">
               <mat-form-field appearance="fill">
-                <mat-label>Alias</mat-label>
-                <input matInput placeholder="alias" formControlName="alias" (change)="checkAlias()" />
+                <mat-label></mat-label>
+                <input
+                  (focus)="nameFocusField = 'alias'"
+                  (blur)="nameFocusField = ''"
+                  matInput
+                  placeholder="alias"
+                  formControlName="alias"
+                  (change)="checkAlias()"
+                />
                 <mat-error
                   *ngIf="
                     formCurriculumGroup.controls['alias'].hasError('required')
@@ -80,7 +76,13 @@
                   *ngIf="
                     formCurriculumGroup.controls['alias'].hasError('pattern')
                   "
-                  >El alias debe contenter solamente números, letras (sin tildes) y guiones. Los guiones no pueden estar al principio o al final. Tampoco pueden haber más de un guión consecutivo.</mat-error
+                  >El alias debe contenter solamente números, letras (sin
+                  tildes) y guiones. Los guiones no pueden estar al principio o
+                  al final. Tampoco pueden haber más de un guión
+                  consecutivo.</mat-error
+                >
+                <span class="info-input" *ngIf="nameFocusField == 'alias'"
+                  >Url con la que mostrarás tu currículum</span
                 >
                 <mat-error
                   *ngIf="
@@ -126,7 +128,16 @@
             <div class="container__content__form__row__col">
               <mat-form-field appearance="fill">
                 <mat-label>Web</mat-label>
-                <input matInput placeholder="Web" formControlName="web" />
+                <input
+                  (focus)="nameFocusField = 'web'"
+                  (blur)="nameFocusField = ''"
+                  matInput
+                  placeholder="Web"
+                  formControlName="web"
+                />
+                <span class="info-input" *ngIf="nameFocusField == 'web'"
+                  >Habrá un link hacia tu web en el currículum.</span
+                >
                 <mat-error
                   *ngIf="
                     formCurriculumGroup.controls['web'].hasError('maxlength')
@@ -143,12 +154,20 @@
             <div class="container__content__form__row__col">
               <mat-form-field appearance="fill">
                 <mat-label>Gama de colores</mat-label>
-                <mat-select formControlName="gamaColores">
+                <mat-select
+                  formControlName="gamaColores"
+                  (focus)="nameFocusField = 'gamaColores'"
+                  (blur)="nameFocusField = ''"
+                >
                   <mat-option [value]="'Verde'"> Verde </mat-option>
                   <mat-option [value]="'Azul'"> Azul </mat-option>
                   <mat-option [value]="'Rosa'"> Rosa </mat-option>
                   <mat-option [value]="'Naranja'"> Naranja </mat-option>
                 </mat-select>
+                <span class="info-input" *ngIf="nameFocusField == 'gamaColores'"
+                  >Tu currículum se basará en la gama de colores que
+                  elijas.</span
+                >
                 <mat-error
                   *ngIf="
                     formCurriculumGroup.controls['gamaColores'].hasError(
@@ -162,7 +181,11 @@
             <div class="container__content__form__row__col">
               <mat-form-field appearance="fill">
                 <mat-label>Apariencia de habilidades</mat-label>
-                <mat-select formControlName="tipoHabilidades">
+                <mat-select
+                  formControlName="tipoHabilidades"
+                  (focus)="nameFocusField = 'tipoHabilidades'"
+                  (blur)="nameFocusField = ''"
+                >
                   <mat-option [value]="'no-levels'">
                     Listado de conocimientos sin niveles.
                   </mat-option>
@@ -176,6 +199,12 @@
                     Estadísticas tipo radar.
                   </mat-option>
                 </mat-select>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'tipoHabilidades'"
+                  >Tipo de apariencia de tus habilidades, haz pruebas y
+                  selecciona la que mejor se acomode a tus preferencias.</span
+                >
                 <mat-error
                   *ngIf="
                     formCurriculumGroup.controls['tipoHabilidades'].hasError(
@@ -195,7 +224,13 @@
                   matInput
                   placeholder="Password"
                   formControlName="password"
+                  (focus)="nameFocusField = 'password'"
+                  (blur)="nameFocusField = ''"
                 />
+                <span class="info-input" *ngIf="nameFocusField == 'password'"
+                  >Si prefieres privacidad, tu currículum será accesible solo mediante la contraseña que
+                  tú proporciones.</span
+                >
                 <mat-error
                   *ngIf="
                     formCurriculumGroup.controls['password'].hasError(

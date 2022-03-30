@@ -84,7 +84,7 @@ export class EducationFormComponent {
                 .subscribe((educations) => {
 
                   this.education = educations[0];
-
+                  this.education.esTitulacionOficial = Boolean(Number(educations[0].esTitulacionOficial));
                   if(this.education.fechaFinalizacion === null) this.cursandoActualmente = true;
                   this.formEducationGroup = this.fb.group(this.education);
 

@@ -36,11 +36,11 @@ export class MainComponent implements OnInit {
       acercaDe: '',
       alias: '',
       foto: '',
-      gamaColores: '',
+      gamaColores: 'Verde',
       idUsuario: this.user.idUsuario,
       profesion: '',
       web: '',
-      tipoHabilidades: '',
+      tipoHabilidades: 'no-levels',
       password: '',
       esPrivado: false,
     };
@@ -48,9 +48,15 @@ export class MainComponent implements OnInit {
   createCurriculum(){
     this.resetCurriculum();
 
-    this.curriculumService.createCurriculum(this.curriculumToAdd).subscribe(() =>{
+    this.curriculumService.createCurriculum(this.curriculumToAdd).subscribe((res) =>{
       this.spinnerOn = true;
-      this.router.navigate(['private','configuration']);
+      this.curriculumToAdd.alias = 'renombra-este-alias-'+this.user.idUsuario;
+      this.curriculumToAdd.idCurriculum = res.result.idCurriculum
+      this.curriculumService.updateCurriculum(this.curriculumToAdd).subscribe(() => {
+        this.router.navigate(['private','configuration']);
+      })
+
+
     })
   }
 }

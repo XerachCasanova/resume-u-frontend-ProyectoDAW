@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Gestión de idiomas</h1>
+    </header>
+
+    <h2>Añadir idioma</h2>
+
+    <form [formGroup]="formLanguageGroup" (ngSubmit)="onSubmit()">
+      <div class="container__content__form" *ngIf="languageToAdd">
+        <div class="container__content__form__row">
+          <div class="container__content__form__row__col">
+            <mat-form-field appearance="fill">
+              <mat-label>Idioma</mat-label>
+              <input
+                matInput
+                placeholder="Idioma"
+                formControlName="idioma"
+              />
+              <mat-error
+                *ngIf="
+                formLanguageGroup.controls['idioma'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+              <mat-error
+                *ngIf="
+                formLanguageGroup.controls['idioma'].hasError(
+                    'maxlength'
+                  )
+                "
+                >Longitud máxima:
+                {{ maxLengthLanguage }} caracteres.</mat-error
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="container__content__form__actions">
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="formLanguageGroup.invalid || spinnerOn"
+                >
+                  Guardar
+                </button>
+              </mat-dialog-actions>
+            </div>
+
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  type="button"
+                  mat-raised-button
+                  color="primary"
+                  (click)="resetForm()"
+                >
+                  Resetear
+                </button>
+              </mat-dialog-actions>
+            </div>
+            <div class="spinner" *ngIf="spinnerOn"></div>
+            <span> {{ errorMsg }}</span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="container__content__table mt-20" *ngIf="languages.length > 0">
+      <table mat-table [dataSource]="languages" class="mat-elevation-z8">
+        <ng-container matColumnDef="idioma">
+          <th mat-header-cell *matHeaderCellDef>Idioma</th>
+          <td mat-cell *matCellDef="let language">
+            {{ language.idioma }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let language">
+            <mat-icon
+              class="mat-icon link-pointer"
+              (click)="onDeleteClick(language)"
+              >delete</mat-icon
+            >
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div
+      class="container__content__no-table"
+      *ngIf="chargeCompleted && languages.length === 0"
+    >
+      No hay idiomas creados
+    </div>
+  </div>
+</div>

@@ -109,32 +109,24 @@ export class UsersFormComponent {
         Validators.required,
         Validators.maxLength(this.lengthForm.apellidos),
       ]);
-    /*this.formUserGroup
-      .get('dni')
-      ?.setValidators([
-        Validators.required,
-        Validators.pattern('^([0-9]{8}[a-zA-Z])|[XYZ][0-9]{7}[A-Z]$'),
-      ]);
-    this.formUserGroup
-      .get('fechaNacimiento')
-      ?.setValidators(Validators.required);*/
+
     this.formUserGroup
       .get('direccion')
       ?.setValidators([
-        //Validators.required,
+
         Validators.maxLength(this.lengthForm.direccion),
       ]);
     this.formUserGroup
       .get('cp')
       ?.setValidators([
-        //Validators.required,
+
         Validators.maxLength(this.lengthForm.cp),
         Validators.minLength(this.lengthForm.cp),
       ]);
     this.formUserGroup
       .get('localidad')
       ?.setValidators([
-        //Validators.required,
+
         Validators.maxLength(this.lengthForm.localidad),
       ]);
     this.formUserGroup
@@ -147,7 +139,7 @@ export class UsersFormComponent {
       .get('email')
       ?.setValidators([
         Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        Validators.email,
         Validators.maxLength(this.lengthForm.email),
       ]);
     this.formUserGroup
@@ -222,6 +214,8 @@ export class UsersFormComponent {
       ...this.formUserGroup.value,
       provincia: this.selectedProvince?.idProvincia,
     };
+
+    this.usuario.email = this.usuario.email.toLowerCase();
 
     this.usersService.createUser(this.usuario).subscribe(
       (resp) => {

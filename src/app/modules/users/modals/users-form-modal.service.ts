@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
+import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
 
-import { User } from 'src/app/core/models/interfaces/user';
-import { environment } from 'src/environments/environment';
 import { usersFormModalComponent } from './users-form-modal.component';
 
 
@@ -21,10 +19,25 @@ export class UsersFormModalService {
     return this.usersFormDialog.open(usersFormModalComponent, {...objectModal});
   }
 
+  openPasswordCurriculumModal(curriculum: Curriculum){
+    return this.usersFormDialog.open(usersFormModalComponent, {
+      width: '800px',
+      maxWidth: '80%',
+      data: {
+        header: 'advise',
+        type: 'passwordCurriculum',
+        passwordCurriculum: curriculum.password,
+        color: curriculum.gamaColores,
+        msg: 'El currículum al que estás intentando acceder está protegido con contraseña. Introdúcela para poder visualizarlo.',
+      },
+    });
+  }
+
   openActivationCodeModal(idUsuario:string){
 
     return this.usersFormDialog.open(usersFormModalComponent, {
-      maxWidth: '800px',
+      width: '800px',
+      maxWidth: '80%',
       data: {
         header: 'advise',
         type: 'activationCode',

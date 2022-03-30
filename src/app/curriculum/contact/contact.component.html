@@ -4,6 +4,59 @@
   </header>
   <form [formGroup]="formContactGroup">
     <div class="form">
+      <div
+        class="form__contact"
+        [ngStyle]="{ 'background-color': gamaColores.mainColor }"
+      >
+        <div class="form__contact__items">
+          <a class="form__contact__items__item" [href]="'https://www.linkedin.com/in/'+data.user.linkedin" *ngIf="data.user.linkedin!=''">
+            <div>
+              <i class="fab fa-linkedin fa-lg" ></i
+              >Mi Linkedin
+            </div>
+          </a>
+          <a class="form__contact__items__item" [href]="'https://www.facebook.com/'+data.user.facebook" *ngIf="data.user.facebook!=''">
+            <div>
+              <i class="fab fa-facebook fa-lg" ></i
+              >Mi facebook
+            </div>
+          </a>
+          <a class="form__contact__items__item" [href]="'https://instagram.com/'+data.user.instagram" *ngIf="data.user.instagram!=''">
+            <div>
+              <i class="fab fa-instagram fa-lg" ></i
+              >{{data.user.instagram}}
+            </div>
+          </a>
+          <a class="form__contact__items__item" [href]="'https://twitter.com/'+data.user.twitter" *ngIf="data.user.twitter!=''">
+            <div>
+              <i class="fab fa-twitter fa-lg"></i
+              >Mi Twitter: {{ data.user.twitter }}
+            </div>
+          </a>
+
+          <a class="form__contact__items__item" [href]="'tel:' + data.user.telefono1" *ngIf="data.user.telefono1!=''"
+            ><div>
+              <i class="fa fa-phone fa-lg" ></i>Mi
+              teléfono {{ data.user.telefono1 }}
+            </div>
+          </a>
+
+          <a class="form__contact__items__item" [href]="'tel:' + data.user.telefono2" *ngIf="data.user.telefono2!=''"
+            ><div>
+              <i class="fa fa-phone fa-lg" ></i>Mi
+              móvil {{ data.user.telefono2 }}
+            </div>
+          </a>
+        </div>
+        <div class="form__contact__separator"></div>
+        <div class="form__contact__home">
+          <i
+            class="fa fa-home fa-lg"
+          ></i
+          >Vivo en {{ data.user.localidad + ". "+ province }}
+        </div>
+      </div>
+
       <div class="form__row">
         <div class="form__row__col">
           <mat-form-field appearance="fill">
@@ -108,18 +161,27 @@
           </mat-form-field>
         </div>
       </div>
-      <mat-dialog-actions>
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="formContactGroup.invalid"
-        >
-          Enviar
-        </button>
-        <button mat-raised-button color="warn" mat-dialog-close>
-          Cancelar
-        </button>
-      </mat-dialog-actions>
+      <div class="form__row">
+        <div class="form__row__col">
+          <mat-dialog-actions>
+            <div class="form__row__col__buttons">
+              <generic-button
+                [textButton]="'Enviar'"
+                [mainColor]="gamaColores.mainColor"
+                [darkColor]="gamaColores.darkColor"
+                [width]="'100px'"
+              ></generic-button>
+              <generic-button
+                [textButton]="'Cancelar'"
+                mat-dialog-close
+                [mainColor]="'red'"
+                [darkColor]="'brown'"
+                [width]="'100px'"
+              ></generic-button>
+            </div>
+          </mat-dialog-actions>
+        </div>
+      </div>
     </div>
   </form>
 </div>

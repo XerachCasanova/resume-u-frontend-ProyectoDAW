@@ -39,8 +39,10 @@ export class SkillsComponent {
   formKnowledgeGroup: FormGroup;
   chargeKnowledgesCompleted = false;
   chargeSkillsCompleted = false;
+  nameFocusField: string;
   isSmallScreen = false;
   user: any;
+  showExampleChart = false;
   idCurriculum: string;
   curriculum: Curriculum;
   skills: Skill[] = [];
@@ -48,7 +50,6 @@ export class SkillsComponent {
   skillToAdd: Skill;
   knowledges: Knowledge[] = [];
   knowledgeToAdd: any;
-  showSkills = true;
   lengthForm: any;
   errorMsg: string;
   spinnerOn = false;
@@ -106,9 +107,6 @@ export class SkillsComponent {
       });
   }
 
-  onShowSkillsClick(){
-    this.showSkills=!this.showSkills;
-  }
 
   onUniqueSkillClick($event: any) {
     this.skillToAdd.habilidadUnica = $event.checked;
@@ -127,6 +125,10 @@ export class SkillsComponent {
       habilidadUnica: false,
     };
 
+  }
+
+  onShowExampleChartClick(){
+    this.showExampleChart = !this.showExampleChart;
   }
 
   resetKnowledge() {

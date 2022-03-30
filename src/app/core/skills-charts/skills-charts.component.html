@@ -1,0 +1,93 @@
+<section>
+  <div class="content" *ngIf="typeSkills === 'charts'">
+    <div
+      class="content__chart"
+      *ngFor="let chart of chartOptionsArray; let index = index"
+    >
+      <mat-card >
+        <div  *ngIf="example">
+          <mat-form-field class="example-select" appearance="fill" >
+            <mat-label>Tipo de apariencia</mat-label>
+            <mat-select (selectionChange)="exampleTypeChange($event)">
+              <mat-option [value]="'no-levels'">
+                Listado de conocimientos sin niveles.
+              </mat-option>
+              <mat-option [value]="'basic'">
+                Con barras según nivel de conocimientos.
+              </mat-option>
+              <mat-option [value]="'bar'">
+                Estadísticas tipo barras.
+              </mat-option>
+              <mat-option [value]="'radar'">
+                Estadísticas tipo radar.
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <apx-chart
+          *delay="500 * index"
+          [series]="chart.series"
+          [chart]="chart.chart"
+          [xaxis]="chart.xaxis"
+          [title]="chart.title"
+          [yaxis]="chart.yaxis"
+          [fill]="chart.fill"
+          [stroke]="chart.stroke"
+          [markers]="chart.markers"
+          [noData]="chart.noData"
+        >
+        </apx-chart>
+        <div class="mt-20" class="leyend" *ngIf="example">En este ejemplo, una habilidad es OFIMÁTICA y los conocimientos son: WORD, EXCEL, ACCESS, POWERPOINT, OUTLOOK.</div>
+
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="content__no-chart" *ngIf="typeSkills === 'basic' || typeSkills === 'no-levels'">
+
+    <div [ngClass]="skills.length===2 ? 'content__no-chart__card-2-items' : 'content__no-chart__card' " *ngFor="let skill of skills">
+
+      <mat-card>
+        <div  *ngIf="example">
+          <mat-form-field class="example-select" appearance="fill" >
+            <mat-label>Tipo de apariencia</mat-label>
+            <mat-select (selectionChange)="exampleTypeChange($event)">
+              <mat-option [value]="'no-levels'">
+                Listado de conocimientos sin niveles.
+              </mat-option>
+              <mat-option [value]="'basic'">
+                Con barras según nivel de conocimientos.
+              </mat-option>
+              <mat-option [value]="'bar'">
+                Estadísticas tipo barras.
+              </mat-option>
+              <mat-option [value]="'radar'">
+                Estadísticas tipo radar.
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-card-title class="content__no-chart__card__title" [ngStyle]="{'background-color': gamaColores && gamaColores.mainColor ? gamaColores.mainColor : '#009688'}" >
+          {{ skill.nombre }}
+        </mat-card-title>
+        <mat-card-content >
+          <div class="content__no-chart__card__knowledges mb-10" *ngFor="let knowledge of skill.conocimientos">
+            <div class="content__no-chart__card__knowledges__name" >
+              {{ knowledge.nombre }}
+            </div>
+            <div *ngIf="typeSkills==='basic'" class="content__no-chart__card__knowledges__bar" [ngStyle]="{'border-color': gamaColores && gamaColores.darkColor ? gamaColores.darkColor : '#00645a' }"   >
+              <div class="content__no-chart__card__knowledges__bar__level" [ngStyle]="{'width': knowledge.nivel * 10 + '%', 'background-color': gamaColores && gamaColores.mainColor ? gamaColores.mainColor : '#009688' }"></div>
+            </div>
+          </div>
+
+        </mat-card-content>
+        <div class="mt-20" class="leyend" *ngIf="example">En este ejemplo, una habilidad es OFIMÁTICA y los conocimientos son: WORD, EXCEL, ACCESS, POWERPOINT, OUTLOOK.</div>
+      </mat-card>
+    </div>
+
+  </div>
+  <div class="no-data" *ngIf="chargeCompleted && skills.length==0">
+    <div class="no-data__text">No tengo habilidades laborales, pero busco una oportunidad.</div>
+  </div>
+</section>

@@ -3,19 +3,10 @@
     <header>
       <h1>Información general</h1>
     </header>
-    <div class="curriculum-link"><div class="curriculum-link__item" (click)="goToCurriculum()"><mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum</div></div>
-    <div>
-      <p>
-        *Todos los campos marcados con un asterisco es información fija que
-        saldrá en tu currículum y son obligatorios. El resto de campos se
-        mostrarán solo si rellenas los campos.
-      </p>
-      <p>
-        No te preocupes si no deseas aportar ningún número de teléfono. Si
-        alguien desea contactar contigo, podrá enviarte un mensaje a tu correo
-        electrónico a través del formulario de contacto que estará disponible en
-        tu propio currículum.
-      </p>
+    <div class="curriculum-link">
+      <div class="curriculum-link__item" (click)="goToCurriculum()">
+        <mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum
+      </div>
     </div>
     <div>
       <h2>Datos personales</h2>
@@ -29,8 +20,8 @@
           <div class="container__content__form__row">
             <div class="container__content__form__row__col input-small">
               <mat-form-field appearance="fill">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="nombre" formControlName="nombre" />
+                <mat-label>*Nombre</mat-label>
+                <input matInput placeholder="nombre" formControlName="nombre"  />
                 <mat-error
                   *ngIf="formUserGroup.controls['nombre'].hasError('required')"
                   >Campo obligatorio.</mat-error
@@ -44,7 +35,7 @@
             </div>
             <div class="container__content__form__row__col input-large">
               <mat-form-field appearance="fill">
-                <mat-label>Apellidos</mat-label>
+                <mat-label>*Apellidos</mat-label>
                 <input
                   matInput
                   placeholder="Apellidos"
@@ -65,6 +56,93 @@
                 >
               </mat-form-field>
             </div>
+            <div class="container__content__form__row__col input-small">
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input
+                  type="date"
+                  matInput
+                  placeholder="Fecha de nacimiento"
+                  formControlName="fechaNacimiento"
+                  (focus)="nameFocusField = 'fechaNacimiento'"
+                  (blur)="nameFocusField = ''"
+                />
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'fechaNacimiento'"
+                  >La fecha de nacimiento no es obligatoria, pero si la pones, no saldrá en tu currículum.</span
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['fechaNacimiento'].hasError(
+                      'required'
+                    )
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- CAMPO DIRECCIÓN Y LOCALIDAD -->
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col input-large">
+              <mat-form-field appearance="fill">
+                <mat-label>Dirección</mat-label>
+                <input
+                  matInput
+                  placeholder="direccion"
+                  formControlName="direccion"
+                  (focus)="nameFocusField = 'direccion'"
+                  (blur)="nameFocusField = ''"
+                />
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'direccion'"
+                  >La dirección no es obligatoria, pero si la pones, no saldrá en tu currículum.</span
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['direccion'].hasError('required')
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['direccion'].hasError('maxlength')
+                  "
+                  >Máximo: {{ lengthForm.direccion }} caracteres
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col input-small">
+              <mat-form-field appearance="fill">
+                <mat-label>Localidad</mat-label>
+                <input
+                  matInput
+                  placeholder="localidad"
+                  formControlName="localidad"
+                  (focus)="nameFocusField = 'localidad'"
+                  (blur)="nameFocusField = ''"
+                />
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'localidad'"
+                  >La localidad saldrá publicada en tu currículum.</span
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['localidad'].hasError('required')
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['localidad'].hasError('maxlength')
+                  "
+                  >Máximo: {{ lengthForm.localidad }} caracteres
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
 
           <!-- CAMPOS CÓDIGO POSTAL Y PROVINCIA -->
@@ -72,7 +150,7 @@
           <div class="container__content__form__row">
             <div class="container__content__form__row__col">
               <mat-form-field appearance="fill">
-                <mat-label>Código postal</mat-label>
+                <mat-label>*Código postal</mat-label>
                 <input
                   matInput
                   placeholder="Código postal"
@@ -119,8 +197,15 @@
                   matInput
                   placeholder="telefono1"
                   formControlName="telefono1"
+                  (focus)="nameFocusField = 'telefono1'"
+                  (blur)="nameFocusField = ''"
                 />
                 <mat-icon matSuffix>phone</mat-icon>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'telefono1'"
+                  >El teléfono saldrá en tu currículum. Déjalo vacío si no quieres que se publique.</span
+                >
                 <mat-error
                   *ngIf="
                     formUserGroup.controls['telefono1'].hasError('pattern')
@@ -143,8 +228,15 @@
                   matInput
                   placeholder="Teléfono 2"
                   formControlName="telefono2"
+                  (focus)="nameFocusField = 'telefono2'"
+                  (blur)="nameFocusField = ''"
                 />
                 <mat-icon matSuffix>phone_android</mat-icon>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'telefono2'"
+                  >El teléfono saldrá en tu currículum. Déjalo vacío si no quieres que se publique.</span
+                >
                 <mat-error
                   *ngIf="
                     formUserGroup.controls['telefono2'].hasError('pattern')
@@ -172,8 +264,15 @@
                   matInput
                   placeholder="facebook"
                   formControlName="facebook"
+                  (focus)="nameFocusField = 'facebook'"
+                  (blur)="nameFocusField = ''"
                 />
-                <mat-icon matSuffix>facebook</mat-icon>
+                <i matSuffix class="fab fa-facebook fa-lg" ></i>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'facebook'"
+                  >Se publicará un enlace a tu Facebook, déjalo vacío si no quieres que se publique. Ej.: de www.facebook.com/juan inserta solo juan</span
+                >
                 <mat-error
                   *ngIf="
                     formUserGroup.controls['facebook'].hasError('maxlength')
@@ -190,8 +289,15 @@
                   matInput
                   placeholder="twitter"
                   formControlName="twitter"
+                  (focus)="nameFocusField = 'twitter'"
+                  (blur)="nameFocusField = ''"
                 />
-                <mat-icon matSuffix>twitter</mat-icon>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'twitter'"
+                  >Se publicará un enlace a tu Twitter, déjalo vacío si no quieres que se publique. Ej.: de www.twitter.com/juan inserta solo @juan</span
+                >
+                <i matSuffix class="fab fa-twitter fa-lg" ></i>
                 <mat-error
                   *ngIf="formUserGroup.controls['twitter'].hasError('pattern')"
                   >Twitter inválido.</mat-error
@@ -208,8 +314,15 @@
                   matInput
                   placeholder="linkedin"
                   formControlName="linkedin"
+                  (focus)="nameFocusField = 'linkedin'"
+                  (blur)="nameFocusField = ''"
                 />
-                <mat-icon matSuffix>linkedin</mat-icon>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'linkedin'"
+                  >Se publicará un enlace a tu LinkedIn, déjalo vacío si no quieres que se publique. Ej.: de www.linkedin.com/juan inserta solo juan</span
+                >
+                <i matSuffix class="fab fa-linkedin fa-lg" ></i>
                 <mat-error
                   *ngIf="
                     formUserGroup.controls['linkedin'].hasError('maxlength')
@@ -226,14 +339,22 @@
                   matInput
                   placeholder="instagram"
                   formControlName="instagram"
+                  (focus)="nameFocusField = 'instagram'"
+                  (blur)="nameFocusField = ''"
                 />
+                <i matSuffix class="fab fa-instagram fa-lg" ></i>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'instagram'"
+                  >Se publicará un enlace a tu Instragram, déjalo vacío si no quieres que se publique. Ej.: de www.facebook.com/juan inserta solo juan</span
+                >
                 <mat-error
-                *ngIf="
-                  formUserGroup.controls['instagram'].hasError('maxlength')
-                "
-                >Número máximo de caracteres:
-                {{ lengthForm.instagram }}</mat-error
-              >
+                  *ngIf="
+                    formUserGroup.controls['instagram'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.instagram }}</mat-error
+                >
               </mat-form-field>
             </div>
           </div>
@@ -247,7 +368,14 @@
                   cdkAutosizeMaxRows="8"
                   matInput
                   formControlName="acercaDe"
+                  (focus)="nameFocusField = 'acercaDe'"
+                  (blur)="nameFocusField = ''"
                 ></textarea>
+                <span
+                  class="info-input"
+                  *ngIf="nameFocusField == 'acercaDe'"
+                  >Habla un poco sobre ti. Saldrá publicado en tu currículum.</span
+                >
                 <mat-error
                   *ngIf="
                     formUserGroup.controls['acercaDe'].hasError('maxlength')

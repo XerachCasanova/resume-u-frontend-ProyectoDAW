@@ -1,16 +1,22 @@
-<ng-container *ngIf="curriculum && user">
-  <curriculum-header
-    [user]="user"
-    [curriculum]="curriculum"
-  ></curriculum-header>
-  <div class="container-right">
-    <div class="ghost-space"></div>
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</ng-container>
+<div class="private" *ngIf="curriculum && curriculum.esPrivado && !passwordOk">
 
-<ng-container *ngIf="!curriculum">
-  <div></div>
-</ng-container>
+  <generic-button [mainColor]="gamaColores.mainColor" [darkColor]="gamaColores.darkColor" [textButton]="'Ingresar Contraseña'" (click)="openPrivateModalPassword()" ></generic-button>
+  
+</div>
+  <ng-container *ngIf="curriculum && user">
+    <curriculum-header
+      [user]="user"
+      [curriculum]="curriculum"
+    ></curriculum-header>
+    <div class="container-right">
+      <div class="ghost-space"></div>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!curriculum">
+    <div></div>
+  </ng-container>
+

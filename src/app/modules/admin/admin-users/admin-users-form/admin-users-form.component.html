@@ -1,0 +1,377 @@
+<div class="container">
+  <div class="container__content">
+    <header>
+      <h1>Información general</h1>
+    </header>
+    <div>
+      <h2>{{ titleForm }}</h2>
+      <form
+        [formGroup]="formUserGroup"
+        (ngSubmit)="onPersonalDataSubmit()"
+        *ngIf="chargeForm"
+      >
+        <!-- CAMPOS NOMBRE Y APELLIDOS -->
+        <div class="container__content__form">
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col input-small">
+              <mat-form-field appearance="fill">
+                <mat-label>*Nombre</mat-label>
+                <input matInput placeholder="nombre" formControlName="nombre" />
+                <mat-error
+                  *ngIf="formUserGroup.controls['nombre'].hasError('required')"
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="formUserGroup.controls['nombre'].hasError('maxlength')"
+                  >Número máximo de caracteres:
+                  {{ lengthForm.nombre }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col input-large">
+              <mat-form-field appearance="fill">
+                <mat-label>*Apellidos</mat-label>
+                <input
+                  matInput
+                  placeholder="Apellidos"
+                  formControlName="apellidos"
+                />
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['apellidos'].hasError('required')
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['apellidos'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.apellidos }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col input-small">
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input
+                  type="date"
+                  matInput
+                  placeholder="Fecha de nacimiento"
+                  formControlName="fechaNacimiento"/>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- CAMPO DIRECCIÓN Y LOCALIDAD -->
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col input-large">
+              <mat-form-field appearance="fill">
+                <mat-label>Dirección</mat-label>
+                <input
+                  matInput
+                  placeholder="direccion"
+                  formControlName="direccion" />
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['direccion'].hasError('maxlength')
+                  "
+                  >Máximo: {{ lengthForm.direccion }} caracteres
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col input-small">
+              <mat-form-field appearance="fill">
+                <mat-label>Localidad</mat-label>
+                <input
+                  matInput
+                  placeholder="localidad"
+                  formControlName="localidad"/>
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['localidad'].hasError('maxlength')
+                  "
+                  >Máximo: {{ lengthForm.localidad }} caracteres
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- CAMPOS CÓDIGO POSTAL Y PROVINCIA -->
+
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>*Código postal</mat-label>
+                <input
+                  matInput
+                  placeholder="Código postal"
+                  formControlName="cp"
+                  [postalcode]="provinces"
+                  (input)="onCpPressKey($event)"
+                />
+                <mat-error
+                  *ngIf="formUserGroup.controls['cp'].hasError('maxlength')"
+                  >Número máximo de caracteres: {{ lengthForm.cp }}</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['cp'].hasError('wrongPostalCode')
+                  "
+                  >Código postal inválido.</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="outline">
+                <mat-label>Provincia</mat-label>
+                <input
+                  matInput
+                  placeholder="Provincia"
+                  formControlName="provincia"
+                  readonly
+                />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- CAMPOS TELÉFONOS -->
+
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Teléfono 1</mat-label>
+                <input
+                  matInput
+                  placeholder="telefono1"
+                  formControlName="telefono1"
+                />
+                <mat-icon matSuffix>phone</mat-icon>
+
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['telefono1'].hasError('pattern')
+                  "
+                  >Nº de teléfono incorrecto.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['telefono1'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.telefonos }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Teléfono 2</mat-label>
+                <input
+                  matInput
+                  placeholder="Teléfono 2"
+                  formControlName="telefono2"
+
+                />
+                <mat-icon matSuffix>phone_android</mat-icon>
+
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['telefono2'].hasError('pattern')
+                  "
+                  >Nº de teléfono incorrecto.</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['telefono2'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.telefonos }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- CAMPOS REDES SOCIALES -->
+
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Facebook</mat-label>
+                <input
+                  matInput
+                  placeholder="facebook"
+                  formControlName="facebook"
+                />
+                <i matSuffix class="fab fa-facebook fa-lg"></i>
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['facebook'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.facebook }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Twitter</mat-label>
+                <input
+                  matInput
+                  placeholder="twitter"
+                  formControlName="twitter"
+                />
+                <i matSuffix class="fab fa-twitter fa-lg"></i>
+                <mat-error
+                  *ngIf="formUserGroup.controls['twitter'].hasError('pattern')"
+                  >Twitter inválido.</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Linkedin</mat-label>
+                <input
+                  matInput
+                  placeholder="linkedin"
+                  formControlName="linkedin"
+
+                />
+                <i matSuffix class="fab fa-linkedin fa-lg"></i>
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['linkedin'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.linkedin }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Instagram</mat-label>
+                <input
+                  matInput
+                  placeholder="instagram"
+                  formControlName="instagram"
+                />
+                <i matSuffix class="fab fa-instagram fa-lg"></i>
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['instagram'].hasError('maxlength')
+                  "
+                  >Número máximo de caracteres:
+                  {{ lengthForm.instagram }}</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Acerca de</mat-label>
+                <textarea
+                  placeholder="Habla un poco sobre ti en tu currículum..."
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="8"
+                  matInput
+                  formControlName="acercaDe"
+                ></textarea>
+
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['acercaDe'].hasError('maxlength')
+                  "
+                  >Máximo de caracteres: 500.</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="container__content__form__row">
+            <div class="container__content__form__row__col">
+              <mat-form-field
+                appearance="fill"
+                (change)="onCheckableInputChange($event, 'email')"
+              >
+                <mat-label>*E-Mail</mat-label>
+                <input
+                  matInput
+                  placeholder="E-Mail"
+                  formControlName="email"
+                  [readonly]="!isAdding"
+                />
+                <mat-icon matSuffix>mail</mat-icon>
+                <mat-error
+                  *ngIf="formUserGroup.controls['email'].hasError('required')"
+                  >Campo obligatorio.</mat-error
+                >
+                <mat-error
+                  *ngIf="formUserGroup.controls['email'].hasError('pattern')"
+                  >E-Mail inválido.</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="container__content__form__row__col">
+              <mat-form-field appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Contraseña"
+                  formControlName="password"
+                />
+                <mat-error
+                  *ngIf="
+                    formUserGroup.controls['password'].hasError('required')
+                  "
+                  >Campo obligatorio.</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="fill">
+              <mat-label>Rol</mat-label>
+              <mat-select
+                formControlName="idRol"
+              >
+                <mat-option *ngFor="let rol of roles" [value]="rol.idRol"> {{rol.tipo }}</mat-option>
+
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  formUserGroup.controls['idRol'].hasError(
+                    'required'
+                  )
+                "
+                >Campo obligatorio.</mat-error
+              >
+            </mat-form-field>
+
+          </div>
+          <div class="container__content__form__row__col input-small">
+            <mat-checkbox formControlName="activo"
+              >Activar/Desactivar cuenta</mat-checkbox
+            >
+          </div>
+          <div class="container__content__form__actions">
+            <div>
+              <mat-dialog-actions
+                class="container__content__form__actions__button"
+              >
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="formUserGroup.invalid || spinnerOn"
+                >
+                  Guardar
+                </button>
+              </mat-dialog-actions>
+            </div>
+            <div class="spinner" *ngIf="spinnerOn"></div>
+            <span> {{ errorMsg }}</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

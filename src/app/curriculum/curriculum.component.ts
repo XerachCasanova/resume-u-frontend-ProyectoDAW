@@ -4,7 +4,7 @@ import { CurriculumService } from './curriculum.service';
 @Component({
   selector: 'curriculum-root',
   templateUrl: './curriculum.component.html',
-  styleUrls: ['./curriculum.component.css'],
+  styleUrls: ['./curriculum.component.scss'],
 })
 export class CurriculumComponent {
   title = 'curriculum-ang';

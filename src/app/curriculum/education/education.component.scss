@@ -15,7 +15,6 @@
       font-size: 1.4em;
       font-weight: 400;
       color: white;
-      //background-color: #009688;
       padding: 0.5em;
       border-radius: 5px;
     }
@@ -55,8 +54,42 @@
     grid-column: 50%, 50%;
     height: 100%;
     grid-row-end: auto;
+    margin-bottom: 1em;
   }
 
+}
+
+.no-courses{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 200;
+}
+
+.no-data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 200;
+  background-image: url(../../../assets/no-data-image.png);
+  background-size: auto 100%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width:100%;
+  height: 300px;
+  &__text{
+    padding:10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+  }
+}
+
+//FORMATEO DEL COLOR DE LAS TAB PARA EVITAR EL COLOR OFICIAL DE LA PÁGINA
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: black !important;
 }
 
 @media ALL and (min-width: 0px) and (max-width: 700px) {

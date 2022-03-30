@@ -1,0 +1,7 @@
+<button class="generic-button" [ngStyle]="hoverButton ? {'background-color': darkColor, 'width': width} : {'background-color': mainColor, 'width': width}"  >
+  <div class="generic-button__text"  (mouseover)="hoverButton=true" (mouseleave)="hoverButton=false">
+    {{textButton}}
+  </div>
+</button>
+
+

@@ -11,10 +11,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { GenericControlsModule } from 'src/app/core/generic-controls/generic-controls.module';
+
 @NgModule({
   declarations: [ContactComponent],
   imports: [
     CommonModule,
+    GenericControlsModule,
     ContactRoutingModule,
     FormsModule,
     ReactiveFormsModule,

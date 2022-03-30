@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthUserGuard } from '../login/auth-user.guard';
 import { UsersFormComponent } from '../users/users-form.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { EducationsComponent } from './educations/educations.component';
@@ -23,47 +24,53 @@ const routes: Routes = [
       {
         path: '',
         component: MainComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'configuration',
         component: ConfigurationComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'user-data',
         component: UsersDataComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'interesting-data',
         component: InterestingDataComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'languages',
         component: LanguageComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'skills',
         component: SkillsComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'experience/form',
         component: ExperienceFormComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'experience',
         component: ExperiencesComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'education/form',
         component: EducationFormComponent,
+        canActivate: [AuthUserGuard]
       },
       {
         path: 'education',
         component: EducationsComponent,
+        canActivate: [AuthUserGuard]
       },
-
-
-
-
 
     ],
   }

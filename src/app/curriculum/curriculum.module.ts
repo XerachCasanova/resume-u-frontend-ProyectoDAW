@@ -10,10 +10,16 @@ import { ContactModule } from './contact/contact.module';
 import { CommonModule } from '@angular/common';
 import { CurriculumService } from './curriculum.service';
 import { GeneralInfoModule } from './general-info/general-info.module';
+import { GenericControlsModule } from '../core/generic-controls/generic-controls.module';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [CurriculumComponent],
   imports: [
+    //AngularFontAwesomeModule,
+    GenericControlsModule,
+    MatDialogModule,
     CommonModule,
     FormsModule,
     CurriculumRoutingModule,

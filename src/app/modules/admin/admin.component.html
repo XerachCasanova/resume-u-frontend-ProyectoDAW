@@ -1,0 +1,37 @@
+<div class="header">
+  <div *ngIf="curriculumCreated" class="burger-button-menu" [ngClass]="{ 'menu-hidden': menuActivado }" (click)="activarMenu('')">
+    <mat-icon>menu</mat-icon>
+  </div>
+  <nav
+      *ngIf="curriculumCreated"
+      class="header__header-content__menu"
+      [ngClass]="{ 'menu-hidden': !menuActivado }"
+
+    >
+    <a
+        class="header__header-content__menu__link"
+        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'admin-users' }"
+        routerLink="admin-users"
+        (click)="activarMenu('admin-users')"
+        ><span
+          ><span
+            class="header__header-content__menu__link__button-text first-letter-uppercase"
+            >Gestión de usuarios</span
+          ></span
+        ></a
+      >
+      <a
+      class="header__header-content__menu__link"
+      [ngClass]="{ 'activeMenuItem': activeMenuItem === 'languages-manage' }"
+      routerLink="languages-manage"
+      (click)="activarMenu('languages-manage')"
+      ><span
+        ><span
+          class="header__header-content__menu__link__button-text first-letter-uppercase"
+          >Gestión de idiomas</span
+        ></span
+      ></a
+    >
+    </nav>
+</div>
+<router-outlet></router-outlet>

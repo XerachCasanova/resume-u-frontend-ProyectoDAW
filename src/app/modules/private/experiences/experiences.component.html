@@ -27,7 +27,7 @@
           <td mat-cell *matCellDef="let experience">{{ experience.cargo }}</td>
         </ng-container>
         <ng-container matColumnDef="fechaComienzo">
-          <th mat-header-cell *matHeaderCellDef>Fecha Comienzo |</th>
+          <th mat-header-cell *matHeaderCellDef>Fecha Comienzo</th>
           <td mat-cell *matCellDef="let experience">
             {{ experience.fechaComienzo | date: 'dd/MM/yyyy'  }}
           </td>

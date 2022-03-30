@@ -2,25 +2,91 @@
   <header>
     <h1>Formación</h1>
   </header>
-  <div class="cards">
-    <div [ngClass]="educations.length===2 ? 'cards__card-2-items' : 'cards__card' "  *ngFor="let educ of educations">
-      <mat-card>
-        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }">
-          {{ educ.titulo }}
-        </mat-card-title>
-        <mat-card-subtitle class="cards__card__subtitle">
-          Desde: {{ educ.fechaComienzo | date: 'dd/MM/yyyy' }}
-          <span *ngIf="educ.fechaFinalizacion"
-            >| Hasta: {{ educ.fechaFinalizacion | date: 'dd/MM/yyyy' }}
-          </span>
-        </mat-card-subtitle>
-        <mat-card-content class="cards__card__education-center">
-          Centro formativo: {{ educ.centro }}
-        </mat-card-content>
-        <mat-card-content class="cards__card__desc">
-          {{ educ.descripcion }}
-        </mat-card-content>
-      </mat-card>
+  <mat-tab-group>
+    <mat-tab label="Títulos oficiales">
+      <div class="cards" *ngIf="educationsOfficial.length > 0">
+        <div
+          [ngClass]="
+            educationsOfficial.length === 2
+              ? 'cards__card-2-items'
+              : 'cards__card'
+          "
+          *ngFor="let educ of educationsOfficial"
+        >
+          <mat-card>
+            <mat-card-title
+              class="cards__card__title"
+              [ngStyle]="{ 'background-color': gamaColores.mainColor }"
+            >
+              {{ educ.titulo }}
+            </mat-card-title>
+            <mat-card-subtitle class="cards__card__subtitle">
+              Desde: {{ educ.fechaComienzo | date: "dd/MM/yyyy" }}
+              <span *ngIf="educ.fechaFinalizacion"
+                >| Hasta: {{ educ.fechaFinalizacion | date: "dd/MM/yyyy" }}
+              </span>
+            </mat-card-subtitle>
+            <mat-card-content class="cards__card__education-center">
+              Centro formativo: {{ educ.centro }}
+            </mat-card-content>
+            <mat-card-content class="cards__card__desc">
+              {{ educ.descripcion }}
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="no-courses" *ngIf="educationsOfficial.length === 0 && educationsUnofficial.length > 0" [ngStyle]="{'color': gamaColores.mainColor}">
+        No hay cursos en este apartado.
+      </div>
+    </mat-tab>
+    <mat-tab label="Cursos">
+      <div class="cards">
+        <div
+          [ngClass]="
+            educationsOfficial.length === 2
+              ? 'cards__card-2-items'
+              : 'cards__card'
+          "
+          *ngFor="let educ of educationsUnofficial"
+        >
+          <mat-card>
+            <mat-card-title
+              class="cards__card__title"
+              [ngStyle]="{ 'background-color': gamaColores.mainColor }"
+            >
+              {{ educ.titulo }}
+            </mat-card-title>
+            <mat-card-subtitle class="cards__card__subtitle">
+              Desde: {{ educ.fechaComienzo | date: "dd/MM/yyyy" }}
+              <span *ngIf="educ.fechaFinalizacion"
+                >| Hasta: {{ educ.fechaFinalizacion | date: "dd/MM/yyyy" }}
+              </span>
+            </mat-card-subtitle>
+            <mat-card-content class="cards__card__education-center">
+              Centro formativo: {{ educ.centro }}
+            </mat-card-content>
+            <mat-card-content class="cards__card__desc">
+              {{ educ.descripcion }}
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="no-courses" *ngIf="educationsUnofficial.length === 0 && educationsOfficial.length > 0" [ngStyle]="{'color': gamaColores.mainColor}">
+        No hay cursos en este apartado.
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div
+    class="no-data"
+    *ngIf="
+      chargeCompleted &&
+      educationsOfficial.length == 0 &&
+      educationsUnofficial.length == 0
+    "
+  >
+    <div class="no-data__text">
+      No tengo formación, pero busco una oportunidad laboral.
     </div>
   </div>
 </section>

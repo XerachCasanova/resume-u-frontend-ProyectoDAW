@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ColorRange } from 'src/app/core/models/interfaces/colorRange';
 import { InterestingData } from 'src/app/core/models/interfaces/interesting-data';
 import { Skill } from 'src/app/core/models/interfaces/skill';
 import { User } from 'src/app/core/models/interfaces/user';
@@ -14,9 +15,9 @@ import { CurriculumService } from '../curriculum.service';
   styleUrls: ['./general-info.component.scss'],
 })
 export class GeneralInfoComponent implements OnInit {
-  acercaDe: string;
+  acercaDe: string ='';
   languages: any[] = [];
-  gamaColores: any;
+  gamaColores: ColorRange;
   interestingData: InterestingData[] = [];
   skills: Skill[] = [];
   constructor(
@@ -24,10 +25,7 @@ export class GeneralInfoComponent implements OnInit {
     private usersService: UsersService,
     private skillsService: SkillsService,
     private curriculumColorsService:CurriculumColorsService
-  ) {
-
-
-  }
+  ) {}
 
   ngOnInit(): void {
 
@@ -43,7 +41,7 @@ export class GeneralInfoComponent implements OnInit {
 
       if (curriculum.idCurriculum && curriculum.idCurriculum != "0") {
         this.skillsService.getSkills(curriculum.idCurriculum).subscribe((skills) => {
-          this.skills = skills.filter((skill: Skill) => Number(Boolean(skill.habilidadUnica)) === 1);
+          this.skills = skills.filter((skill: Skill) => Boolean(Number(skill.habilidadUnica)) === true);
         });
       }
 

@@ -2,7 +2,7 @@
 @import url("./styles/reset.scss");
 
 /*
-PALETA DE COLORES
+PALETA DE COLORES DE PÁGINA PRINCIPAL Y ZONA PRIVADA.
 #FBF8F1 CREMA CLARO
 #F7ECDE CREMA INTERMEDIO
 #E9DAC1 CREMA OSCURO
@@ -22,6 +22,8 @@ body {
 
 }
 
+
+/* ESTILOS ICONOS PARA TODO EL PROYECTO */
 i {
   margin-right: 5px;
   vertical-align: middle;
@@ -42,20 +44,25 @@ i {
   font-size: 4em;
 }
 
+/* ESTILOS VARIOS PARA TODO EL PROYECTO */
 a {
+  cursor: pointer;
   font-weight: 400;
   color: white;
   text-decoration: none;
 }
 
 a:hover {
-  color: #F7ECDE;
+  color: #e6dcd1;
 }
 
 ul {
   margin: 10px 0;
 }
 
+
+
+//ESTILO PARA SPINNER
 .spinner {
   border-radius: 50%;
   border: 4px solid rgba(0, 0, 0, .1);
@@ -64,6 +71,16 @@ ul {
   height: 20px;
 
   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 
@@ -111,7 +128,7 @@ ul {
 
 
 
-/*ESTILOS MAT TABLE*/
+/*ESTILOS MAT TABLE PARA ZONA PRIVADA */
 
 .mat-header-cell{
   vertical-align: middle;
@@ -126,13 +143,3 @@ ul {
 }
 
 
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}

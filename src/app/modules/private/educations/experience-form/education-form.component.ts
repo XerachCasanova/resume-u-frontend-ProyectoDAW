@@ -149,7 +149,6 @@ export class EducationFormComponent {
       ...this.formEducationGroup.value,
     };
 
-    console.log(this.education)
 
     if(this.cursandoActualmente) this.education.fechaFinalizacion = null
 
@@ -186,18 +185,21 @@ export class EducationFormComponent {
   }
 
   checkEndingDate(){
-    const fechaComienzo = new Date(this.formEducationGroup.get('fechaComienzo')?.value).getTime();
-    const fechaFinalizacion = new Date(this.formEducationGroup.get('fechaFinalizacion')?.value).getTime()
+    if (!this.cursandoActualmente){
+      const fechaComienzo = new Date(this.formEducationGroup.get('fechaComienzo')?.value).getTime();
+      const fechaFinalizacion = new Date(this.formEducationGroup.get('fechaFinalizacion')?.value).getTime()
 
-    if(!isNaN(fechaComienzo) && !isNaN(fechaFinalizacion)){
-      if(fechaFinalizacion - fechaComienzo < 0){
-        const usersModal = this.usersFormModalService.openModal(false, 'La fecha de finalización debe ser posterior a la de comienzo');
+      if(!isNaN(fechaComienzo) && !isNaN(fechaFinalizacion)){
+        if(fechaFinalizacion - fechaComienzo < 0){
+          const usersModal = this.usersFormModalService.openModal(false, 'La fecha de finalización debe ser posterior a la de comienzo');
 
-        usersModal.afterClosed().subscribe(() => {
-          this.formEducationGroup.get('fechaFinalizacion')?.setValue('');
-        })
+          usersModal.afterClosed().subscribe(() => {
+            this.formEducationGroup.get('fechaFinalizacion')?.setValue('');
+          })
+        }
       }
     }
+
   }
 
   apiCallResponseOk(resp:any, action: string){

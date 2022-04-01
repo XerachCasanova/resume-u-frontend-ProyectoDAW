@@ -55,6 +55,17 @@
 
 }
 
+.footer{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: lightgray;
+  font-size: 0.8rem;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .burger-button-menu {
   display: none;
 }

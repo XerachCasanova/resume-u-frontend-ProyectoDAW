@@ -25,21 +25,24 @@ export class MainComponent implements OnInit {
     private curriculumService: CurriculumService,
     private curriculumColorsService: CurriculumColorsService,
     private activateRoute: ActivatedRoute,
-    private usersFormModalService: UsersFormModalService
+    private usersFormModalService: UsersFormModalService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
+
     this.activateRoute.params.subscribe(async (params) => {
       const alias = params.alias;
       this.curriculumService
         .getCurriculumByAlias(alias)
         .subscribe(async (curriculums) => {
           this.curriculum = curriculums[0];
-          this.gamaColores = this.curriculumColorsService.buildColorRange(
-            this.curriculum.gamaColores
-          );
+
 
           if (this.curriculum) {
+            this.gamaColores = this.curriculumColorsService.buildColorRange(
+              this.curriculum.gamaColores
+            );
             this.openPrivateModalPassword();
             this.usersService
               .getUser(this.curriculum.idUsuario)
@@ -48,6 +51,8 @@ export class MainComponent implements OnInit {
 
                 this.curriculumService.changeCurriculum(this.curriculum);
               });
+          } else {
+            this.router.navigate(['/'])
           }
         });
     });

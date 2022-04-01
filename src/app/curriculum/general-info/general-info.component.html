@@ -37,7 +37,7 @@
     </div>
     <div class="cards__card"  *ngIf="skills.length > 0">
       <mat-card>
-        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }"> Habilidades de interés </mat-card-title>
+        <mat-card-title class="cards__card__title" [ngStyle]="{'background-color': gamaColores.mainColor }"> Habilidades personales </mat-card-title>
         <mat-card-content class="cards__card__content">
           <ul class="cards__card__content__list">
             <li *ngFor="let skill of skills">{{ skill.nombre }}</li>

@@ -52,9 +52,10 @@
     </div>
     <div class="spinner" *ngIf="spinnerOn"></div>
     <div class="content__button">
-      <button mat-raised-button color="warn" mat-dialog-close>
-        {{ userConfirmed ? "Cerrar" : "Activar más adelante" }}
-      </button>
+      <generic-button mat-dialog-close
+        [width]="'200px'"
+        [textButton]="userConfirmed ? 'Cerrar' : 'Activar más adelante'"
+      ></generic-button>
     </div>
   </div>
 
@@ -80,6 +81,105 @@
         (click)="onCurriculumPasswordClick()"
       ></generic-button>
     </div>
-    <div class=mt-10>{{ msgPasswordCurriculumWrong }}</div>
+    <div class=mt-10>{{ msgError }}</div>
+  </div>
+
+  <!--PASSWORD DE CURRICULUM. PASO 1 - ENVÍO DE EMAIL -->
+  <div class="content" *ngIf="data.type === 'recoveryPassword' && recoveryPasswordStep==1" >
+    <div class="content__text">
+      {{ data.msg }}
+    </div>
+
+    <div class="content__input">
+      <mat-form-field>
+        <input #recoveryPassword matInput placeholder="Email" />
+      </mat-form-field>
+    </div>
+
+    <div class="spinner" *ngIf="spinnerOn"></div>
+    <div>
+      <generic-button
+        [width]="'200px'"
+        [textButton]="'Enviar código de seguridad'"
+        (click)="onRecoveryPasswordClick()"
+      ></generic-button>
+    </div>
+    <div class=mt-10>{{ msgError }}</div>
+  </div>
+
+  <!--PASSWORD DE CURRICULUM. PASO 2 - CÓDIGO DE ACTIVACIÓN -->
+  <div class="content" *ngIf="data.type === 'recoveryPassword' && recoveryPasswordStep==2">
+    <div class="content__text" [ngClass]="{ inputHide: userConfirmed }">
+      Recibirás un código en tu cuenta de correo, introdúcelo para resetear tu contraseña.
+    </div>
+
+    <div class="content__input">
+      <mat-form-field
+        (input)="onInputRecovery($event)"
+      >
+        <mat-label>Inserta tu códido de seguridad</mat-label>
+        <input matInput placeholder="Inserta tu códido  de seguridad" />
+      </mat-form-field>
+    </div>
+    <div class="spinner" *ngIf="spinnerOn"></div>
+  </div>
+
+  <!--PASSWORD DE CURRICULUM. PASO 3 - FORMULARIO NUEVO PASSWORD-->
+  <div class="content" *ngIf="data.type === 'recoveryPassword' && recoveryPasswordStep==3">
+    <div class="content__text" [ngClass]="{ inputHide: userConfirmed }">
+      Introduce tu nueva contraseña.
+    </div>
+    <form class="recovery-password-form mt-20" [formGroup]="formRecoveryPasswordGroup">
+      <div class="recovery-password-form__inputs mt-20">
+        <div >
+          <mat-form-field appearance="fill">
+            <mat-label>*Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Contraseña"
+              formControlName="password"
+            />
+            <mat-error
+              *ngIf="formRecoveryPasswordGroup.controls['password'].hasError('required')"
+              >Campo obligatorio.</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill" >
+            <mat-label>Repetir contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Contraseña"
+              [repeatpassword]="formRecoveryPasswordGroup.controls['password'].value"
+              formControlName="repeatPassword"
+            />
+            <mat-error
+              *ngIf="formRecoveryPasswordGroup.controls['repeatPassword'].hasError('required')"
+              >Campo obligatorio.</mat-error
+            >
+            <mat-error
+            *ngIf="formRecoveryPasswordGroup.controls['repeatPassword'].hasError('wrongRepeatPassword')"
+            >Las contraseñas no coinciden.</mat-error
+          >
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="recovery-password-form__action">
+        <generic-button
+          [width]="'200px'"
+          [textButton]="'Guardar nueva contraseña'"
+          [disabled]="formRecoveryPasswordGroup.invalid || spinnerOn"
+          (click)="formRecoveryPasswordGroup.invalid || spinnerOn ? null : onSendNewPasswordClick()"
+
+        ></generic-button>
+      </div>
+    </form>
+
+
+    <div class="spinner" *ngIf="spinnerOn"></div>
   </div>
 </div>

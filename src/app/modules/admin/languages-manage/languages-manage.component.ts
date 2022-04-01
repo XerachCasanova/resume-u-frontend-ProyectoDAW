@@ -111,7 +111,7 @@ export class LanguagesManageComponent {
       .subscribe(
         (resp) => {
           if (resp.status && resp.status === 'ok') {
-            this.usersFormModalService.openModal(true, 'Dato de interés añadido correctamente.');
+            this.usersFormModalService.openModal(true, 'Idioma añadido correctamente.');
 
             this.getLanguages();
             this.resetInterestingData();

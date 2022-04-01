@@ -9,6 +9,7 @@ PALETA DE COLORES
   display: flex;
   justify-content: center;
   width: 100%;
+  min-height: 650px;
   &__content {
     margin: 10px;
     color: #54bab9;
@@ -79,29 +80,33 @@ PALETA DE COLORES
       font-size: 1.5rem;
       font-weight: 200;
     }
-    &__button {
-      width: 150px;
+    &__example{
+      width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding:5px 5px;
-      border-radius: 25px;
-      color: #fbf8f1;
-      cursor: pointer;
-      background-color: #54bab9;
-      &__text{
-        font-size: 0.8rem;
-        text-align: center;
-        font-weight: 400;
+      &__button {
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:5px 5px;
+        border-radius: 25px;
+        color: #fbf8f1;
+        cursor: pointer;
+        background-color: #54bab9;
+        &__text{
+          font-size: 0.8rem;
+          text-align: center;
+          font-weight: 400;
+        }
+
       }
-
+      &__button:hover {
+        color: #FBF8F1;
+        background-color: #36807e;
+      }
     }
 
-
-    &__button:hover {
-      color: #FBF8F1;
-      background-color: #36807e;
-    }
   }
 
 
@@ -153,7 +158,7 @@ li{
 
 
 
-@media all and (min-width: 0px) and (max-width: 650px) {
+@media all and (min-width: 0px) and (max-width: 600px) {
   .container {
     &__content{
       &__form {

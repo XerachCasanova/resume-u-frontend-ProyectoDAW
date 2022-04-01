@@ -6,7 +6,7 @@
   <div class="cards">
     <div [ngClass]="experiences.length===2 ? 'cards__card-2-items' : 'cards__card' " *ngFor="let exp of experiences">
       <mat-card>
-        <div class="cards__card__logo" [ngStyle]="{'border': 'solid 2px'+gamaColores.mainColor}" *ngIf="exp.logo !== ''">
+        <div class="cards__card__logo" *ngIf="exp.logo !== ''">
           <img
             class="cards__card__logo__pic"
             [src]="apiUrl + exp.logo"

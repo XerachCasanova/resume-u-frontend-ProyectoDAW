@@ -27,11 +27,6 @@ const routes: Routes = [
         canActivate: [AuthUserGuard]
       },
       {
-        path: 'configuration',
-        component: ConfigurationComponent,
-        canActivate: [AuthUserGuard]
-      },
-      {
         path: 'user-data',
         component: UsersDataComponent,
         canActivate: [AuthUserGuard]
@@ -69,6 +64,11 @@ const routes: Routes = [
       {
         path: 'education',
         component: EducationsComponent,
+        canActivate: [AuthUserGuard]
+      },
+      {
+        path: 'configuration',
+        component: ConfigurationComponent,
         canActivate: [AuthUserGuard]
       },
 

@@ -3,44 +3,27 @@
     <header>
       <h1>Habilidades</h1>
     </header>
-    <div class="curriculum-link"><div class="curriculum-link__item" (click)="goToCurriculum()"><mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum</div></div>
-    <div  class="container__content__button mt-10 mb-10" (click)="onShowExampleChartClick()">
-      <div class="container__content__button__text" >
-        <div>{{showExampleChart ? 'Ocultar ejemplo' : 'Mostrar Ejemplo' }}</div>
+    <div class="curriculum-link">
+      <div class="curriculum-link__item" (click)="goToCurriculum()">
+        <mat-icon class="mr-10">remove_red_eye</mat-icon>Ver currículum
       </div>
     </div>
 
-      <skills-charts  *ngIf="showExampleChart" [example]="true"></skills-charts>
-
-
     <mat-tab-group>
-      <mat-tab label="Habilidades">
-        <div class="mt-10" >
+      <mat-tab label="H. Personales">
+        <div class="mt-10">
           <p>
-            Muestra en tu currículum tus habilidades. Hay dos tipos de habilidad:
+            Las habilidades personales se mostrarán en la franja principal de tu
+            currículum, junto a los idiomas, datos de interés y la sección
+            "Acerca de". Hacen referencia a tus capacidades personales, tales
+            como: "trabajo en grupo", "don de gentes", etc.
           </p>
-          <ul>
-            <li>
-              Habilidad especial: Se mostrará en la sección principal de tu currículum,
-              junto con los idiomas, datos de interés y la sección "Acerca De",
-              llevan asignados niveles. Normalmente se utilizan para designar
-              habilidades pesonales (trabajo en grupo, actitud asertiva, etc...), o habilidades
-              que no guardan relación con el puesto que estás demandando.
-            </li>
-            <li>
-              Habilidad con conocimientos asignados: Se mostrará en la sección de
-              habilidades, llevan asignados una serie de conocimientos que tendrás que dar de alta en el apartado "Conocimientos".
-              Por ejemplo. Si una de tus habilidades es "lenguajes de
-              programación", puedes dar de alta conocimientos como: javascript,
-              python, etc...
-            </li>
-          </ul>
 
           <!-- FORMULARIO DE HABILIDADES -->
           <form
-            [formGroup]="formSkillsGroup"
-            (ngSubmit)="onSubmitSkill()"
-            *ngIf="skillToAdd"
+            [formGroup]="formPersonalSkillsGroup"
+            (ngSubmit)="onSubmitPersonalSkill()"
+            *ngIf="personalSkillToAdd"
           >
             <div class="container__content__form">
               <div class="container__content__form__row">
@@ -54,53 +37,22 @@
                     />
                     <mat-error
                       *ngIf="
-                        formSkillsGroup.controls['nombre'].hasError('required')
+                        formPersonalSkillsGroup.controls['nombre'].hasError(
+                          'required'
+                        )
                       "
                       >Campo obligatorio.</mat-error
                     >
                     <mat-error
                       *ngIf="
-                        formSkillsGroup.controls['nombre'].hasError('maxlength')
+                        formPersonalSkillsGroup.controls['nombre'].hasError(
+                          'maxlength'
+                        )
                       "
                       >Longitud máxima:
                       {{ lengthForm.skillNombre }} caracteres.</mat-error
                     >
                   </mat-form-field>
-                </div>
-                <div
-                  class="container__content__form__row__col"
-                  *ngIf="skillToAdd.habilidadUnica"
-                >
-                  <mat-form-field appearance="fill">
-                    <mat-label>Nivel</mat-label>
-                    <input
-                      type="number"
-                      matInput
-                      placeholder="Nivel"
-                      formControlName="nivel"
-                      (focus)="nameFocusField = 'nivel'"
-                      (blur)="nameFocusField = ''"
-                    />
-                    <span
-                      class="info-input"
-                      *ngIf="nameFocusField == 'nivel'"
-                      >Introduce un número comprendido del 1 al 10 para asignar un nivel a esta habilidad.</span
-                    >
-                    <mat-error
-                      *ngIf="
-                        formSkillsGroup.controls['nivel'].hasError('min') ||
-                        formSkillsGroup.controls['nivel'].hasError('max')
-                      "
-                      >Valores entre 0 y 10</mat-error
-                    >
-                  </mat-form-field>
-                </div>
-                <div class="container__content__form__row__col">
-                  <mat-checkbox
-                    formControlName="habilidadUnica"
-                    (change)="onUniqueSkillClick($event)"
-                    >Habilidad especial</mat-checkbox
-                  >
                 </div>
                 <div class="container__content__form__actions">
                   <div>
@@ -110,7 +62,9 @@
                       <button
                         mat-raised-button
                         color="primary"
-                        [disabled]="formSkillsGroup.invalid || spinnerOn"
+                        [disabled]="
+                          formPersonalSkillsGroup.invalid || spinnerOn
+                        "
                       >
                         Añadir
                       </button>
@@ -124,7 +78,7 @@
                         type="button"
                         mat-raised-button
                         color="primary"
-                        (click)="resetSkillForm()"
+                        (click)="resetPersonalSkillForm()"
                       >
                         Resetear
                       </button>
@@ -138,33 +92,30 @@
             </div>
           </form>
 
-          <!-- TABLA DE HABILIDADES PARA PANTALLAS GRANDES -->
+          <!-- TABLA DE HABILIDADES PERSONALES -->
 
-          <div class="container__content__table mt-20" *ngIf="!isSmallScreen && skills.length> 0">
-            <table mat-table [dataSource]="skills" class="mat-elevation-z8">
+          <div
+            class="container__content__table mt-20"
+            *ngIf="personalSkills.length > 0"
+          >
+            <table
+              mat-table
+              [dataSource]="personalSkills"
+              class="mat-elevation-z8"
+            >
               <ng-container matColumnDef="nombre">
                 <th mat-header-cell *matHeaderCellDef>Habilidades</th>
-                <td mat-cell *matCellDef="let skill">{{ skill.nombre }}</td>
-              </ng-container>
-
-              <ng-container matColumnDef="nivel">
-                <th mat-header-cell *matHeaderCellDef>Nivel</th>
-                <td mat-cell *matCellDef="let skill">
-                  {{ skill.habilidadUnica === "1" ? skill.nivel : "-" }}
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="habilidadUnica">
-                <th mat-header-cell *matHeaderCellDef>Habilidad Especial</th>
-                <td mat-cell *matCellDef="let skill">
-                  {{ skill.habilidadUnica === "1" ? "Sí" : "No" }}
+                <td mat-cell *matCellDef="let personalSkill">
+                  {{ personalSkill.nombre }}
                 </td>
               </ng-container>
 
               <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let skill">
-                  <mat-icon class="link-pointer" (click)="onDeleteSkillClick(skill)"
+                <td mat-cell *matCellDef="let personalSkill">
+                  <mat-icon
+                    class="link-pointer"
+                    (click)="onDeleteSkillClick(personalSkill)"
                     >delete</mat-icon
                   >
                 </td>
@@ -178,268 +129,397 @@
             </table>
           </div>
 
-          <!-- TABLA DE HABILIDADES PARA PANTALLAS PEQUEÑAS -->
-
-          <div class="container__content__table mt-20" *ngIf="isSmallScreen  && skills.length> 0">
-            <table mat-table [dataSource]="skills" class="mat-elevation-z8">
-              <ng-container matColumnDef="info">
-                <th mat-header-cell *matHeaderCellDef>Info</th>
-                <td mat-cell *matCellDef="let skill">
-                  <div><span>Nombre </span></div>
-                  <div class="mb-10">{{ skill.nombre }}</div>
-                  <div *ngIf="skill.habilidadUnica === '1'">
-                    <span>Nivel </span>
-                  </div>
-                  <div class="mb-10" *ngIf="skill.habilidadUnica === '1'">
-                    {{ skill.nivel }}
-                  </div>
-                  <div><span>Habilidad Especial </span></div>
-                  <div class="mb-10">{{ skill.habilidadUnica === "1" ? "Sí" : "No" }}</div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="actions">
-
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let skill">
-                  <div class="actions">
-                    <mat-icon class="link-pointer" (click)="onDeleteSkillClick(skill)"
-                    >delete</mat-icon
-                  >
-                  </div>
-
-                </td>
-              </ng-container>
-
-              <tr
-                mat-header-row
-                *matHeaderRowDef="displayedColumnsSmallScreens"
-              ></tr>
-              <tr
-                mat-row
-                *matRowDef="let row; columns: displayedColumnsSmallScreens"
-              ></tr>
-            </table>
-          </div>
-          <div class="container__content__no-table" *ngIf="chargeSkillsCompleted && skills.length === 0">
-            Aún no tienes ninguna habilidad asignada a tu currículum.
+          <div
+            class="container__content__no-table"
+            *ngIf="chargeSkillsCompleted && personalSkills.length === 0"
+          >
+            Aún no tienes ninguna habilidad personal asignada a tu currículum.
           </div>
         </div>
       </mat-tab>
+
+      <!-- TAB CONOCIMIENTOS -->
       <mat-tab label="Conocimientos">
-
-         <!-- FORMULARIO DE CONOCIMIENTOS -->
-    <div class="mt-10" >
-      <p>
-        Los conocimientos se muestran dentro de cada una de las habilidades.
-        Puedes asignarles niveles, de tal manera que se muestren en el
-        currículum en forma de estadísticas o barras, de una manera vistosa.
-      </p>
-      <form
-        [formGroup]="formKnowledgeGroup"
-        (ngSubmit)="onSubmitKnowledge()"
-        *ngIf="knowledgeToAdd"
-      >
-        <div class="container__content__form">
-          <div class="container__content__form__row">
-            <div class="container__content__form__row__col">
-              <mat-form-field appearance="fill">
-                <mat-label>Conocimiento</mat-label>
-                <input
-                  matInput
-                  placeholder="Descripción del conocimiento"
-                  formControlName="nombre"
-                />
-                <mat-error
-                  *ngIf="
-                    formKnowledgeGroup.controls['nombre'].hasError('required')
-                  "
-                  >Campo obligatorio.</mat-error
-                >
-                <mat-error
-                  *ngIf="
-                    formKnowledgeGroup.controls['nombre'].hasError('maxlength')
-                  "
-                  >Longitud máxima:
-                  {{ lengthForm.knowledgeNombre }} caracteres.</mat-error
-                >
-              </mat-form-field>
+        <div class="mt-10">
+          <p>
+            Los conocimientos se muestran como grupo de habilidades relacionadas
+            entre sí. Puedes hacer click en el ejemplo para ver las distintas
+            apariencias que pueden adoptar.
+          </p>
+          <div class="container__content__example">
+            <div
+              class="container__content__example__button mt-10 mb-10"
+              (click)="onShowExampleChartClick()"
+            >
+              <div class="container__content__example__button__text">
+                <div>
+                  {{ showExampleChart ? "Ocultar ejemplo" : "Mostrar Ejemplo" }}
+                </div>
+              </div>
             </div>
-            <div class="container__content__form__row__col">
-              <mat-form-field appearance="fill">
-                <mat-label>Nivel</mat-label>
-                <input
-                  type="number"
-                  matInput
-                  placeholder="Nivel"
-                  formControlName="nivel"
-                  (focus)="nameFocusField = 'nivel'"
-                  (blur)="nameFocusField = ''"
-                />
-                <span
-                      class="info-input"
-                      *ngIf="nameFocusField == 'nivel'"
-                      >Introduce un número comprendido del 1 al 10 para asignar un nivel a esta habilidad.</span
+          </div>
+
+          <skills-charts
+            *ngIf="showExampleChart"
+            [example]="true"
+          ></skills-charts>
+          <!-- FORMULARIO DE GRUPO DE CONOCIMIENTOS-->
+
+          <h2>Añadir grupo de conocimientos</h2>
+          <form
+            [formGroup]="formKnowledgeGroupsGroup"
+            (ngSubmit)="onSubmitKnowledgeGroup()"
+            *ngIf="knowledgeGroupToAdd"
+          >
+            <div class="container__content__form">
+              <div class="container__content__form__row">
+                <div class="container__content__form__row__col">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Grupo</mat-label>
+                    <input
+                      matInput
+                      placeholder="Nombre del grupo"
+                      formControlName="nombre"
+                    />
+                    <mat-error
+                      *ngIf="
+                        formKnowledgeGroupsGroup.controls['nombre'].hasError(
+                          'required'
+                        )
+                      "
+                      >Campo obligatorio.</mat-error
                     >
-                <mat-error
-                  *ngIf="
-                    formKnowledgeGroup.controls['nivel'].hasError('min') ||
-                    formKnowledgeGroup.controls['nivel'].hasError('max')
-                  "
-                  >Valores entre 0 y 10</mat-error
-                >
-              </mat-form-field>
-            </div>
-            <div class="container__content__form__row__col">
-              <mat-form-field appearance="fill">
-                <mat-label>Habilidad</mat-label>
-                <mat-select formControlName="idHabilidad">
-                  <mat-option
-                    *ngFor="let uniqueSkill of uniqueSkills"
-                    [value]="uniqueSkill.idHabilidad"
-                  >
-                    {{ uniqueSkill.nombre }}
-                  </mat-option>
-                </mat-select>
-                <mat-error
-                  *ngIf="
-                    formKnowledgeGroup.controls['idHabilidad'].hasError(
-                      'required'
-                    )
-                  "
-                  >Campo obligatorio.</mat-error
-                >
-              </mat-form-field>
-            </div>
-            <div class="container__content__form__actions">
-              <div>
-                <mat-dialog-actions
-                  class="container__content__form__actions__button"
-                >
-                  <button
-                    mat-raised-button
-                    color="primary"
-                    [disabled]="formKnowledgeGroup.invalid || spinnerOn"
-                  >
-                    Añadir
-                  </button>
-                </mat-dialog-actions>
+                    <mat-error
+                      *ngIf="
+                        formKnowledgeGroupsGroup.controls['nombre'].hasError(
+                          'maxlength'
+                        )
+                      "
+                      >Longitud máxima:
+                      {{ lengthForm.skillNombre }} caracteres.</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="container__content__form__actions">
+                  <div>
+                    <mat-dialog-actions
+                      class="container__content__form__actions__button"
+                    >
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        [disabled]="
+                          formKnowledgeGroupsGroup.invalid || spinnerOn
+                        "
+                      >
+                        Añadir
+                      </button>
+                    </mat-dialog-actions>
+                  </div>
+                  <div>
+                    <mat-dialog-actions
+                      class="container__content__form__actions__button"
+                    >
+                      <button
+                        type="button"
+                        mat-raised-button
+                        color="primary"
+                        (click)="resetKnowledgeGroupForm()"
+                      >
+                        Resetear
+                      </button>
+                    </mat-dialog-actions>
+                  </div>
+                  <div class="spinner" *ngIf="spinnerOn"></div>
+                </div>
+
+                <span> {{ errorMsg }}</span>
               </div>
-              <div>
-                <mat-dialog-actions
-                  class="container__content__form__actions__button"
-                >
-                  <button
-                    type="button"
-                    mat-raised-button
-                    color="primary"
-                    (click)="resetKnowledgeForm()"
-                  >
-                    Resetear
-                  </button>
-                </mat-dialog-actions>
-              </div>
-              <div class="spinner" *ngIf="spinnerOn"></div>
             </div>
 
-            <span> {{ errorMsg }}</span>
+            <!--TABLA DE GRUPO DE CONOCIMIENTOS-->
+
+            <div
+              class="container__content__table mt-20 mb-20"
+              *ngIf="knowledgeGroups.length > 0"
+            >
+              <table
+                mat-table
+                [dataSource]="knowledgeGroups"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef>Habilidades</th>
+                  <td mat-cell *matCellDef="let knowledgeGroup">
+                    {{ knowledgeGroup.nombre }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let knowledgeGroup">
+                    <mat-icon
+                      class="link-pointer"
+                      (click)="onDeleteKnowledgeGroupClick(knowledgeGroup)"
+                      >delete</mat-icon
+                    >
+                  </td>
+                </ng-container>
+
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedSkillsColumns"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedSkillsColumns"
+                ></tr>
+              </table>
+            </div>
+
+            <div
+              class="container__content__no-table"
+              *ngIf="chargeSkillsCompleted && personalSkills.length === 0"
+            >
+              Aún no tienes ningún grupo de conocimientos creado.
+            </div>
+          </form>
+          <!--FORMULARIO DE CONOCIMIENTOS-->
+          <div class="mt-10"  *ngIf="knowledgeGroups.length > 0">
+            <h2>Añadir conocimientos</h2>
+            <form
+              [formGroup]="formKnowledgeGroup"
+              (ngSubmit)="onSubmitKnowledge()"
+              *ngIf="knowledgeToAdd"
+            >
+              <div class="container__content__form">
+                <div class="container__content__form__row">
+                  <div class="container__content__form__row__col">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Grupo</mat-label>
+                      <mat-select formControlName="idHabilidad">
+                        <mat-option
+                          *ngFor="let knowledgeGroup of knowledgeGroups"
+                          [value]="knowledgeGroup.idHabilidad"
+                        >
+                          {{ knowledgeGroup.nombre }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          formKnowledgeGroup.controls['idHabilidad'].hasError(
+                            'required'
+                          )
+                        "
+                        >Campo obligatorio.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="container__content__form__row">
+                  <div class="container__content__form__row__col">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Conocimiento</mat-label>
+                      <input
+                        matInput
+                        placeholder="Descripción del conocimiento"
+                        formControlName="nombre"
+                      />
+                      <mat-error
+                        *ngIf="
+                          formKnowledgeGroup.controls['nombre'].hasError(
+                            'required'
+                          )
+                        "
+                        >Campo obligatorio.</mat-error
+                      >
+                      <mat-error
+                        *ngIf="
+                          formKnowledgeGroup.controls['nombre'].hasError(
+                            'maxlength'
+                          )
+                        "
+                        >Longitud máxima:
+                        {{ lengthForm.knowledgeNombre }} caracteres.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="container__content__form__row__col">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Nivel</mat-label>
+                      <input
+                        type="number"
+                        matInput
+                        placeholder="Nivel"
+                        formControlName="nivel"
+                        (focus)="nameFocusField = 'nivel'"
+                        (blur)="nameFocusField = ''"
+                      />
+                      <span class="info-input" *ngIf="nameFocusField == 'nivel'"
+                        >Introduce un número comprendido del 1 al 10 para
+                        asignar un nivel a esta habilidad.</span
+                      >
+                      <mat-error
+                        *ngIf="
+                          formKnowledgeGroup.controls['nivel'].hasError(
+                            'min'
+                          ) ||
+                          formKnowledgeGroup.controls['nivel'].hasError('max')
+                        "
+                        >Valores entre 0 y 10</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="container__content__form__row">
+                  <div class="container__content__form__row__col">
+                    <div class="container__content__form__actions">
+                      <div>
+                        <mat-dialog-actions
+                          class="container__content__form__actions__button"
+                        >
+                          <button
+                            mat-raised-button
+                            color="primary"
+                            [disabled]="formKnowledgeGroup.invalid || spinnerOn"
+                          >
+                            Añadir
+                          </button>
+                        </mat-dialog-actions>
+                      </div>
+                      <div>
+                        <mat-dialog-actions
+                          class="container__content__form__actions__button"
+                        >
+                          <button
+                            type="button"
+                            mat-raised-button
+                            color="primary"
+                            (click)="resetKnowledgeForm()"
+                          >
+                            Resetear
+                          </button>
+                        </mat-dialog-actions>
+                      </div>
+                      <div class="spinner" *ngIf="spinnerOn"></div>
+                    </div>
+
+                    <span> {{ errorMsg }}</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!-- TABLA DE CONOCIMIENTOS PARA PANTALLAS GRANDES -->
+
+            <div
+              class="container__content__table mt-20"
+              *ngIf="!isSmallScreen && knowledges.length > 0"
+            >
+              <table
+                mat-table
+                [dataSource]="knowledges"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef>Conocimiento</th>
+                  <td mat-cell *matCellDef="let knowledge">
+                    {{ knowledge.nombre }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nivel">
+                  <th mat-header-cell *matHeaderCellDef>Nivel</th>
+                  <td mat-cell *matCellDef="let knowledge">
+                    {{ knowledge.nivel }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="habilidad">
+                  <th mat-header-cell *matHeaderCellDef>Grupo</th>
+                  <td mat-cell *matCellDef="let knowledge">
+                    {{ knowledge.habilidad[0].nombre }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let knowledge">
+                    <mat-icon
+                      class="link-pointer"
+                      (click)="onDeleteKnowledgeClick(knowledge)"
+                      >delete</mat-icon
+                    >
+                  </td>
+                </ng-container>
+
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedKnowledgeColumns"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedKnowledgeColumns"
+                ></tr>
+              </table>
+            </div>
+
+            <!-- TABLA DE CONOCIMIENTOS PARA PANTALLAS PEQUEÑAS-->
+
+            <div
+              class="container__content__table mt-20"
+              *ngIf="isSmallScreen && knowledges.length > 0"
+            >
+              <table
+                mat-table
+                [dataSource]="knowledges"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="info">
+                  <th mat-header-cell *matHeaderCellDef>Info</th>
+                  <td mat-cell *matCellDef="let knowledge">
+                    <div><span>Nombre </span></div>
+                    <div class="mb-10">{{ knowledge.nombre }}</div>
+                    <div><span>Nivel </span></div>
+                    <div class="mb-10">{{ knowledge.nivel }}</div>
+                    <div><span>Grupo </span></div>
+                    <div>{{ knowledge.habilidad[0].nombre }}</div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let skill">
+                    <div class="actions">
+                      <mat-icon
+                        class="link-pointer"
+                        (click)="onDeleteKnowledgeClick(skill)"
+                        >delete</mat-icon
+                      >
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedColumnsSmallScreens"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnsSmallScreens"
+                ></tr>
+              </table>
+            </div>
+            <div
+              class="container__content__no-table"
+              *ngIf="chargeKnowledgesCompleted && knowledges.length === 0"
+            >
+              Aún no tienes ningún conocimiento.
+            </div>
           </div>
         </div>
-      </form>
-
-      <!-- TABLA DE CONOCIMIENTOS PARA PANTALLAS GRANDES -->
-
-      <div class="container__content__table mt-20" *ngIf="!isSmallScreen  && knowledges.length > 0">
-        <table mat-table [dataSource]="knowledges" class="mat-elevation-z8">
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>Conocimiento</th>
-            <td mat-cell *matCellDef="let knowledge">{{ knowledge.nombre }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="nivel">
-            <th mat-header-cell *matHeaderCellDef>Nivel</th>
-            <td mat-cell *matCellDef="let knowledge">{{ knowledge.nivel }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="habilidad">
-            <th mat-header-cell *matHeaderCellDef>Habilidad asoc.</th>
-            <td mat-cell *matCellDef="let knowledge">
-              {{ knowledge.habilidad[0].nombre }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let knowledge">
-              <mat-icon
-                class="link-pointer"
-                (click)="onDeleteKnowledgeClick(knowledge)"
-                >delete</mat-icon
-              >
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedKnowledgeColumns"></tr>
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedKnowledgeColumns"
-          ></tr>
-        </table>
-      </div>
-
-      <!-- TABLA DE CONOCIMIENTOS PARA PANTALLAS PEQUEÑAS-->
-
-      <div class="container__content__table mt-20" *ngIf="isSmallScreen && knowledges.length > 0">
-        <table mat-table [dataSource]="knowledges" class="mat-elevation-z8">
-          <ng-container matColumnDef="info">
-            <th mat-header-cell *matHeaderCellDef>Info</th>
-            <td mat-cell *matCellDef="let knowledge">
-              <div><span>Nombre </span></div>
-              <div class="mb-10">{{ knowledge.nombre }}</div>
-              <div><span>Nivel </span></div>
-              <div class="mb-10">{{ knowledge.nivel }}</div>
-              <div><span>Habilidad asoc </span></div>
-              <div>{{ knowledge.habilidad[0].nombre }}</div>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let skill">
-              <div class="actions">
-                <mat-icon
-                class="link-pointer"
-                (click)="onDeleteKnowledgeClick(skill)"
-                >delete</mat-icon
-              >
-              </div>
-
-            </td>
-          </ng-container>
-
-          <tr
-            mat-header-row
-            *matHeaderRowDef="displayedColumnsSmallScreens"
-          ></tr>
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumnsSmallScreens"
-          ></tr>
-        </table>
-      </div>
-      <div class="container__content__no-table" *ngIf="chargeKnowledgesCompleted && knowledges.length === 0">
-        Aún no tienes ningún conocimiento asignado a alguna habilidad.
-      </div>
-    </div>
       </mat-tab>
-
     </mat-tab-group>
-
-
-
-
-
-
-
   </div>
 </div>

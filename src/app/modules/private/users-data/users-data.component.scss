@@ -9,6 +9,7 @@ PALETA DE COLORES
   display: flex;
   justify-content: center;
   width: 100%;
+  min-height: 650px;
   &__content {
     margin: 10px;
     color: #54bab9;
@@ -91,7 +92,17 @@ PALETA DE COLORES
   flex: 0;
 }
 
+.change-password{
 
+  display: flex;
+  justify-content: center;
+  &__link {
+    cursor:pointer;
+  }
+  &__link:hover {
+    text-decoration: underline;
+  }
+}
 
 @media all and (min-width: 0px) and (max-width: 600px) {
   .container {

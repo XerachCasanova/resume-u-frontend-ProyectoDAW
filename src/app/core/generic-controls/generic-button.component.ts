@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'generic-button',
@@ -12,6 +11,7 @@ export class GenericButtonComponent implements OnInit {
   @Input() darkColor: string = '#36807e'
   @Input() textButton: string;
   @Input() width: string;
+  @Input() disabled: boolean = false;
   hoverButton = false;
 
   constructor() {}

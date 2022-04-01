@@ -92,15 +92,19 @@ export class ExperiencesComponent {
   }
   getExperiences(){
     this.experiencesService.getExperiences(this.idCurriculum)
-    .subscribe((experience) => {
-      this.experiences = experience;
-    }, (error) => {
-      console.log(error)
+    .subscribe((experience: Experience[]) => {
+      this.experiences = experience.sort(
+        (a, b) =>
+          Number(new Date(b.fechaComienzo).getTime()) -
+          Number(new Date(a.fechaComienzo).getTime())
+      )
     });
   }
 
   goToCurriculum(){
-    this.router.navigate([this.curriculum.alias])
+
+    const url = this.router.createUrlTree(['/', this.curriculum.alias])
+    window.open(url.toString(), '_blank')
   }
 
 

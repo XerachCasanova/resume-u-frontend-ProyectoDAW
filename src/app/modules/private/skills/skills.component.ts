@@ -18,12 +18,7 @@ import { SkillsService } from './skills.service';
   styleUrls: ['./skills.component.scss'],
 })
 export class SkillsComponent {
-  displayedSkillsColumns: string[] = [
-    'nombre',
-    'nivel',
-    'habilidadUnica',
-    'delete',
-  ];
+  displayedSkillsColumns: string[] = ['nombre', 'delete'];
   displayedKnowledgeColumns: string[] = [
     'nombre',
     'nivel',
@@ -31,25 +26,30 @@ export class SkillsComponent {
     'delete',
   ];
 
-  displayedColumnsSmallScreens: string[] = [
-    'info',
-    'actions',
-  ];
-  formSkillsGroup: FormGroup;
+  displayedColumnsSmallScreens: string[] = ['info', 'actions'];
+
+  formPersonalSkillsGroup: FormGroup;
   formKnowledgeGroup: FormGroup;
+  formKnowledgeGroupsGroup: FormGroup;
   chargeKnowledgesCompleted = false;
   chargeSkillsCompleted = false;
+
   nameFocusField: string;
   isSmallScreen = false;
+
   user: any;
   showExampleChart = false;
   idCurriculum: string;
   curriculum: Curriculum;
-  skills: Skill[] = [];
-  uniqueSkills: Skill[] = [];
-  skillToAdd: Skill;
+
+  knowledgeGroups: Skill[] = [];
+  personalSkills: Skill[] = [];
   knowledges: Knowledge[] = [];
+
+  personalSkillToAdd: Skill;
+  knowledgeGroupToAdd: Skill;
   knowledgeToAdd: any;
+
   lengthForm: any;
   errorMsg: string;
   spinnerOn = false;
@@ -60,17 +60,20 @@ export class SkillsComponent {
     private curriculumService: CurriculumService,
     private skillService: SkillsService,
     private tokenService: TokenService,
-    private usersFormModalService:UsersFormModalService,
-    private breakpointObserver:BreakpointObserver,
-    private router: Router,
+    private usersFormModalService: UsersFormModalService,
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {
-    this.formSkillsGroup = fb.group({});
+    this.formPersonalSkillsGroup = fb.group({});
     this.formKnowledgeGroup = fb.group({});
+    this.formKnowledgeGroupsGroup = fb.group({});
   }
 
   async ngOnInit() {
     //Nos suscribimos a breackpointobserver para escuchar cuando cambia el tamaño de la pantalla y cambiar el flag cuando se pasa el límite de 500px
-    this.breakpointObserver.observe(['(max-width: 500px)']).subscribe((state) => this.isSmallScreen = state.matches);
+    this.breakpointObserver
+      .observe(['(max-width: 500px)'])
+      .subscribe((state) => (this.isSmallScreen = state.matches));
 
     /*A través del servicio activatedRoute, llamo al servicio headerService, el cual está a la escucha del segmento de url que se le pasa como string.
     Eso hará que desde la cabecera podamos suscribirnos a dicho servicio y saber en que url estamos en cada momento.*/
@@ -94,41 +97,41 @@ export class SkillsComponent {
           this.skillService
             .getSkills(this.idCurriculum)
             .subscribe(async (skills) => {
-              this.skills = skills;
+              this.knowledgeGroups = skills.filter((skill: Skill) =>
+                Boolean(Number(skill.habilidadUnica) == 0)
+              );
+              this.personalSkills = skills.filter((skill: Skill) =>
+                Boolean(Number(skill.habilidadUnica) == 1)
+              );
               this.chargeSkillsCompleted = true;
-              this.uniqueSkills = this.skills.filter(skill => Boolean(Number(skill.habilidadUnica)==0))
               this.getKnowledges();
             });
 
-          this.resetSkill();
+          this.resetPersonalSkill();
+          this.resetKnowledgeGroup();
           this.resetKnowledge();
           this.setValidators();
         }
       });
   }
 
-
-  onUniqueSkillClick($event: any) {
-    this.skillToAdd.habilidadUnica = $event.checked;
-    if (this.skillToAdd.habilidadUnica == false) {
-      this.skillToAdd.nivel = 0;
-      this.formSkillsGroup.get('nivel')?.setValue(0);
-    }
-  }
-
-  resetSkill() {
-    this.skillToAdd = {
+  resetKnowledgeGroup() {
+    this.knowledgeGroupToAdd = {
       idHabilidad: '',
       idCurriculum: this.idCurriculum,
       nombre: '',
       nivel: 0,
       habilidadUnica: false,
     };
-
   }
-
-  onShowExampleChartClick(){
-    this.showExampleChart = !this.showExampleChart;
+  resetPersonalSkill() {
+    this.personalSkillToAdd = {
+      idHabilidad: '',
+      idCurriculum: this.idCurriculum,
+      nombre: '',
+      nivel: 0,
+      habilidadUnica: true,
+    };
   }
 
   resetKnowledge() {
@@ -138,24 +141,38 @@ export class SkillsComponent {
       nombre: '',
       nivel: 0,
     };
-
   }
 
-  setValidators(){
-    this.formSkillsGroup = this.fb.group(this.skillToAdd);
-    this.formSkillsGroup
+  onShowExampleChartClick() {
+    this.showExampleChart = !this.showExampleChart;
+  }
+
+  setValidators() {
+    //VALIDADORES DE PERSONAL SKILLS
+    this.formPersonalSkillsGroup = this.fb.group(this.personalSkillToAdd);
+    this.formPersonalSkillsGroup
       .get('nombre')
       ?.setValidators([
         Validators.required,
         Validators.maxLength(this.lengthForm.skillNombre),
       ]);
-    this.formSkillsGroup
-      .get('nivel')
-      ?.setValidators([Validators.max(10), Validators.min(0)]);
-    this.formSkillsGroup
+    this.formPersonalSkillsGroup
       .get('idCurriculum')
       ?.setValidators(Validators.required);
 
+    //VALIDADORES DE GRUPO DE CONOCIMIENTOS
+    this.formKnowledgeGroupsGroup = this.fb.group(this.knowledgeGroupToAdd);
+    this.formKnowledgeGroupsGroup
+      .get('nombre')
+      ?.setValidators([
+        Validators.required,
+        Validators.maxLength(this.lengthForm.skillNombre),
+      ]);
+    this.formKnowledgeGroupsGroup
+      .get('idCurriculum')
+      ?.setValidators(Validators.required);
+
+    //VALIDADORES DE CONOCIMIENTOS
     this.formKnowledgeGroup = this.fb.group(this.knowledgeToAdd);
     this.formKnowledgeGroup
       .get('nombre')
@@ -163,7 +180,6 @@ export class SkillsComponent {
         Validators.required,
         Validators.maxLength(this.lengthForm.knowledgeNombre),
       ]);
-
     this.formKnowledgeGroup
       .get('nivel')
       ?.setValidators([Validators.max(10), Validators.min(0)]);
@@ -172,22 +188,58 @@ export class SkillsComponent {
       ?.setValidators(Validators.required);
   }
 
-
   onDeleteSkillClick(skill: any) {
     this.skillService.deleteSkill(skill).subscribe(
       (resp) => {
         if (resp.status && resp.status === 'ok' && resp.result != -1) {
-          this.usersFormModalService.openModal(true, 'Habilidad eliminada correctamente.');
+          this.usersFormModalService.openModal(
+            true,
+            'Habilidad eliminada correctamente.'
+          );
 
           this.getSkills();
         } else {
-          this.usersFormModalService.openModal(false, 'No se ha podido eliminar la habilidad. Comprueba que no tiene conocimientos asignados y vuelve a intentarlo.');
-
+          this.usersFormModalService.openModal(
+            false,
+            'No se ha podido eliminar la habilidad'
+          );
         }
         this.spinnerOn = false;
       },
       () => {
-        this.usersFormModalService.openModal(false, 'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.');
+        this.usersFormModalService.openModal(
+          false,
+          'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'
+        );
+
+        this.spinnerOn = false;
+      }
+    );
+  }
+
+  onDeleteKnowledgeGroupClick(knowledgeGroup: any) {
+    this.skillService.deleteSkill(knowledgeGroup).subscribe(
+      (resp) => {
+        if (resp.status && resp.status === 'ok' && resp.result != -1) {
+          this.usersFormModalService.openModal(
+            true,
+            'Grupo de conocimientos eliminado correctamente.'
+          );
+
+          this.getSkills();
+        } else {
+          this.usersFormModalService.openModal(
+            false,
+            'No se ha podido eliminar el grupo de conocimientos. Comprueba que no tiene conocimientos asignados y vuelve a intentarlo.'
+          );
+        }
+        this.spinnerOn = false;
+      },
+      () => {
+        this.usersFormModalService.openModal(
+          false,
+          'No se ha podido eliminar el grupo de conocimientos. Comprueba que no tiene conocimientos asignados y vuelve a intentarlo.'
+        );
 
         this.spinnerOn = false;
       }
@@ -198,15 +250,24 @@ export class SkillsComponent {
     this.skillService.deleteKnowledge(knowledge).subscribe(
       (resp) => {
         if (resp.status && resp.status === 'ok' && resp.result != -1) {
-          this.usersFormModalService.openModal(true, 'Conocimiento eliminado correctamente.');
+          this.usersFormModalService.openModal(
+            true,
+            'Conocimiento eliminado correctamente.'
+          );
           this.getKnowledges();
         } else {
-          this.usersFormModalService.openModal(false, 'No se ha podido eliminar este conocimiento, inténtalo más tarde.');
+          this.usersFormModalService.openModal(
+            false,
+            'No se ha podido eliminar este conocimiento, inténtalo más tarde.'
+          );
         }
         this.spinnerOn = false;
       },
       () => {
-        this.usersFormModalService.openModal(false, 'No se ha podido eliminar este conocimiento, inténtalo más tarde.');
+        this.usersFormModalService.openModal(
+          false,
+          'No se ha podido eliminar este conocimiento, inténtalo más tarde.'
+        );
         this.spinnerOn = false;
       }
     );
@@ -214,11 +275,13 @@ export class SkillsComponent {
 
   getSkills() {
     this.skillService.getSkills(this.idCurriculum).subscribe((skills) => {
-      this.skills = skills;
-      this.uniqueSkills = this.skills.filter(skill => Boolean(Number(skill.habilidadUnica)==0))
+      this.knowledgeGroups = skills.filter((skill: Skill) =>
+        Boolean(Number(skill.habilidadUnica) == 0)
+      );
+      this.personalSkills = skills.filter((skill: Skill) =>
+        Boolean(Number(skill.habilidadUnica) == 1)
+      );
     });
-
-
   }
 
   async getKnowledges() {
@@ -226,9 +289,8 @@ export class SkillsComponent {
     let knowledgesCollection: any[] = [];
 
     knowledgesCollection = await Promise.all(
-      this.skills.map(async (skillData) => {
+      this.knowledgeGroups.map(async (skillData) => {
         if (skillData.idHabilidad) {
-
           return this.skillService
             .getKnowledges(skillData.idHabilidad)
             .toPromise();
@@ -241,26 +303,48 @@ export class SkillsComponent {
     this.knowledges = [].concat(...knowledgesCollection);
   }
 
-  onSubmitSkill() {
+  onSubmitPersonalSkill() {
     this.spinnerOn = true;
 
-    this.skillToAdd = {
-      ...this.formSkillsGroup.value,
+    this.personalSkillToAdd = {
+      ...this.formPersonalSkillsGroup.value,
     };
 
-    this.skillService.createSkill(this.skillToAdd).subscribe(
+    this.createSubmit(this.personalSkillToAdd);
+
+  }
+
+
+  onSubmitKnowledgeGroup() {
+    this.spinnerOn = true;
+
+    this.knowledgeGroupToAdd = {
+      ...this.formKnowledgeGroupsGroup.value,
+    };
+
+    this.createSubmit(this.knowledgeGroupToAdd);
+  }
+
+  createSubmit(data:Skill){
+    this.skillService.createSkill(data).subscribe(
       (resp) => {
         if (resp.status && resp.status === 'ok') {
-          this.usersFormModalService.openModal(true, 'Habilidad añadida correctamente.');
+          this.usersFormModalService.openModal(
+            true,
+            'Habilidad añadida correctamente.'
+          );
 
           this.getSkills();
-          this.resetSkill();
+          this.resetPersonalSkill();
           this.setValidators();
         }
         this.spinnerOn = false;
       },
       () => {
-        this.usersFormModalService.openModal(false,  'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.');
+        this.usersFormModalService.openModal(
+          false,
+          'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'
+        );
 
         this.spinnerOn = false;
       }
@@ -277,7 +361,10 @@ export class SkillsComponent {
     this.skillService.createKnowledge(this.knowledgeToAdd).subscribe(
       (resp) => {
         if (resp.status && resp.status === 'ok') {
-          this.usersFormModalService.openModal(true,  'Conocimiento añadido correctamente.');
+          this.usersFormModalService.openModal(
+            true,
+            'Conocimiento añadido correctamente.'
+          );
 
           this.getKnowledges();
           this.resetKnowledge();
@@ -286,16 +373,23 @@ export class SkillsComponent {
         this.spinnerOn = false;
       },
       () => {
-        this.usersFormModalService.openModal(true,  'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.');
+        this.usersFormModalService.openModal(
+          true,
+          'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'
+        );
 
         this.spinnerOn = false;
       }
     );
   }
 
-  resetSkillForm() {
+  resetPersonalSkillForm() {
+    this.formPersonalSkillsGroup = this.fb.group(this.personalSkillToAdd);
+    this.setValidators();
+  }
 
-    this.formSkillsGroup = this.fb.group(this.skillToAdd);
+  resetKnowledgeGroupForm() {
+    this.formKnowledgeGroupsGroup = this.fb.group(this.knowledgeGroupToAdd);
     this.setValidators();
   }
 
@@ -304,9 +398,8 @@ export class SkillsComponent {
     this.setValidators();
   }
 
-  goToCurriculum(){
-    this.router.navigate([this.curriculum.alias])
+  goToCurriculum() {
+    const url = this.router.createUrlTree(['/', this.curriculum.alias]);
+    window.open(url.toString(), '_blank');
   }
-
-
 }

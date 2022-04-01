@@ -1,8 +1,10 @@
+
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
   align-items: stretch;
+  margin-bottom: 10px;
 
   &__card {
     display: grid;

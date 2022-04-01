@@ -1,7 +1,14 @@
-<button class="generic-button" [ngStyle]="hoverButton ? {'background-color': darkColor, 'width': width} : {'background-color': mainColor, 'width': width}"  >
+<button class="generic-button" *ngIf="!disabled" [ngStyle]="hoverButton ? {'background-color': darkColor, 'width': width} : {'background-color': mainColor, 'width': width}"  >
   <div class="generic-button__text"  (mouseover)="hoverButton=true" (mouseleave)="hoverButton=false">
     {{textButton}}
   </div>
 </button>
+
+<button class="generic-button disabled" *ngIf="disabled" [ngStyle]=" {'width': width}" >
+  <div class="generic-button__text">
+    {{textButton}}
+  </div>
+</button>
+
 
 

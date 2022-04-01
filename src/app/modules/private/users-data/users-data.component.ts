@@ -25,6 +25,7 @@ export class UsersDataComponent {
   selectedProvince: Provincia | undefined;
   spinnerOn = false;
   chargeForm = false;
+  userEmail: string;
   nameFocusField: string;
   curriculum: Curriculum;
   isPrivate: boolean;
@@ -51,7 +52,7 @@ export class UsersDataComponent {
       direccion: MAX_LENGTH.LENGTH_200,
       localidad: MAX_LENGTH.LENGTH_100,
       cp: MAX_LENGTH.LENGTH_5,
-      acercaDe: MAX_LENGTH.LENGTH_500,
+      acercaDe: MAX_LENGTH.LENGTH_1000,
       telefonos: MAX_LENGTH.LENGTH_15,
       facebook: MAX_LENGTH.LENGTH_150,
       linkedin: MAX_LENGTH.LENGTH_150,
@@ -67,6 +68,7 @@ export class UsersDataComponent {
     this.usersService
       .getUser(this.tokenService.getUser().idUsuario)
       .subscribe((userData) => {
+        this.userEmail = userData[0].email;
         this.user.idUsuario = userData[0].idUsuario;
         this.user.nombre = userData[0].nombre;
         this.user.apellidos = userData[0].apellidos;
@@ -243,6 +245,16 @@ export class UsersDataComponent {
     }
   }
 
+  onChangePasswordClick(){
+    const modal = this.usersFormModalService.openPasswordChange(this.userEmail)
+
+    modal.afterClosed().subscribe((resp) => {
+      if (resp === 'ok') {
+        this.usersFormModalService.openModal(true, "Contraseña modificada correctamente.")
+      }
+    });
+  }
+
   onPersonalDataSubmit() {
     this.spinnerOn = true;
     this.user = {
@@ -269,7 +281,9 @@ export class UsersDataComponent {
     );
   }
 
-  goToCurriculum() {
-    this.router.navigate([this.curriculum.alias]);
+  goToCurriculum(){
+
+    const url = this.router.createUrlTree(['/', this.curriculum.alias])
+    window.open(url.toString(), '_blank')
   }
 }

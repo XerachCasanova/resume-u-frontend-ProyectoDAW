@@ -31,7 +31,7 @@ export class HeadersComponent implements OnInit {
 
           this.loginService.isAdmin().subscribe(isAdmin =>  this.isAdmin = isAdmin);
         },
-        (error) => {
+        () => {
 
           this.tokenService.signOut();
         }
@@ -42,11 +42,14 @@ export class HeadersComponent implements OnInit {
     this.headerService.currentUrl$.subscribe((url) => {
       this.loginButtonHidden = url === 'login' || this.isLogged == true;
       this.signUpButtonHidden = url === 'usuario' || this.isLogged == true;
+
     }); //Hago a la cabecera estar a la escucha de cambios en la url para poder ocultar o mostrar el botón de login dependiendo de si se está o no en la página.
 
     this.headerService.currentLogin$.subscribe(
       (islogged) => (this.isLogged = islogged)
     ); //Hago a la cabecera estar a la escucha del login para mostrar botones distintos.
+
+    this.headerService.currentAdmin$.subscribe((isAdmin) => this.isAdmin = isAdmin);
   }
 
   onLogoClick() {

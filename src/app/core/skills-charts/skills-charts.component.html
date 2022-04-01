@@ -1,7 +1,7 @@
 <section>
   <div class="content" *ngIf="typeSkills === 'charts'">
     <div
-      class="content__chart"
+    [ngClass]="skills.length===2 ? 'content__chart-2-items' : 'content__chart'"
       *ngFor="let chart of chartOptionsArray; let index = index"
     >
       <mat-card >
@@ -38,7 +38,7 @@
           [noData]="chart.noData"
         >
         </apx-chart>
-        <div class="mt-20" class="leyend" *ngIf="example">En este ejemplo, una habilidad es OFIMÁTICA y los conocimientos son: WORD, EXCEL, ACCESS, POWERPOINT, OUTLOOK.</div>
+        <div class="mt-20" class="leyend" *ngIf="example">En este ejemplo, un grupo de conocimientos es OFIMÁTICA y sus conocimientos asociados son: WORD, EXCEL, ACCESS, POWERPOINT, OUTLOOK. Puedes cambiar el tipo de visualización en el apartado de configuración.</div>
 
       </mat-card>
     </div>

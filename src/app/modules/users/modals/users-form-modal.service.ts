@@ -11,7 +11,7 @@ import { usersFormModalComponent } from './users-form-modal.component';
 })
 export class UsersFormModalService {
 
-  constructor(private usersFormDialog: MatDialog){}
+  constructor(private usersFormDialog: MatDialog,){}
 
   openModal(respIsOk: boolean, msg:string){
 
@@ -33,7 +33,33 @@ export class UsersFormModalService {
     });
   }
 
-  openActivationCodeModal(idUsuario:string){
+
+  openRecoveryPassword(msg:string){
+    return this.usersFormDialog.open(usersFormModalComponent, {
+      width: '800px',
+      maxWidth: '80%',
+      data: {
+        header: 'advise',
+        type: 'recoveryPassword',
+        msg: msg,
+      },
+    });
+  }
+
+  openPasswordChange(email: string){
+    return this.usersFormDialog.open(usersFormModalComponent, {
+      width: '800px',
+      maxWidth: '80%',
+      data: {
+        header: 'advise',
+        type: 'recoveryPassword',
+        email: email,
+        recoveryPasswordStep: 2
+      },
+    });
+  }
+
+  openActivationCodeModal(idUsuario:string, msg: string){
 
     return this.usersFormDialog.open(usersFormModalComponent, {
       width: '800px',
@@ -42,7 +68,7 @@ export class UsersFormModalService {
         header: 'advise',
         type: 'activationCode',
         idUsuario: idUsuario,
-        msg: 'Has sido dado de alta correctamente. Para poder empezar a disfrutar del servicio, debes introducir el código que hemos enviado a tu correo electrónico.',
+        msg: msg
       },
     })
   }

@@ -30,6 +30,18 @@ export class UsersService {
     );
   }
 
+  recoverPasswordSendEmail(email:string){
+
+      return this.http.put(environment.apiUrl + 'usuario?forgotten-password=' + email, email);
+
+  }
+
+  resetPassword(passwordForm:any){
+
+    return this.http.put(environment.apiUrl + 'usuario?reset-password=1&code='+passwordForm.code, passwordForm);
+
+}
+
   updateUser(user: User): Observable<any> {
     return this.http.put(environment.apiUrl + 'usuario', user);
   }
@@ -65,6 +77,16 @@ export class UsersService {
         activationCode +
         '&id=' +
         idUsuario
+    );
+  }
+
+  checkRecoveryCode(code: string, email: string): Observable<any> {
+    return this.http.get(
+      environment.apiUrl +
+        'usuario?recoveryCode=' +
+        code +
+        '&recoveryEmail=' +
+        email
     );
   }
 }

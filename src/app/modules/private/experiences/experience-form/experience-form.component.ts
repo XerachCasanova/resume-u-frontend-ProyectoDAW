@@ -212,7 +212,7 @@ export class ExperienceFormComponent {
 
 			},
 			error => {
-        console.log(error)
+
 				return false;
 			}
 
@@ -238,23 +238,26 @@ export class ExperienceFormComponent {
   }
 
   checkEndingDate(){
-    const fechaComienzo = new Date(this.formExperienceGroup.get('fechaComienzo')?.value).getTime();
-    const fechaFinalizacion = new Date(this.formExperienceGroup.get('fechaFinalizacion')?.value).getTime()
 
-    if(!isNaN(fechaComienzo) && !isNaN(fechaFinalizacion)){
-      if(fechaFinalizacion - fechaComienzo < 0){
-        const usersModal = this.usersFormModalService.openModal(false, 'La fecha de finalización debe ser posterior a la de comienzo');
+    if(!this.trabajandoActualmente){
+      const fechaComienzo = new Date(this.formExperienceGroup.get('fechaComienzo')?.value).getTime();
+      const fechaFinalizacion = new Date(this.formExperienceGroup.get('fechaFinalizacion')?.value).getTime()
 
-        usersModal.afterClosed().subscribe(() => {
-          this.formExperienceGroup.get('fechaFinalizacion')?.setValue('');
-        })
+      if(!isNaN(fechaComienzo) && !isNaN(fechaFinalizacion)){
+        if(fechaFinalizacion - fechaComienzo < 0){
+          const usersModal = this.usersFormModalService.openModal(false, 'La fecha de finalización debe ser posterior a la de comienzo');
+
+          usersModal.afterClosed().subscribe(() => {
+            this.formExperienceGroup.get('fechaFinalizacion')?.setValue('');
+          })
+        }
       }
     }
+
   }
 
   onWorkingNowadaysClick(){
 
-    console.log(this.trabajandoActualmente)
     if(this.trabajandoActualmente) this.formExperienceGroup.get('fechaFinalizacion')?.setValue(new Date(Date.now()));
     else this.formExperienceGroup.get('fechaFinalizacion')?.setValue(null);
 

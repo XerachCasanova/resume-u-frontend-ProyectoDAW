@@ -70,8 +70,16 @@ export class LanguageComponent {
           this.idCurriculum = curriculum[0].idCurriculum;
           this.languagesCurriculum = curriculum[0].idiomas;
           this.chargeCompleted = true;
-          this.languageService.getLanguages().subscribe((languages) => {
-            this.languages = languages;
+          this.languageService.getLanguages().subscribe((languages: Language[]) => {
+            this.languages = languages.sort(
+              (a, b) =>
+                {
+                  if(a.idioma.toLowerCase() > b.idioma.toLowerCase()) return 1
+                  else if (a.idioma.toLowerCase() < b.idioma.toLowerCase()) return -1;
+
+                  return 0;
+                }
+            );
           });
 
           this.resetLanguage();
@@ -124,7 +132,7 @@ export class LanguageComponent {
       .getCurriculums(this.user.idUsuario)
       .subscribe((curriculum) => {
         if (curriculum.length > 0) {
-          this.languagesCurriculum = curriculum[0].idiomas;
+          this.languagesCurriculum = curriculum[0].idiomas
         }
       });
   }
@@ -153,7 +161,8 @@ export class LanguageComponent {
   }
 
   goToCurriculum(){
-    this.router.navigate([this.curriculum.alias])
-  }
 
+    const url = this.router.createUrlTree(['/', this.curriculum.alias])
+    window.open(url.toString(), '_blank')
+  }
 }

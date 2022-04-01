@@ -30,6 +30,7 @@ export class LoginService {
     return this.http.get(environment.apiUrl + 'auth?isUser=' + idUsuario);
   }
 
+  
 
   refreshToken(token: string) {
     const refreshtoken = {

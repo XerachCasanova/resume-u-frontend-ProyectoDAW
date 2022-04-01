@@ -17,7 +17,7 @@ export class AuthUserGuard implements CanActivate {
 
       return this.loginService.isUser().pipe(
         map(resp => {
-          console.log(resp)
+
           if (resp!= null) {
 
             return true;
@@ -28,7 +28,7 @@ export class AuthUserGuard implements CanActivate {
           }
         }),
         catchError((err) => {
-          console.log(err)
+
           this.router.navigate(['login']);
           return of(false);
         })

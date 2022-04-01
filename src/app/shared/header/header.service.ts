@@ -10,8 +10,10 @@ export class HeaderService {
 
   private urlSource = new BehaviorSubject('');
   private checkLoginSource = new BehaviorSubject(false);
+  private checkAdminSource = new BehaviorSubject(false);
   currentUrl$ = this.urlSource.asObservable();
   currentLogin$ = this.checkLoginSource.asObservable();
+  currentAdmin$ = this.checkAdminSource.asObservable();
 
   constructor() {}
 
@@ -22,4 +24,9 @@ export class HeaderService {
   changeLoginState(isLogged: boolean) {
     this.checkLoginSource.next(isLogged);
   }
+
+  changeAdminState(isAdmin: boolean) {
+    this.checkAdminSource.next(isAdmin);
+  }
+
 }

@@ -280,12 +280,12 @@ export class AdminUsersFormComponent {
               'Usuario creado correctamente.'
             )
 
-            modalForm.afterClosed().subscribe(() =>  this.router.navigate(['private', 'admin-users']));
+            modalForm.afterClosed().subscribe(() =>  this.router.navigate(['admin', 'admin-users']));
           }
           this.spinnerOn = false;
         },
         (error) => {
-          console.log(error);
+
           this.usersFormModalService.openModal(
             false,
             'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'
@@ -301,7 +301,7 @@ export class AdminUsersFormComponent {
             this.usersFormModalService.openModal(
               true,
               'Datos de usuario modificados correctamente.'
-            ).afterClosed().subscribe(() => this.router.navigate(['private', 'admin-users']));
+            ).afterClosed().subscribe(() => this.router.navigate(['admin', 'admin-users']));
           }
           this.spinnerOn = false;
         },

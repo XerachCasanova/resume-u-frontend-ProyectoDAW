@@ -9,28 +9,24 @@
         /></a>
 
     </div>
-
     <nav class="container__content__menu" *ngIf="!isLogged">
       <a routerLink="login" class="container__content__menu__menu-item" *ngIf="!loginButtonHidden"
-        ><mat-icon class="container__content__menu__menu-item__menu-icon">login</mat-icon><span>Entrar</span></a
+        ><i class="fas fa-sign-in-alt"></i></a
       >
       <a routerLink="usuario/signup" class="container__content__menu__menu-item"  *ngIf="!signUpButtonHidden"
-        ><mat-icon class="container__content__menu__menu-item__menu-icon">add_circle</mat-icon
-        ><span>Soy nuevo</span></a
+        ><i class="fas fa-user-plus"></i></a
       >
 
     </nav>
     <nav class="container__content__menu" *ngIf="isLogged ">
       <a *ngIf="isAdmin" routerLink="admin" class="container__content__menu__menu-item"
-      ><i class="container__content__menu__menu-item__menu-icon fab fa-lock-keyhole"></i></a
+      ><i class="fas fa-lock"></i></a
     >
       <a routerLink="private" class="container__content__menu__menu-item"
-        ><mat-icon class="container__content__menu__menu-item__menu-icon">account_circle</mat-icon
-        ><span>Área privada</span></a
+        ><i class="fas fa-user"></i></a
       >
       <a routerLink="" (click)="onLogoutClick()" class="container__content__menu__menu-item"
-        ><mat-icon class="container__content__menu__menu-item__menu-icon">logout</mat-icon
-        ><span>Salir</span></a
+        ><i class="fas fa-sign-out-alt"></i></a
       >
     </nav>
   </div>

@@ -11,4 +11,5 @@ export enum MAX_LENGTH {
   LENGTH_300 = 300,
   LENGTH_500 = 500,
   LENGTH_800 = 800,
+  LENGTH_1000 = 1000,
 }

@@ -93,15 +93,19 @@ export class EducationsComponent {
   }
   getEducations(){
     this.educationsService.getEducations(this.idCurriculum)
-    .subscribe((educations) => {
-      this.educations = educations;
-    }, (error) => {
-      console.log(error)
+    .subscribe((educations: Education[]) => {
+      this.educations = educations.sort(
+        (a, b) =>
+          Number(new Date(b.fechaComienzo).getTime()) -
+          Number(new Date(a.fechaComienzo).getTime())
+      );
     });
   }
 
   goToCurriculum(){
-    this.router.navigate([this.curriculum.alias])
+
+    const url = this.router.createUrlTree(['/', this.curriculum.alias])
+    window.open(url.toString(), '_blank')
   }
 
 

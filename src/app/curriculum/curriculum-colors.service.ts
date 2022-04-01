@@ -46,6 +46,22 @@ export class CurriculumColorsService {
             textColor: '#FFF',
           };
         break;
+        case 'Tierra':
+          objectColors = {
+            mainColor: '#CEAB93',
+            chartsColor: '#E3CAA5',
+            darkColor: '#AD8B73',
+            textColor: '#FFF',
+          };
+        break;
+        case 'Rojo':
+          objectColors = {
+            mainColor: '#630000',
+            chartsColor: '#630000',
+            darkColor: '#810000',
+            textColor: '#FFF',
+          };
+        break;
     }
 
     return objectColors

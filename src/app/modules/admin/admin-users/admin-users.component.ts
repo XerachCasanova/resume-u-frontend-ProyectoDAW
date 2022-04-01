@@ -75,7 +75,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         this.spinnerOn = false;
       },
       (error) => {
-        console.log(error)
+
         this.usersFormModalService.openModal(false, 'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.');
 
         this.spinnerOn = false;

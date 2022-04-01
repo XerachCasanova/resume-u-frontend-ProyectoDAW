@@ -86,7 +86,7 @@ export class SkillsChartsComponent implements OnInit {
                 nombre: skill.nombre,
                 conocimientos: skill.conocimientos,
               } as FullSkill;
-            });
+            }).slice(0,4);
 
           /*Si el tipo de muestreo recibido por el servidor es bar o radar, significa que las habilidades se montarán
           en forma de estadísticas con la librería ApexCharts*/

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-
 import { IndexModule } from './modules/index/index.module';
 import { LoginComponent } from './modules/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +22,7 @@ import { AuthInterceptorService } from './modules/login/auth.interceptor';
 import { RepeatPasswordValidatorDirective } from './core/validators/repeatpassword.component';
 import { PostalCodeValidatorDirective } from './core/validators/postalcode.validator';
 import { GenericControlsModule } from './core/generic-controls/generic-controls.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -47,6 +47,7 @@ import { GenericControlsModule } from './core/generic-controls/generic-controls.
     MatDialogModule,
     MatIconModule,
     MatSelectModule,
+    FontAwesomeModule,
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

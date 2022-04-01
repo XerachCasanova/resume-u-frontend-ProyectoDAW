@@ -4,7 +4,7 @@
   </header>
   <mat-tab-group>
     <mat-tab label="Títulos oficiales">
-      <div class="cards" *ngIf="educationsOfficial.length > 0">
+      <div class="cards mt-10" *ngIf="educationsOfficial.length > 0">
         <div
           [ngClass]="
             educationsOfficial.length === 2
@@ -40,7 +40,7 @@
       </div>
     </mat-tab>
     <mat-tab label="Cursos">
-      <div class="cards">
+      <div class="cards mt-10">
         <div
           [ngClass]="
             educationsOfficial.length === 2

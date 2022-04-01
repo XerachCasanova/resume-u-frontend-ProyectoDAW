@@ -7,7 +7,6 @@ import { Provincia } from 'src/app/core/models/interfaces/provincia';
 import { User } from 'src/app/core/models/interfaces/user';
 import { HeaderService } from 'src/app/shared/header/header.service';
 import { UsersService } from '../users/users.service';
-import { usersFormModalComponent } from './modals/users-form-modal.component';
 import { UsersFormModalService } from './modals/users-form-modal.service';
 import { provinciasService } from './provincias.service';
 
@@ -222,7 +221,8 @@ export class UsersFormComponent {
         if (resp.status && resp.status === 'ok') {
           const formUserModal =
             this.usersFormModalService.openActivationCodeModal(
-              resp.result.idUsuario
+              resp.result.idUsuario,
+              'Has sido dado de alta correctamente. Para poder empezar a disfrutar del servicio, debes introducir el código que hemos enviado a tu correo electrónico.',
             );
 
           formUserModal
@@ -231,8 +231,8 @@ export class UsersFormComponent {
         }
         this.spinnerOn = false;
       },
-      (error) => {
-        console.log(error)
+      () => {
+
         const userFormModal = this.usersFormModalService.openModal(
           false,
           'Ha ocurrido un error inesperado, por favor, vuelve a intentarlo más tarde.'

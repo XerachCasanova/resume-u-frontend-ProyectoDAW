@@ -201,9 +201,9 @@ export class ConfigurationComponent {
   }
 
   goToCurriculum(){
-    this.router.navigate([this.curriculum.alias])
+    const url = this.router.createUrlTree(['/', this.curriculum.alias])
+    window.open(url.toString(), '_blank')
   }
-
   resetForm() {
     this.formCurriculumGroup = this.fb.group(this.curriculum);
     this.setValidators();

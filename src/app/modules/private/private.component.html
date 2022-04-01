@@ -1,94 +1,111 @@
 <div class="header">
-  <div *ngIf="curriculumCreated" class="burger-button-menu" [ngClass]="{ 'menu-hidden': menuActivado }" (click)="activarMenu('')">
+  <div
+    *ngIf="curriculumCreated"
+    class="burger-button-menu"
+    [ngClass]="{ 'menu-hidden': menuActivado }"
+    (click)="activarMenu('')"
+  >
     <mat-icon>menu</mat-icon>
   </div>
   <nav
-      *ngIf="curriculumCreated"
-      class="header__header-content__menu"
-      [ngClass]="{ 'menu-hidden': !menuActivado }"
+    *ngIf="curriculumCreated"
+    class="header__header-content__menu"
+    [ngClass]="{ 'menu-hidden': !menuActivado }"
+  >
 
+    <a
+      class="header__header-content__menu__link"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'user-data' }"
+      routerLink="user-data"
+      (click)="activarMenu('user-data')"
+      ><span
+        ><span
+          class="header__header-content__menu__link__button-text first-letter-uppercase"
+          >datos personales</span
+        ></span
+      ></a
     >
     <a
-        class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'configuration' }"
-        routerLink="configuration"
-        (click)="activarMenu('configuration')"
+      class="header__header-content__menu__link"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'education' }"
+      routerLink="education"
+      (click)="activarMenu('education')"
+      ><span
+        ><span class="header__header-content__menu__link__button-text"
+          >formación</span
+        ></span
+      ></a
+    >
+    <a
+      class="header__header-content__menu__link"
+      routerLink="experience"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'experience' }"
+      (click)="activarMenu('experience')"
+      ><span
+        ><span class="header__header-content__menu__link__button-text"
+          >experiencia</span
+        ></span
+      ></a
+    >
+    <a
+      class="header__header-content__menu__link"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'languages' }"
+      routerLink="languages"
+      (click)="activarMenu('languages')"
+      ><span
         ><span
-          ><span
-            class="header__header-content__menu__link__button-text first-letter-uppercase"
-            >Configuración</span
-          ></span
-        ></a
-      >
-      <a
-        class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'user-data' }"
-        routerLink="user-data"
-        (click)="activarMenu('user-data')"
+          class="header__header-content__menu__link__button-text first-letter-uppercase"
+          >Idiomas</span
+        ></span
+      ></a
+    >
+    <a
+      class="header__header-content__menu__link"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'interesting-data' }"
+      routerLink="interesting-data"
+      (click)="activarMenu('interesting-data')"
+      ><span
         ><span
-          ><span
-            class="header__header-content__menu__link__button-text first-letter-uppercase"
-            >datos personales</span
-          ></span
-        ></a
-      >
-      <a
-        class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'interesting-data' }"
-        routerLink="interesting-data"
-        (click)="activarMenu('interesting-data')"
+          class="header__header-content__menu__link__button-text first-letter-uppercase"
+          >Datos de interés</span
+        ></span
+      ></a
+    >
+
+    <a
+      class="header__header-content__menu__link"
+      routerLink="skills"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'skills' }"
+      (click)="activarMenu('skills')"
+      ><span
+        ><span class="header__header-content__menu__link__button-text"
+          >habilidades</span
+        ></span
+      ></a
+    >
+
+
+    <a
+      class="header__header-content__menu__link"
+      [ngClass]="{ activeMenuItem: activeMenuItem === 'configuration' }"
+      routerLink="configuration"
+      (click)="activarMenu('configuration')"
+      ><span
         ><span
-          ><span
-            class="header__header-content__menu__link__button-text first-letter-uppercase"
-            >Datos de interés</span
-          ></span
-        ></a
-      >
-      <a
-        class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'languages' }"
-        routerLink="languages"
-        (click)="activarMenu('languages')"
-        ><span
-          ><span
-            class="header__header-content__menu__link__button-text first-letter-uppercase"
-            >Idiomas</span
-          ></span
-        ></a
-      >
-      <a
-        class="header__header-content__menu__link"
-        routerLink="skills"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'skills' }"
-        (click)="activarMenu('skills')"
-        ><span
-          ><span class="header__header-content__menu__link__button-text"
-            >habilidades</span
-          ></span
-        ></a
-      >
-      <a
-        class="header__header-content__menu__link"
-        routerLink="experience"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'experience' }"
-        (click)="activarMenu('experience')"
-        ><span
-          ><span class="header__header-content__menu__link__button-text"
-            >experiencia</span
-          ></span
-        ></a
-      >
-      <a
-        class="header__header-content__menu__link"
-        [ngClass]="{ 'activeMenuItem': activeMenuItem === 'education' }"
-        routerLink="education"
-        (click)="activarMenu('education')"
-        ><span
-          ><span class="header__header-content__menu__link__button-text"
-            >formación</span
-          ></span
-        ></a
-      >
-    </nav>
+          class="header__header-content__menu__link__button-text first-letter-uppercase"
+          >Configuración</span
+        ></span
+      ></a
+    >
+  </nav>
 </div>
 <router-outlet></router-outlet>
+<div class="footer">
+  <span class="footer__item mt-20"
+    >Proyecto final de Xerach Casanova Cabrera.</span
+  >
+  <span class="footer__item mt-10">Desarrollo de Aplicaciones Web</span>
+  <span class="footer__item mt-10"
+    ><img width="150" height="auto" src="../../../assets/logo-ilerna.png"
+  /></span>
+</div>

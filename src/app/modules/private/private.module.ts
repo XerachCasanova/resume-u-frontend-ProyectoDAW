@@ -32,6 +32,7 @@ import { MainComponent } from './main/main.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { SkillsChartsModule } from 'src/app/core/skills-charts/skills-chats.module';
 import { AuthUserGuard } from '../login/auth-user.guard';
+import { GenericControlsModule } from 'src/app/core/generic-controls/generic-controls.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AuthUserGuard } from '../login/auth-user.guard';
     EducationFormComponent,
   ],
   imports: [
+    GenericControlsModule,
     SkillsChartsModule,
     MatTabsModule,
     PrivateRoutingModule,

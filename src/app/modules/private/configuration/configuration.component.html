@@ -159,10 +159,15 @@
                   (focus)="nameFocusField = 'gamaColores'"
                   (blur)="nameFocusField = ''"
                 >
-                  <mat-option [value]="'Verde'"> Verde </mat-option>
                   <mat-option [value]="'Azul'"> Azul </mat-option>
-                  <mat-option [value]="'Rosa'"> Rosa </mat-option>
                   <mat-option [value]="'Naranja'"> Naranja </mat-option>
+                  <mat-option [value]="'Rojo'"> Rojo </mat-option>
+                  <mat-option [value]="'Rosa'"> Rosa </mat-option>
+                  <mat-option [value]="'Tierra'"> Tierra </mat-option>
+                  <mat-option [value]="'Verde'"> Verde </mat-option>
+
+
+
                 </mat-select>
                 <span class="info-input" *ngIf="nameFocusField == 'gamaColores'"
                   >Tu currículum se basará en la gama de colores que

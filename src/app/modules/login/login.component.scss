@@ -8,7 +8,7 @@ PALETA DE COLORES
 .container {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 98%;
   &__content {
     margin: 10px;
     color: #54bab9;
@@ -59,6 +59,18 @@ PALETA DE COLORES
 
 .mat-dialog-actions{
   display: inline;
+}
+
+.forgotten{
+
+  display: flex;
+  justify-content: center;
+  &__link {
+    cursor:pointer;
+  }
+  &__link:hover {
+    text-decoration: underline;
+  }
 }
 
 

@@ -170,6 +170,8 @@
                 [mainColor]="gamaColores.mainColor"
                 [darkColor]="gamaColores.darkColor"
                 [width]="'100px'"
+                [disabled]="formContactGroup.invalid || spinnerOn"
+                (click)="formContactGroup.invalid || spinnerOn ? null : onSubmit()"
               ></generic-button>
               <generic-button
                 [textButton]="'Cancelar'"
@@ -178,6 +180,7 @@
                 [darkColor]="'brown'"
                 [width]="'100px'"
               ></generic-button>
+              <div class="spinner" *ngIf="spinnerOn"></div>
             </div>
           </mat-dialog-actions>
         </div>

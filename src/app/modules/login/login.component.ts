@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/core/models/interfaces/login';
 import { HeaderService } from 'src/app/shared/header/header.service';
-import { usersFormModalComponent } from '../users/modals/users-form-modal.component';
 import { UsersFormModalService } from '../users/modals/users-form-modal.service';
 import { UsersService } from '../users/users.service';
 import { LoginService } from './login.service';
@@ -93,6 +91,7 @@ export class LoginComponent {
         }
       },
       (error) => {
+        console.log(error)
         this.spinnerOn = false;
         this.tokenService.signOut();
         this.resetLogin();

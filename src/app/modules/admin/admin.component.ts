@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
   menuActivado=false;
   curriculum: Curriculum
   curriculumCreated = false;
-  activeMenuItem = 'user-data'
+  activeMenuItem = 'admin-users'
 
   constructor(private curriculumService:CurriculumService,private usersService: UsersService,
     private tokenService: TokenService, private router: Router, private headerService:HeaderService) {}

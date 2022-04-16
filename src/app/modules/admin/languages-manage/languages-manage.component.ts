@@ -28,9 +28,7 @@ export class LanguagesManageComponent {
     private headerService: HeaderService,
     private activatedRoute: ActivatedRoute,
     private languagesService: LanguageService,
-    private tokenService: TokenService,
     private usersFormModalService: UsersFormModalService,
-    private router: Router
   ) {
     this.formLanguageGroup = fb.group({});
     //this.resetUser();

@@ -26,7 +26,7 @@ import {MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { EducationsComponent } from './educations/educations.component';
-import { EducationFormComponent } from './educations/experience-form/education-form.component';
+import { EducationFormComponent } from './educations/education-form/education-form.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { MainComponent } from './main/main.component';
 import {MatTabsModule} from '@angular/material/tabs';

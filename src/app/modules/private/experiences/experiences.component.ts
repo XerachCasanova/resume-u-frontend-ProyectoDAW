@@ -1,13 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
 import { Experience } from 'src/app/core/models/interfaces/experience';
 import { CurriculumService } from 'src/app/curriculum/curriculum.service';
 import { HeaderService } from 'src/app/shared/header/header.service';
 import { TokenService } from '../../login/token.service';
-import { usersFormModalComponent } from '../../users/modals/users-form-modal.component';
 import { UsersFormModalService } from '../../users/modals/users-form-modal.service';
 import { ExperiencesService } from './experiences.service';
 

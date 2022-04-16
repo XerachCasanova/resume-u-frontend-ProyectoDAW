@@ -4,7 +4,7 @@ import { AuthUserGuard } from '../login/auth-user.guard';
 import { UsersFormComponent } from '../users/users-form.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { EducationsComponent } from './educations/educations.component';
-import { EducationFormComponent } from './educations/experience-form/education-form.component';
+import { EducationFormComponent } from './educations/education-form/education-form.component';
 import { ExperienceFormComponent } from './experiences/experience-form/experience-form.component';
 import { ExperiencesComponent } from './experiences/experiences.component';
 import { InterestingDataComponent } from './interesting-data/interesting-data.component';

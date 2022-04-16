@@ -156,14 +156,14 @@
           </div>
           <div class="container__content__form__row__col input-small">
             <mat-checkbox
-              [checked]="trabajandoActualmente"
+              [checked]="workingNowadays"
               (change)="onWorkingNowadaysClick()"
               >Trabajando actualmente</mat-checkbox
             >
           </div>
           <div
             class="container__content__form__row__col"
-            *ngIf="!trabajandoActualmente"
+            *ngIf="!workingNowadays"
           >
             <mat-form-field appearance="fill">
               <mat-label>Fecha de finalización</mat-label>

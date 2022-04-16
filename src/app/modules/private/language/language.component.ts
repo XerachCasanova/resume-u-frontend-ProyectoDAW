@@ -32,7 +32,6 @@ export class LanguageComponent {
   languageToAdd: LanguageCurriculum;
   errorMsg: string;
   curriculum: Curriculum;
-  selectedProvince: Provincia | undefined;
   spinnerOn = false;
   constructor(
     private fb: FormBuilder,

@@ -16,7 +16,7 @@ export class PrivateComponent implements OnInit {
   menuActivado = false;
   curriculum: Curriculum;
   curriculumCreated = false;
-  activeMenuItem = 'user-data';
+  activeMenuItem = 'configuration';
 
   constructor(
     private curriculumService: CurriculumService,

@@ -7,7 +7,7 @@ import { CurriculumService } from './curriculum.service';
   styleUrls: ['./curriculum.component.scss'],
 })
 export class CurriculumComponent {
-  title = 'curriculum-ang';
+  title = 'Resume-U';
 
   constructor() {}
 }

@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Experience } from 'src/app/core/models/interfaces/experience';
 import { CurriculumService } from 'src/app/curriculum/curriculum.service';
 import { TokenService } from 'src/app/modules/login/token.service';
-import { usersFormModalComponent } from 'src/app/modules/users/modals/users-form-modal.component';
 import { HeaderService } from 'src/app/shared/header/header.service';
 import { environment } from 'src/environments/environment';
 import { ChargeImagesService } from '../../chargeImages.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 
 import { ExperiencesService } from '../experiences.service';
@@ -30,7 +27,7 @@ export class ExperienceFormComponent {
   titleForm = 'Modificar experiencia laboral';
   user: any;
   apiUrl = environment.apiUrl;
-  trabajandoActualmente=false;
+  workingNowadays=false;
   idCurriculum: string;
   idExperiencia: string;
   experience: Experience;
@@ -77,8 +74,6 @@ export class ExperienceFormComponent {
       .subscribe((curriculum) => {
         if (curriculum.length > 0) {
           this.idCurriculum = curriculum[0].idCurriculum;
-          this.resetExperience();
-          this.setValidators()
           this.routeParams.queryParams.subscribe((params) => {
             if (params.idExperiencia) {
               this.idExperiencia = params.idExperiencia;
@@ -91,10 +86,10 @@ export class ExperienceFormComponent {
 
                   this.experience = experiences[0];
 
-                  if(this.experience.fechaFinalizacion === null) this.trabajandoActualmente = true;
+                  if(this.experience.fechaFinalizacion === null) this.workingNowadays = true;
                   this.formExperienceGroup = this.fb.group(this.experience);
 
-
+                  this.setValidators();
                 });
             } else {
 
@@ -153,6 +148,10 @@ export class ExperienceFormComponent {
     .get('fechaComienzo')
     ?.setValidators([Validators.required]);
 
+    this.formExperienceGroup
+    .get('fechaFinalizacion')
+    ?.setValidators([Validators.required]);
+
 
     this.formExperienceGroup
     .get('tareas')
@@ -166,7 +165,7 @@ export class ExperienceFormComponent {
       ...this.formExperienceGroup.value,
     };
 
-    if(this.trabajandoActualmente) this.experience.fechaFinalizacion = null
+    if(this.workingNowadays) this.experience.fechaFinalizacion = null
 
     if(this.isAdding){
 
@@ -239,7 +238,7 @@ export class ExperienceFormComponent {
 
   checkEndingDate(){
 
-    if(!this.trabajandoActualmente){
+    if(!this.workingNowadays){
       const fechaComienzo = new Date(this.formExperienceGroup.get('fechaComienzo')?.value).getTime();
       const fechaFinalizacion = new Date(this.formExperienceGroup.get('fechaFinalizacion')?.value).getTime()
 
@@ -257,11 +256,11 @@ export class ExperienceFormComponent {
   }
 
   onWorkingNowadaysClick(){
-
-    if(this.trabajandoActualmente) this.formExperienceGroup.get('fechaFinalizacion')?.setValue(new Date(Date.now()));
+    this.workingNowadays = !this.workingNowadays;
+    if(this.workingNowadays) this.formExperienceGroup.get('fechaFinalizacion')?.setValue(new Date(Date.now()));
     else this.formExperienceGroup.get('fechaFinalizacion')?.setValue(null);
 
-    this.trabajandoActualmente = !this.trabajandoActualmente;
+
 
   }
 

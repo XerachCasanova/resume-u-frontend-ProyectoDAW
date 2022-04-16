@@ -11,13 +11,8 @@ import {
   ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
-import { Skill } from 'src/app/core/models/interfaces/skill';
 import { CurriculumService } from '../curriculum.service';
-import { of } from 'rxjs';
-import { SkillsService } from 'src/app/modules/private/skills/skills.service';
 import { FullSkill } from 'src/app/core/models/interfaces/fullSkill';
-import { Knowledge } from 'src/app/core/models/interfaces/knowledge';
-import { CurriculumColorsService } from '../curriculum-colors.service';
 import { Curriculum } from 'src/app/core/models/interfaces/curriculum';
 
 export type ChartOptions = {

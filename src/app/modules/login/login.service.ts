@@ -30,20 +30,5 @@ export class LoginService {
     return this.http.get(environment.apiUrl + 'auth?isUser=' + idUsuario);
   }
 
-  
-
-  refreshToken(token: string) {
-    const refreshtoken = {
-      refreshToken: token,
-    };
-    return this.http.post(
-      environment.apiUrl + 'auth/refreshtoken',
-      refreshtoken,
-      this.httpOptions
-    );
-  }
-
-  /*signUp(user: Login): Observable<any> {
-    return this.http.post('https://reqres.in/api/register', user);
-  }*/
+ 
 }

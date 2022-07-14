@@ -62,7 +62,6 @@ export class usersFormModalComponent implements OnInit {
 
       this.recoveryPasswordStep = 2;
       this.emailRecovery = this.data.email;
-
       this.usersService.recoverPasswordSendEmail(this.emailRecovery).subscribe((resp) => {
 
       }, ()=> this.msgError =
